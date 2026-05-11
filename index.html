@@ -1,0 +1,2490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UAV Remote Sensing — Final Exam Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --ink-soft: #3d3530;
+    --ink-muted: #7a6f65;
+    --paper: #faf8f4;
+    --paper-warm: #f2ede5;
+    --paper-card: #ffffff;
+    --accent-gold: #c9882a;
+    --accent-gold-light: #f5e9d3;
+    --accent-blue: #1d5fa0;
+    --accent-blue-light: #ddeaf8;
+    --accent-red: #b83232;
+    --accent-red-light: #fce9e9;
+    --accent-green: #2d7a4f;
+    --accent-green-light: #dff0e8;
+    --accent-purple: #5c3d99;
+    --accent-purple-light: #ece5fa;
+    --border: rgba(0,0,0,0.1);
+    --border-strong: rgba(0,0,0,0.18);
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    color: #f0ece5;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .nav-brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-gold);
+    padding: 14px 0;
+    margin-right: 24px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  nav a {
+    color: rgba(240,236,229,0.75);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    padding: 14px 14px;
+    white-space: nowrap;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  nav a:hover { color: #fff; }
+
+  /* LANG SWITCHER */
+  .lang-switcher {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin-left: auto;
+    padding-left: 16px;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    background: transparent;
+    border: 1px solid rgba(240,236,229,0.25);
+    color: rgba(240,236,229,0.65);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    padding: 5px 9px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+  .lang-btn.active { background: var(--accent-gold); border-color: var(--accent-gold); color: var(--ink); font-weight: 600; }
+
+  /* HERO */
+  .hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px),
+                repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px);
+  }
+  .hero-inner { position: relative; max-width: 780px; margin: 0 auto; }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent-gold);
+    border: 1px solid rgba(201,136,42,0.4);
+    padding: 5px 16px;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .hero h1 span { color: var(--accent-gold); }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: rgba(240,236,229,0.65);
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(240,236,229,0.5);
+    margin-top: 4px;
+  }
+
+  /* EXAM ALERT */
+  .exam-alert {
+    background: var(--accent-gold-light);
+    border-left: 4px solid var(--accent-gold);
+    padding: 1.5rem 2rem;
+    max-width: 1100px;
+    margin: 2rem auto;
+    border-radius: 0 8px 8px 0;
+  }
+  .exam-alert strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .exam-alert strong svg { width:14px; height:14px; flex-shrink:0; }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  .section { padding: 4rem 0; border-bottom: 1px solid var(--border); scroll-margin-top: 56px; }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--ink);
+  }
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--paper-warm);
+    -webkit-text-stroke: 2px var(--ink);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .section-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-top: 0.25rem;
+  }
+
+  /* LIKELIHOOD BADGES */
+  .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .badge-mcq { background: var(--accent-blue-light); color: var(--accent-blue); border: 1px solid rgba(29,95,160,0.2); }
+  .badge-essay { background: var(--accent-purple-light); color: var(--accent-purple); border: 1px solid rgba(92,61,153,0.2); }
+  .badge-calc { background: var(--accent-red-light); color: var(--accent-red); border: 1px solid rgba(184,50,50,0.2); }
+  .badge-hot { background: #fff3cd; color: #856404; border: 1px solid rgba(133,100,4,0.25); }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-icon svg { width: 15px; height: 15px; stroke-width: 2; }
+  .card p, .card li { font-size: 0.93rem; color: var(--ink-soft); line-height: 1.65; }
+  .card ul { padding-left: 1.2rem; }
+  .card li { margin-bottom: 0.35rem; }
+
+  /* TOPIC BLOCKS */
+  .topic-block {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  .topic-header {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+  .topic-header:hover { background: var(--accent-gold-light); }
+  .topic-header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .topic-header-badges { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+  .topic-toggle { color: var(--ink-muted); font-size: 18px; transition: transform 0.2s; flex-shrink: 0; }
+  .topic-body { padding: 1.5rem; display: none; }
+  .topic-body.open { display: block; }
+  .topic-block.open .topic-toggle { transform: rotate(180deg); }
+
+  /* FORMULA BOX */
+  .formula-box {
+    background: var(--ink);
+    color: #f0ece5;
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .formula-box .formula-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+  }
+  .formula-box .formula-eq {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .formula-box .formula-vars {
+    font-size: 0.82rem;
+    color: rgba(240,236,229,0.6);
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
+  /* KEY / WARN / INFO POINTS */
+  .key-point {
+    border-left: 3px solid var(--accent-gold);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    background: var(--accent-gold-light);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.93rem;
+  }
+  .key-point strong {
+    color: var(--accent-gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .key-point strong svg { width:12px; height:12px; }
+
+  .warn-point {
+    border-left: 3px solid var(--accent-red);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    background: var(--accent-red-light);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.93rem;
+  }
+  .warn-point strong {
+    color: var(--accent-red);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .warn-point strong svg { width:12px; height:12px; }
+
+  .info-point {
+    border-left: 3px solid var(--accent-blue);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    background: var(--accent-blue-light);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.93rem;
+  }
+  .info-point strong {
+    color: var(--accent-blue);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 4px;
+  }
+  .info-point strong svg { width:12px; height:12px; }
+
+  /* TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  .data-table th {
+    background: var(--ink);
+    color: var(--accent-gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .data-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .data-table tr:nth-child(even) td { background: var(--paper-warm); }
+
+  /* QUIZ */
+  .quiz-q {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .quiz-q-text { font-weight: 600; margin-bottom: 1rem; font-family: 'Source Serif 4', serif; }
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-opt {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--paper-warm);
+  }
+  .quiz-opt:hover { border-color: var(--accent-gold); background: var(--accent-gold-light); }
+  .quiz-opt.correct { background: var(--accent-green-light); border-color: var(--accent-green); color: var(--accent-green); }
+  .quiz-opt.wrong { background: var(--accent-red-light); border-color: var(--accent-red); color: var(--accent-red); }
+  .quiz-key { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; min-width: 20px; }
+  .quiz-explain { margin-top: 0.75rem; padding: 0.75rem; background: var(--paper-warm); border-radius: 6px; font-size: 0.88rem; color: var(--ink-soft); display: none; }
+  .quiz-explain.show { display: block; }
+
+  /* ROADMAP */
+  .roadmap { position: relative; padding-left: 2rem; }
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-gold), var(--ink));
+  }
+  .roadmap-item { position: relative; margin-bottom: 1.5rem; padding-left: 1rem; }
+  .roadmap-dot {
+    position: absolute;
+    left: -26px; top: 4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: var(--paper-card);
+  }
+  .roadmap-dot.high { background: var(--accent-red); border-color: var(--accent-red); }
+  .roadmap-dot.med { background: var(--accent-gold); border-color: var(--accent-gold); }
+  .roadmap-dot.low { background: var(--accent-blue); border-color: var(--accent-blue); }
+  .roadmap-label { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; }
+  .roadmap-desc { font-size: 0.88rem; color: var(--ink-soft); }
+
+  /* PROGRESS */
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; background: var(--accent-gold); transition: width 1s ease; }
+
+  /* STICKY SIDEBAR */
+  .two-col { display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem; align-items: start; }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+  .sticky-panel {
+    position: sticky;
+    top: 60px;
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+  }
+  .sticky-panel h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+  }
+  .sticky-panel ul { list-style: none; }
+  .sticky-panel li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sticky-panel li:last-child { border-bottom: none; }
+  .sticky-panel li svg { width:14px; height:14px; flex-shrink:0; color: var(--ink-muted); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(240,236,229,0.5);
+    text-align: center;
+    padding: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; margin: 1.25rem 0 0.75rem; }
+  h4 { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--ink-muted); margin: 1rem 0 0.5rem; text-transform: uppercase; }
+  p { margin-bottom: 0.75rem; }
+  ul { padding-left: 1.3rem; margin-bottom: 0.75rem; }
+  li { margin-bottom: 0.3rem; }
+  strong { color: var(--ink); }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: var(--paper-warm);
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  @media (max-width: 600px) {
+    .nav-inner { padding: 0 1rem; }
+    .container { padding: 0 1rem; }
+    .hero { padding: 3rem 1.5rem 2.5rem; }
+    .hero-stats { gap: 1.5rem; }
+    .section { padding: 2.5rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand" data-i18n="nav.brand">UAV RS · EXAM PREP</div>
+    <a href="#overview" data-i18n="nav.overview">Overview</a>
+    <a href="#l1" data-i18n="nav.l1">L1: Intro</a>
+    <a href="#l2" data-i18n="nav.l2">L2: Flight</a>
+    <a href="#l3" data-i18n="nav.l3">L3: Projection</a>
+    <a href="#l4" data-i18n="nav.l4">L4: Features</a>
+    <a href="#l5" data-i18n="nav.l5">L5: 3D Recon</a>
+    <a href="#l6" data-i18n="nav.l6">L6: LiDAR</a>
+    <a href="#formulas" data-i18n="nav.formulas">Formulas</a>
+    <a href="#quiz" data-i18n="nav.quiz">Quiz</a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="en" onclick="switchLang('en')">EN</button>
+      <button class="lang-btn" data-lang="th" onclick="switchLang('th')">ไทย</button>
+      <button class="lang-btn" data-lang="zh" onclick="switchLang('zh')">中文</button>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag" data-i18n="hero.tag">FINAL EXAM · UAV REMOTE SENSING METHODS AND APPLICATIONS</div>
+    <h1 data-i18n-html="hero.h1">Your Complete<br><span>Study Guide</span></h1>
+    <p class="hero-sub" data-i18n="hero.sub">Everything you need to walk into the exam with confidence — concepts, calculations, and likely questions. The professor warned the exam might surprise you. We've prepared for that too.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">6</span>
+        <div class="hero-stat-label" data-i18n="hero.stat1">Lecture Modules</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">60%</span>
+        <div class="hero-stat-label" data-i18n="hero.stat2">Final Exam Weight</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">★★★</span>
+        <div class="hero-stat-label" data-i18n="hero.stat3">High-Priority Topics</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="exam-alert">
+    <strong>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span data-i18n="alert.label">PROFESSOR'S WARNING: "THE EXAM MIGHT SURPRISE YOU"</span>
+    </strong>
+    <span data-i18n="alert.text">This likely means: questions won't be straightforward recall — expect application of formulas to new scenarios, conceptual reasoning about <em>why</em> things work, and comparison questions (e.g. LiDAR vs photogrammetry, oscillating mirror vs polygonal mirror). Focus on understanding, not memorisation alone.</span>
+  </div>
+</div>
+
+<!-- SECTION 0: OVERVIEW -->
+<section class="section" id="overview">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">0</div>
+      <div>
+        <div class="section-title" data-i18n="s0.title">Exam Topic Priority Map</div>
+        <div class="section-subtitle" data-i18n="s0.subtitle">WHAT IS MOST LIKELY TO APPEAR · HOW TO ALLOCATE YOUR STUDY TIME</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <p data-i18n="s0.intro">Based on the lecture progression and typical exam patterns in photogrammetry/remote sensing courses, here's how to prioritize your time. The course moves from theory (L1–L2) to heavy technical content (L3–L6). The professor likely tests both breadth and depth.</p>
+
+        <div class="roadmap">
+          <div class="roadmap-item">
+            <div class="roadmap-dot high"></div>
+            <div class="roadmap-label">★★★ LiDAR Mechanisms (L6) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span></div>
+            <div class="roadmap-desc">ToF formula, point density, scanning patterns, pulse characteristics, point cloud formats. Very likely to have both MCQ and calculation questions.</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot high"></div>
+            <div class="roadmap-label">★★★ Collinearity Equation (L5) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span></div>
+            <div class="roadmap-desc">The mathematical backbone of photogrammetry. Forward/backward intersection, rotation matrices. Expect to be given numbers and asked to apply the formula.</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot high"></div>
+            <div class="roadmap-label">★★★ GSD &amp; Scale (L2) <span class="badge badge-calc">CALC</span></div>
+            <div class="roadmap-desc">GSD formula, scale formula, flight altitude calculation. Classic calculation question — given camera specs, find GSD or flight height.</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:88%"></div></div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot med"></div>
+            <div class="roadmap-label">★★☆ SIFT Algorithm (L4) <span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span></div>
+            <div class="roadmap-desc">6-step pipeline, DoG detection, 128-dim descriptor, rotation/illumination invariance.</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot med"></div>
+            <div class="roadmap-label">★★☆ Harris Corner Detector (L4) <span class="badge badge-calc">CALC</span><span class="badge badge-mcq">MCQ</span></div>
+            <div class="roadmap-desc">Structure tensor, eigenvalue interpretation (flat/edge/corner). Given a pixel window, be ready to compute M matrix and classify the patch.</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot med"></div>
+            <div class="roadmap-label">★★☆ Projection Types (L3) <span class="badge badge-mcq">MCQ</span><span class="badge badge-essay">ESSAY</span></div>
+            <div class="roadmap-desc">Central vs parallel projection, interior/exterior orientation elements, coordinate systems.</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot low"></div>
+            <div class="roadmap-label">★☆☆ UAV Platforms &amp; Applications (L1) <span class="badge badge-mcq">MCQ</span></div>
+            <div class="roadmap-desc">Types of UAV, comparison with satellites, applications. Mostly conceptual — good for MCQ.</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot low"></div>
+            <div class="roadmap-label">★☆☆ Flight Planning Details (L2) <span class="badge badge-mcq">MCQ</span></div>
+            <div class="roadmap-desc">GCP principles, overlap rationale, Bundle Adjustment concept. Background knowledge that supports calculation questions.</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sticky-panel">
+        <h3 data-i18n="s0.legend">BADGE LEGEND</h3>
+        <ul>
+          <li><span class="badge badge-mcq">MCQ</span> <span data-i18n="badge.mcq.desc">Multiple choice / short answer</span></li>
+          <li><span class="badge badge-essay">ESSAY</span> <span data-i18n="badge.essay.desc">Written explanation / describe</span></li>
+          <li><span class="badge badge-calc">CALC</span> <span data-i18n="badge.calc.desc">Apply a formula to numbers</span></li>
+          <li><span class="badge badge-hot">★★★</span> <span data-i18n="badge.hot.desc">Highest exam probability</span></li>
+        </ul>
+        <hr style="border:none; border-top:1px solid var(--border); margin:1rem 0;">
+        <h3 data-i18n="s0.weights">EXAM WEIGHTS</h3>
+        <ul>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span data-i18n="s0.w.attend">Class Attendance: 40%</span>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="6"/><path d="M5 10h14v12H5z"/><line x1="12" y1="14" x2="12" y2="18"/></svg>
+            <span data-i18n="s0.w.exam">Final Exam: 60%</span>
+          </li>
+        </ul>
+        <hr style="border:none; border-top:1px solid var(--border); margin:1rem 0;">
+        <h3 data-i18n="s0.surprise">THE SURPRISE FACTOR</h3>
+        <p style="font-size:0.85rem; color: var(--ink-soft);" data-i18n="s0.surprise.text">Expect questions that combine concepts, e.g. "Given this LiDAR system flying at altitude X with pulse rate Y, calculate point density, then explain which scanning pattern would be best and why."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L1: INTRODUCTION -->
+<section class="section" id="l1">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title" data-i18n="l1.title">UAV Remote Sensing — Introduction</div>
+        <div class="section-subtitle" data-i18n="l1.subtitle">L1 · CONCEPTS, PLATFORMS, APPLICATIONS · MCQ LIKELY</div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">
+          <div class="card-icon" style="background:#f0e8fa; color:#5c3d99;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <span data-i18n="l1.c1.title">What is a UAV?</span>
+        </div>
+        <p>An <strong>Unmanned Aerial Vehicle</strong> — aircraft without a human pilot aboard. "DRONE" = Dynamic Remotely Operated Navigation Equipment.</p>
+        <p>Flight is either <strong>autonomous</strong> (computer-controlled) or <strong>remotely controlled</strong> from the ground.</p>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-i18n="kp.examtip">EXAM TIP</span>
+          </strong>
+          UAV is not just "a drone" — it's an active remote sensing platform. Know the definition precisely.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <div class="card-icon" style="background:#e6f1fb; color:#1d5fa0;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 010 8.49M7.76 7.76a6 6 0 000 8.49M20.49 3.51a14 14 0 010 16.97M3.51 3.51a14 14 0 000 16.97"/></svg>
+          </div>
+          <span data-i18n="l1.c2.title">UAV vs Satellite vs Aircraft</span>
+        </div>
+        <table class="data-table" style="margin:0;">
+          <tr><th data-i18n="tbl.feature">Feature</th><th>UAV</th><th data-i18n="tbl.satellite">Satellite</th></tr>
+          <tr><td data-i18n="tbl.resolution">Resolution</td><td>mm–cm</td><td>&gt;0.3 m</td></tr>
+          <tr><td data-i18n="tbl.cost">Cost</td><td data-i18n="tbl.verylow">Very low</td><td data-i18n="tbl.veryhigh">Very high</td></tr>
+          <tr><td data-i18n="tbl.flighttime">Flight time</td><td>~2 hrs</td><td data-i18n="tbl.continuous">Continuous</td></tr>
+          <tr><td data-i18n="tbl.coverage">Coverage</td><td>~9 km²</td><td data-i18n="tbl.thousands">Thousands km²</td></tr>
+          <tr><td data-i18n="tbl.weather">Weather</td><td data-i18n="tbl.limited">Limited</td><td data-i18n="tbl.lessaffect">Less affected</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <div class="card-icon" style="background:#dff0e8; color:#2d7a4f;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 014 4M12 2a4 4 0 00-4 4M12 2v4M4.93 10a8 8 0 0114.14 0M2 14h1M21 14h1M4.22 19.78l.71-.71M19.07 19.07l.71-.71M12 14a2 2 0 110 4 2 2 0 010-4z"/></svg>
+          </div>
+          <span data-i18n="l1.c3.title">UAV Platform Types</span>
+        </div>
+        <ul>
+          <li><strong data-i18n="l1.plat.heli">Helicopter (1 rotor)</strong> — <span data-i18n="l1.plat.heli.desc">stable, heavy payload</span></li>
+          <li><strong data-i18n="l1.plat.multi">Multi-rotor (2+ rotors)</strong> — <span data-i18n="l1.plat.multi.desc">versatile, easy to fly</span></li>
+          <li><strong data-i18n="l1.plat.quad">Quad-rotor (4 rotors)</strong> — <span data-i18n="l1.plat.quad.desc">most common consumer drone</span></li>
+          <li><strong data-i18n="l1.plat.fixed">Fixed-wing</strong> — <span data-i18n="l1.plat.fixed.desc">longer range, larger coverage</span></li>
+        </ul>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span data-i18n="kp.keydist">KEY DISTINCTION</span>
+          </strong>
+          <span data-i18n="l1.plat.note">Fixed-wing covers more area but cannot hover. Multi-rotor hovers precisely but has shorter battery life.</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <div class="card-icon" style="background:#fce9e9; color:#b83232;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6l11 11L23 6"/><path d="M1 6h22"/></svg>
+          </div>
+          <span data-i18n="l1.c4.title">UAV RS Applications</span>
+        </div>
+        <ul>
+          <li data-i18n="l1.app1">DEM &amp; 3D mapping</li>
+          <li data-i18n="l1.app2">Agriculture (crop/weed monitoring)</li>
+          <li data-i18n="l1.app3">Disaster monitoring</li>
+          <li data-i18n="l1.app4">Cadastral (land parcel) surveys</li>
+          <li data-i18n="l1.app5">Infrastructure inspection</li>
+          <li data-i18n="l1.app6">Wildlife conservation</li>
+          <li data-i18n="l1.app7">Archaeological documentation</li>
+          <li data-i18n="l1.app8">Environmental monitoring</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="topic-block" id="tb-photogrammetry-history">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l1.hist.title">Brief History of Photogrammetry</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted);" data-i18n="l1.hist.sub">Timeline that may appear in MCQ</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-mcq">MCQ</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <table class="data-table">
+          <tr><th data-i18n="tbl.year">Year</th><th data-i18n="tbl.milestone">Milestone</th></tr>
+          <tr><td>1851</td><td>Laussedat develops first photogrammetric devices (initiator of photogrammetry)</td></tr>
+          <tr><td>1858</td><td>Meydenbauer develops techniques for building documentation; first photogrammetric institute 1885</td></tr>
+          <tr><td>1911</td><td>Scheimpflug creates rectified photographs → initiator of <em>aerial</em> photogrammetry</td></tr>
+          <tr><td>1913</td><td>First congress of ISP (International Society for Photogrammetry) in Vienna</td></tr>
+          <tr><td>1960</td><td>First LiDAR developed by Hughes Aircraft Inc.</td></tr>
+          <tr><td>1980</td><td>Digital photogrammetry becomes important with computer advances</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L2: FLIGHT PLANNING -->
+<section class="section" id="l2">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title" data-i18n="l2.title">UAV Flight Planning &amp; GSD</div>
+        <div class="section-subtitle" data-i18n="l2.subtitle">L2 · IMPLEMENTATION DESIGN · HIGH CALCULATION PROBABILITY</div>
+      </div>
+    </div>
+
+    <div class="warn-point">
+      <strong>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span data-i18n="l2.warn">VERY LIKELY CALCULATION QUESTION</span>
+      </strong>
+      The professor demonstrated a worked example with a Sony α7R-III camera. You may be given a camera spec and asked to calculate (1) flight altitude for a target map scale, or (2) GSD. Know these formulas cold.
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label" data-i18n="f.scale.lbl">SCALE FORMULA</div>
+      <div class="formula-eq">Scale = f / H &nbsp;&nbsp;→&nbsp;&nbsp; 1 : M = f / H</div>
+      <div class="formula-vars">f = focal length (mm) · H = flight altitude (m) · M = scale denominator<br>
+      To get H: &nbsp; H = f × M &nbsp;&nbsp;(ensure consistent units!)</div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label" data-i18n="f.gsd.lbl">GROUND SAMPLING DISTANCE (GSD)</div>
+      <div class="formula-eq">GSD = (H × pixel_size) / focal_length</div>
+      <div class="formula-vars">H = flight altitude · pixel_size = physical size of one sensor pixel (mm) · focal_length (mm)<br>
+      Or equivalently: GSD = pixel_size × (H / f) = pixel_size × scale_denominator<br>
+      ⚠ Units must be consistent — H must be converted to mm (e.g. 175 m → 175,000 mm)</div>
+    </div>
+
+    <div class="key-point">
+      <strong>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span data-i18n="kp.workedex">WORKED EXAMPLE — LIKELY EXAM TYPE</span>
+      </strong>
+      Camera: Sony α7R-III. Sensor: 35.9 mm × 24.0 mm. Resolution: 7952 × 5304 px. Focal length: 35 mm. Target scale: 1:5,000.<br><br>
+      <strong>Step 1 — Pixel size:</strong> 35.9 mm / 7952 px ≈ 0.00452 mm/px<br>
+      <strong>Step 2 — Flight height:</strong> H = f × M = 35 mm × 5000 = 175,000 mm = <strong>175 m</strong><br>
+      <strong>Step 3 — GSD:</strong> GSD = 0.00452 × 5000 = <strong>22.6 mm/px = 2.26 cm/px</strong>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l2.overlap.title">Image Overlap — Why It Matters</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted);" data-i18n="l2.overlap.sub">Front overlap + side overlap for photogrammetry</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>For 3D reconstruction and seamless mosaics, images must overlap. Two key parameters:</p>
+        <ul>
+          <li><strong>Front Overlap (Endlap)</strong> — overlap between images along the flight direction</li>
+          <li><strong>Side Overlap (Sidelap)</strong> — overlap between adjacent flight strips</li>
+        </ul>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span data-i18n="kp.whyoverlap">WHY OVERLAP?</span>
+          </strong>
+          Overlapping images allow the same 3D point to appear in multiple photos from different angles. This enables feature matching (SIFT), triangulation, and sparse/dense point cloud generation.
+        </div>
+        <h3 data-i18n="l2.ba.title">Aerial Triangulation (AT) &amp; Bundle Adjustment (BA)</h3>
+        <ul>
+          <li><strong>AT</strong> — estimating 3D locations using aerial images + camera parameters</li>
+          <li><strong>Bundle Adjustment (BA)</strong> — <strong>Least Squares</strong> optimization that simultaneously adjusts camera poses and 3D point positions. Each 3D point sends a "bundle of rays" to multiple cameras. Goal: minimize the sum of squared <em>reprojection errors</em>: <code>min Σ ||x_obs − x_pred||²</code></li>
+        </ul>
+        <div class="info-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-i18n="kp.ba.insight">BUNDLE ADJUSTMENT INSIGHT</span>
+          </strong>
+          BA is an iterative Least Squares solver. It jointly refines: (1) camera exterior orientation (Xs,Ys,Zs,ω,φ,κ), (2) camera interior orientation (f,x₀,y₀), and (3) 3D GCP/tie-point coordinates — all at once. Reprojection error = distance (pixels) between observed and re-projected image point.
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l2.rtk.title">RTK vs PPK GPS — Real-Time vs Post-Processing</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted);" data-i18n="l2.rtk.sub">Key distinction for GCP accuracy and georeferencing</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <table class="data-table">
+          <tr><th data-i18n="tbl.feature">Feature</th><th>RTK</th><th>PPK</th></tr>
+          <tr><td data-i18n="tbl.timing">Correction Timing</td><td data-i18n="rtk.timing">Real-time (during flight)</td><td data-i18n="ppk.timing">Post-processing (after flight)</td></tr>
+          <tr><td data-i18n="tbl.method">Method</td><td>Radio link transmits corrections from base station to rover in real-time</td><td>Raw GPS logs from rover + base saved, processed after flight using CORS network or base logs</td></tr>
+          <tr><td data-i18n="tbl.range">Range</td><td data-i18n="rtk.range">Limited by radio range (~10–20 km)</td><td data-i18n="ppk.range">No range limit; can use CORS networks</td></tr>
+          <tr><td data-i18n="tbl.accuracy">Accuracy</td><td>1–3 cm horizontal, 2–5 cm vertical</td><td>1–3 cm horizontal, 2–5 cm vertical (often slightly better)</td></tr>
+          <tr><td data-i18n="tbl.infra">Infrastructure</td><td data-i18n="rtk.infra">Radio modem + base station on-site</td><td data-i18n="ppk.infra">Base station logs only (or CORS)</td></tr>
+          <tr><td data-i18n="tbl.bestfor">Best for</td><td data-i18n="rtk.best">Immediate results; real-time feedback needed</td><td data-i18n="ppk.best">Remote areas; BVLOS flights; complex terrain</td></tr>
+        </table>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-i18n="kp.examtip">EXAM TIP</span>
+          </strong>
+          <strong>RTK = Real-Time Kinematic</strong> — corrections applied <em>during</em> flight via radio link. <strong>PPK = Post-Processing Kinematic</strong> — corrections applied <em>after</em> flight in software. Both achieve similar centimeter-level accuracy; PPK is more flexible for remote areas.
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l2.gcp.title">Ground Control Points (GCPs)</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted);" data-i18n="l2.gcp.sub">Georeferencing and accuracy</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>GCPs are points on the ground visible in drone photos and measured in a real-world coordinate system (using RTK/PPK GPS — NOT a phone!).</p>
+        <ul>
+          <li>Good spatial distribution is <strong>critical</strong> — spread across the whole area, not clustered</li>
+          <li>More points ≠ better unless well-distributed</li>
+          <li>Correct geometric distortions in the model</li>
+          <li>Enable accurate georeferencing to real-world coordinates</li>
+        </ul>
+        <div class="warn-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span data-i18n="kp.commonmist">COMMON MISTAKE TO AVOID IN THE EXAM</span>
+          </strong>
+          Never say "more GCPs always means better accuracy." The <strong>distribution</strong> matters far more than the quantity.
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l2.gcperr.title">GCP Accuracy — Residual Error &amp; RMSE</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted);" data-i18n="l2.gcperr.sub">How to quantify georeferencing accuracy</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-calc">CALC</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>After bundle adjustment, each GCP has a <strong>residual</strong> — the difference between observed (measured in field) and computed (model output) position.</p>
+
+        <div class="formula-box">
+          <div class="formula-label" data-i18n="f.gcprmse.lbl">GCP RESIDUAL &amp; RMSE</div>
+          <div class="formula-eq">Residual = Observed_coord − Computed_coord</div>
+          <div class="formula-eq" style="margin-top:8px;">RMSE_X = √( Σ ΔXᵢ² / n )</div>
+          <div class="formula-eq">RMSE_Y = √( Σ ΔYᵢ² / n )</div>
+          <div class="formula-eq">RMSE_Z = √( Σ ΔZᵢ² / n )</div>
+          <div class="formula-eq" style="margin-top:8px;">RMSE_XY = √( RMSE_X² + RMSE_Y² ) &nbsp;[horizontal accuracy]</div>
+          <div class="formula-vars">n = number of GCPs · ΔXᵢ, ΔYᵢ, ΔZᵢ = residuals at GCP i</div>
+        </div>
+
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span data-i18n="kp.workedex">WORKED EXAMPLE</span>
+          </strong>
+          4 GCPs with residuals (metres): GCP1(ΔX=0.02, ΔY=0.03, ΔZ=0.04), GCP2(ΔX=−0.01, ΔY=0.02, ΔZ=−0.03), GCP3(ΔX=0.03, ΔY=−0.01, ΔZ=0.02), GCP4(ΔX=−0.02, ΔY=0.01, ΔZ=−0.01)<br><br>
+          RMSE_X = √((0.02²+0.01²+0.03²+0.02²)/4) = √(0.00045) ≈ <strong>0.021 m</strong><br>
+          RMSE_Y = √((0.03²+0.02²+0.01²+0.01²)/4) = √(0.000375) ≈ <strong>0.019 m</strong><br>
+          RMSE_XY = √(0.021²+0.019²) ≈ <strong>0.028 m = 2.8 cm</strong> (horizontal)<br>
+          RMSE_Z = √((0.04²+0.03²+0.02²+0.01²)/4) ≈ <strong>0.027 m = 2.7 cm</strong> (vertical)
+        </div>
+
+        <h3 data-i18n="l2.relabs.title">Relative vs Absolute Accuracy</h3>
+        <table class="data-table">
+          <tr><th data-i18n="tbl.type">Type</th><th data-i18n="tbl.definition">Definition</th><th data-i18n="tbl.benchmark">Typical Benchmark</th></tr>
+          <tr>
+            <td><strong data-i18n="tbl.relative">Relative Accuracy</strong></td>
+            <td>Internal consistency — how well features within the model relate to each other</td>
+            <td>1–2 × GSD horizontally; 2–3 × GSD vertically</td>
+          </tr>
+          <tr>
+            <td><strong data-i18n="tbl.absolute">Absolute Accuracy</strong></td>
+            <td>Accuracy relative to real-world coordinates — measured using independent check points NOT used as GCPs</td>
+            <td>Achievable: 1–3 cm with RTK/PPK GCPs</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L3: PROJECTION -->
+<section class="section" id="l3">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <div class="section-title" data-i18n="l3.title">Projection &amp; Coordinate Systems</div>
+        <div class="section-subtitle" data-i18n="l3.subtitle">L3 · PHOTOGRAMMETRY FUNDAMENTALS · MCQ + ESSAY</div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">
+          <div class="card-icon" style="background:#f5e9d3; color:#c9882a;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 20 2 20"/></svg>
+          </div>
+          <span data-i18n="l3.c1.title">Central (Perspective) Projection</span>
+        </div>
+        <p>Light rays from an object pass through a <strong>single viewpoint (perspective center S)</strong>, then form an image on a plane.</p>
+        <ul>
+          <li>Creates natural images with <strong>perspective distortion</strong></li>
+          <li>Objects farther away appear smaller</li>
+          <li>This is how regular cameras work</li>
+        </ul>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-i18n="kp.keyconcept">KEY CONCEPT</span>
+          </strong>
+          The perspective center S, image point a, and ground point A are always collinear. This is the foundation of the collinearity equation.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <div class="card-icon" style="background:#ddeaf8; color:#1d5fa0;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </div>
+          <span data-i18n="l3.c2.title">Parallel Projection</span>
+        </div>
+        <p>Light rays are <strong>parallel to each other</strong>, perpendicular or at an angle to the projection plane.</p>
+        <ul>
+          <li><strong>No vanishing point</strong> — objects don't shrink with distance</li>
+          <li>Eliminates perspective distortion</li>
+          <li>Two types: <strong>orthogonal</strong> (90°) and <strong>oblique</strong></li>
+        </ul>
+        <p style="font-size:0.88rem; color:var(--ink-muted);" data-i18n="l3.c2.note">Example: orthophoto (orthorectified image) uses parallel projection</p>
+      </div>
+    </div>
+
+    <h3 data-i18n="l3.coord.heading">Coordinate Systems — Three You Must Know</h3>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l3.imgspace.title">1. Image Space Coordinate System (S-xyz)</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <ul>
+          <li><strong>S</strong> = perspective center (optical center of lens) — origin</li>
+          <li><strong>x, y</strong> = parallel to image axes</li>
+          <li><strong>z</strong> = principal optical axis (the direction the camera points)</li>
+        </ul>
+        <div class="info-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-i18n="kp.examq">EXAM QUESTION ALERT</span>
+          </strong>
+          "Is the principal optical axis always vertical?" → <strong>NO.</strong> When the UAV tilts (roll, pitch, yaw), the optical axis tilts too. Only for perfectly nadir-pointing cameras is it truly vertical.
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l3.interior.title">2. Interior Orientation Elements (f, x₀, y₀)</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>Describe the camera's internal geometry — how a 3D point projects onto the 2D sensor:</p>
+        <ul>
+          <li><strong>f</strong> — Focal length: distance from lens to image plane where light converges</li>
+          <li><strong>x₀</strong> — Principal point offset in x from image center</li>
+          <li><strong>y₀</strong> — Principal point offset in y from image center</li>
+        </ul>
+        <p>These are determined by <strong>camera calibration</strong> and stay fixed for a given camera.</p>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l3.exterior.title">3. Exterior Orientation Elements (Xs, Ys, Zs, ω, φ, κ)</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>Describe where the camera is and how it's oriented in the real world — <strong>3 translations + 3 rotations = 6 parameters</strong>:</p>
+        <table class="data-table">
+          <tr><th data-i18n="tbl.param">Parameter</th><th data-i18n="tbl.meaning">Meaning</th><th data-i18n="tbl.providedby">Provided by</th></tr>
+          <tr><td><code>Xs, Ys, Zs</code></td><td>Camera position in 3D space</td><td>GPS (DGPS)</td></tr>
+          <tr><td><code>ω (omega)</code></td><td>Roll — rotation about x-axis</td><td>IMU</td></tr>
+          <tr><td><code>φ (phi)</code></td><td>Pitch — rotation about y-axis</td><td>IMU</td></tr>
+          <tr><td><code>κ (kappa)</code></td><td>Yaw — rotation about z-axis</td><td>IMU</td></tr>
+        </table>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span data-i18n="kp.remember">REMEMBER</span>
+          </strong>
+          The rotation follows the <strong>Right-Hand Screw Rule</strong>. ω = roll (x-axis), φ = pitch (y-axis), κ = yaw (z-axis).
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- L4: FEATURE EXTRACTION -->
+<section class="section" id="l4">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <div class="section-title" data-i18n="l4.title">Feature Extraction &amp; Matching</div>
+        <div class="section-subtitle" data-i18n="l4.subtitle">L4 · SIFT, HARRIS, LoG, DoG · CALCULATION + ESSAY</div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l4.harris.title">★★ Harris Corner Detector — Calculation Ready</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted);" data-i18n="l4.harris.sub">Given a pixel window, classify the region type</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-calc">CALC</span><span class="badge badge-hot">★★★</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>Harris detects corners by measuring how much the image changes when you shift a window in any direction.</p>
+        <div class="card-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom:1rem;">
+          <div class="card" style="text-align:center; padding:1rem; background:#f5f5f5;">
+            <strong data-i18n="harris.flat">Flat</strong><br>
+            <span style="font-size:0.85rem;">λ₁ ≈ λ₂ ≈ small<br>No change in any direction</span>
+          </div>
+          <div class="card" style="text-align:center; padding:1rem; background:#e6f1fb;">
+            <strong data-i18n="harris.edge">Edge</strong><br>
+            <span style="font-size:0.85rem;">λ₁ &gt;&gt; λ₂ or λ₂ &gt;&gt; λ₁<br>Change in one direction</span>
+          </div>
+          <div class="card" style="text-align:center; padding:1rem; background:#dff0e8;">
+            <strong data-i18n="harris.corner">Corner</strong><br>
+            <span style="font-size:0.85rem;">λ₁ ≈ λ₂ ≈ large<br>Change in ALL directions</span>
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="formula-label" data-i18n="f.tensor.lbl">STRUCTURE TENSOR (M)</div>
+          <div class="formula-eq">M = Σ [ Ix² &nbsp; IxIy ; IxIy &nbsp; Iy² ]</div>
+          <div class="formula-vars">Ix = horizontal gradient (Sobel X) · Iy = vertical gradient (Sobel Y)<br>
+          Sobel X = [[-1,0,1],[-2,0,2],[-1,0,1]] &nbsp; Sobel Y = [[-1,-2,-1],[0,0,0],[1,2,1]]</div>
+        </div>
+        <div class="formula-box">
+          <div class="formula-label" data-i18n="f.eigen.lbl">EIGENVALUE CALCULATION</div>
+          <div class="formula-eq">det(M − λI) = 0 → find λ₁ and λ₂</div>
+          <div class="formula-vars">For M = [[a,b],[c,d]]: &nbsp; λ² − (a+d)λ + (ad−bc) = 0<br>
+          trace = a+d · determinant = ad−bc</div>
+        </div>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span data-i18n="kp.workedlecture">WORKED EXAMPLE (FROM LECTURE)</span>
+          </strong>
+          Image patch all 10s → Ix = 120, Iy = 120 → M = [[14400, 14400],[14400, 14400]]<br>
+          det(M − λI) = 0 → λ² − 28800λ = 0 → <strong>λ₁ = 28800, λ₂ = 0</strong><br>
+          Since λ₁ &gt;&gt; λ₂, this is an <strong>EDGE</strong>.
+        </div>
+        <div class="warn-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span data-i18n="kp.examsurprise">EXAM SURPRISE — UNIFORM IMAGE</span>
+          </strong>
+          If all pixels have the same value, Ix = 0 and Iy = 0 everywhere → M = zero matrix → λ₁ = λ₂ = 0 → <strong>FLAT region</strong>. Be ready for this trick question!
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l4.log.title">★★ LoG Detector — Laplacian of Gaussian</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-calc">CALC</span><span class="badge badge-mcq">MCQ</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>LoG = Gaussian blur (noise reduction) + Laplacian (second derivative). Used for <strong>blob detection</strong>.</p>
+        <div class="formula-box">
+          <div class="formula-label" data-i18n="f.laplacian.lbl">LAPLACIAN (4-NEIGHBOR KERNEL)</div>
+          <div class="formula-eq">K = [[0,1,0],[1,−4,1],[0,1,0]]</div>
+          <div class="formula-vars">8-neighbor variant: K = [[1,1,1],[1,−8,1],[1,1,1]]<br>
+          Apply via convolution: (I * K)(x,y) = ΣΣ I_ij × K_ij</div>
+        </div>
+        <ul>
+          <li><strong>L &lt; 0</strong> → bright blob (light region surrounded by dark)</li>
+          <li><strong>L &gt; 0</strong> → dark blob (dark region surrounded by light)</li>
+        </ul>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span data-i18n="kp.workedlecture">WORKED EXAMPLE (FROM LECTURE)</span>
+          </strong>
+          A bright center patch with surrounding pixels → Convolution result = −200 → <strong>L &lt; 0 → Light Blob</strong>. Know the sign rule!
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l4.dog.title">DoG — Difference of Gaussian</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-mcq">MCQ</span><span class="badge badge-essay">ESSAY</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>DoG approximates LoG but is <strong>faster</strong> and <strong>more robust to noise</strong>. Used in SIFT.</p>
+        <div class="formula-box">
+          <div class="formula-label" data-i18n="f.dog.lbl">DoG FORMULA</div>
+          <div class="formula-eq">DoG(x, y, σ) = L(x, y, kσ) − L(x, y, σ)</div>
+          <div class="formula-vars">L(x,y,σ) = G(x,y,σ) * I(x,y) — Gaussian-blurred image at scale σ<br>
+          Measures: "how much does the image change when blur scale increases?"</div>
+        </div>
+        <table class="data-table">
+          <tr><th data-i18n="tbl.aspect">Aspect</th><th>LoG</th><th>DoG</th></tr>
+          <tr><td data-i18n="tbl.operation">Operation</td><td>Second derivative</td><td>Subtraction of blurred images</td></tr>
+          <tr><td data-i18n="tbl.speed">Speed</td><td data-i18n="tbl.slower">Slower</td><td><strong data-i18n="tbl.faster">Faster</strong></td></tr>
+          <tr><td data-i18n="tbl.noise">Noise</td><td data-i18n="tbl.moresens">More sensitive</td><td><strong data-i18n="tbl.morerobust">More robust</strong></td></tr>
+          <tr><td data-i18n="tbl.usedin">Used in SIFT</td><td data-i18n="tbl.theory">Theory only</td><td><strong data-i18n="tbl.practical">Practical implementation</strong></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l4.sift.title">★★★ SIFT Algorithm — 6 Steps</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted);" data-i18n="l4.sift.sub">Scale Invariant Feature Transform — most important feature descriptor</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-hot">★★★</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>SIFT is invariant to <strong>scale</strong>, <strong>rotation</strong>, and partially to <strong>illumination changes</strong>. Produces a <strong>128-dimensional descriptor</strong> for each keypoint.</p>
+        <div class="roadmap">
+          <div class="roadmap-item">
+            <div class="roadmap-dot high"></div>
+            <div class="roadmap-label" data-i18n="sift.s1">Step 1 — Scale-Space Construction</div>
+            <div class="roadmap-desc">Build a pyramid of DoG images at multiple scales (σ values)</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot high"></div>
+            <div class="roadmap-label" data-i18n="sift.s2">Step 2 — Keypoint Detection</div>
+            <div class="roadmap-desc">Find local extrema (maxima/minima) in DoG scale space — pixels extreme compared to all 26 neighbors</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot med"></div>
+            <div class="roadmap-label" data-i18n="sift.s3">Step 3 — Keypoint Refinement</div>
+            <div class="roadmap-desc">Remove low-contrast points and edge responses. Keep only stable, unique keypoints.</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot med"></div>
+            <div class="roadmap-label" data-i18n="sift.s4">Step 4 — Orientation Assignment</div>
+            <div class="roadmap-desc">Build 36-bin orientation histogram (360°). Dominant orientation(s) assigned. θ = arctan(Iy/Ix). Peaks ≥ 80% of max create additional keypoints.</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot med"></div>
+            <div class="roadmap-label" data-i18n="sift.s5">Step 5 — Feature Descriptor Construction</div>
+            <div class="roadmap-desc">16×16 window → 4×4 sub-blocks → each sub-block gets 8-bin histogram → 16 × 8 = <strong>128 numbers</strong>. Gaussian weighting. Threshold at 0.2 for illumination invariance.</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot low"></div>
+            <div class="roadmap-label" data-i18n="sift.s6">Step 6 — Feature Matching</div>
+            <div class="roadmap-desc">Use Euclidean distance between 128-dim vectors. Threshold: too high = false positives, too low = false negatives.</div>
+          </div>
+        </div>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-i18n="kp.why128">WHY 128 DIMENSIONS?</span>
+          </strong>
+          16×16 window → 4×4 blocks → each block has 8-bin histogram → 16 blocks × 8 bins = <strong>128</strong>.
+        </div>
+        <div class="warn-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span data-i18n="kp.illumtrick">ILLUMINATION INVARIANCE TRICK</span>
+          </strong>
+          Any of the 128 values greater than 0.2 is clamped to 0.2, then re-normalized. This prevents strong gradients from dominating.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L5: 3D RECONSTRUCTION -->
+<section class="section" id="l5">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div>
+        <div class="section-title" data-i18n="l5.title">3D Reconstruction — Collinearity Equation</div>
+        <div class="section-subtitle" data-i18n="l5.subtitle">L5 · PHOTOGRAMMETRIC RECONSTRUCTION · HIGH CALCULATION PROBABILITY</div>
+      </div>
+    </div>
+
+    <div class="warn-point">
+      <strong>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span data-i18n="l5.warn">THIS IS THE MATHEMATICAL HEART OF THE COURSE</span>
+      </strong>
+      The collinearity equation connects: camera position (Xs,Ys,Zs), rotation (ω,φ,κ → matrix R), focal length (f,x₀,y₀), and ground coordinates (XA,YA,ZA). Understand the concept deeply.
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label" data-i18n="f.collin.lbl">COLLINEARITY EQUATION</div>
+      <div class="formula-eq">x − x₀ = −f · [a₁(XA−Xs) + b₁(YA−Ys) + c₁(ZA−Zs)] / [a₃(XA−Xs) + b₃(YA−Ys) + c₃(ZA−Zs)]</div>
+      <div class="formula-eq" style="margin-top:8px;">y − y₀ = −f · [a₂(XA−Xs) + b₂(YA−Ys) + c₂(ZA−Zs)] / [a₃(XA−Xs) + b₃(YA−Ys) + c₃(ZA−Zs)]</div>
+      <div class="formula-vars">
+        x, y = image coordinates · x₀, y₀, f = interior orientation (calibration)<br>
+        Xs, Ys, Zs = camera position (GPS) · XA, YA, ZA = ground point coordinates<br>
+        a₁..c₃ = rotation matrix R elements (from ω, φ, κ via IMU)
+      </div>
+    </div>
+
+    <div class="key-point">
+      <strong>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span data-i18n="kp.1line3">THE "1 LINE, 3 POINTS" RULE</span>
+      </strong>
+      Perspective center S, image point a, and ground point A are always on the same straight line. This one geometric fact generates both collinearity equations.
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l5.backward.title">★★★ Backward Intersection — "What was my camera doing?"</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-calc">CALC</span><span class="badge badge-hot">★★★</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p><strong>Known:</strong> Ground control points (GCPs) with known XA,YA,ZA AND their image coordinates x,y</p>
+        <p><strong>Unknown:</strong> The 6 exterior orientation elements (Xs, Ys, Zs, ω, φ, κ)</p>
+        <p>Each GCP gives 2 equations (x and y). Need ≥ 3 non-collinear GCPs → 6 equations → solve 6 unknowns.</p>
+        <h3 data-i18n="l5.back.apps">Applications in UAV</h3>
+        <ul>
+          <li>Determining camera position and orientation during flight</li>
+          <li>Georeferencing aerial images to real-world coordinates</li>
+          <li>Improving accuracy of 3D models and orthophotos</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l5.forward.title">★★★ Forward Intersection — "Where is that point on the ground?"</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-calc">CALC</span><span class="badge badge-hot">★★★</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p><strong>Known:</strong> Camera positions/orientations (GPS+IMU), interior orientation, image coordinates x,y from ≥ 2 stereo images</p>
+        <p><strong>Unknown:</strong> Ground coordinates XA, YA, ZA</p>
+        <p>Two images give 4 equations → solve for 3 unknowns → over-determined, use Least Squares.</p>
+        <h3 data-i18n="l5.forward.errors">Error Sources &amp; Solutions</h3>
+        <table class="data-table">
+          <tr><th data-i18n="tbl.error">Error</th><th data-i18n="tbl.cause">Cause</th><th data-i18n="tbl.solution">Solution</th></tr>
+          <tr><td>Angle measurement errors</td><td>Imperfect sensor calibration</td><td>High-precision instruments</td></tr>
+          <tr><td>Baseline errors</td><td>Too short baseline amplifies errors</td><td>Longer baselines</td></tr>
+          <tr><td>Intersection angle issues</td><td>Too small or too large angles</td><td>Maintain 30°–150° intersection</td></tr>
+          <tr><td>Image matching errors</td><td>Shadows, textureless surfaces</td><td>High-overlap imagery</td></tr>
+          <tr><td>Atmospheric factors</td><td>Refraction bends light rays</td><td>Atmospheric correction models</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l5.sfm.title">Structure from Motion (SfM) — Complete Pipeline</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>SfM reconstructs 3D structure from 2D images by simultaneously estimating camera positions AND generating a 3D model.</p>
+        <div class="roadmap">
+          <div class="roadmap-item">
+            <div class="roadmap-dot high"></div>
+            <div class="roadmap-label">Step 1: Feature detection &amp; matching (SIFT)</div>
+            <div class="roadmap-desc">Find keypoints in overlapping images, create 128-dim descriptors, match across images</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot high"></div>
+            <div class="roadmap-label">Step 2: Camera pose estimation (Backward intersection)</div>
+            <div class="roadmap-desc">Solve for exterior orientation parameters using matched keypoints</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot med"></div>
+            <div class="roadmap-label">Step 3: Triangulation → Sparse point cloud</div>
+            <div class="roadmap-desc">Use collinearity equation (forward intersection) to compute 3D position of each matched keypoint</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot med"></div>
+            <div class="roadmap-label">Step 4: Bundle Adjustment</div>
+            <div class="roadmap-desc">Least Squares optimization — simultaneously refine camera poses + 3D point positions. Minimizes sum of squared reprojection errors.</div>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-dot low"></div>
+            <div class="roadmap-label">Step 5: Multi-View Stereo (MVS) → Dense point cloud</div>
+            <div class="roadmap-desc">Use all images to fill in the gaps — generates millions of points instead of just keypoints</div>
+          </div>
+        </div>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-i18n="kp.sparsedense">SPARSE vs DENSE POINT CLOUD</span>
+          </strong>
+          Sparse = only keypoints (SIFT features). Dense = full surface via MVS. Dense has orders of magnitude more points.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- L6: LIDAR -->
+<section class="section" id="l6">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div>
+        <div class="section-title" data-i18n="l6.title">LiDAR — Light Detection &amp; Ranging</div>
+        <div class="section-subtitle" data-i18n="l6.subtitle">L6 · ACTIVE REMOTE SENSING · CALCULATION + ESSAY ★★★</div>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <strong>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span data-i18n="kp.definition">DEFINITION</span>
+      </strong>
+      LiDAR is an <strong>active</strong> remote sensing technology that measures distance with reflected laser light. First developed in 1960 by Hughes Aircraft Inc. Modern use enabled by DGPS and fast computers.
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label" data-i18n="f.tof.lbl">TIME-OF-FLIGHT (ToF) FORMULA — THE CORE OF LiDAR</div>
+      <div class="formula-eq">Distance = (c × T) / 2</div>
+      <div class="formula-vars">c = speed of light ≈ 3 × 10⁸ m/s · T = round-trip travel time<br>
+      Divide by 2 because light travels TO the target AND BACK</div>
+    </div>
+
+    <div class="key-point">
+      <strong>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span data-i18n="kp.workedex">WORKED EXAMPLE</span>
+      </strong>
+      T = 2 × 10⁻⁶ s (2 microseconds)<br>
+      Distance = (3×10⁸ × 2×10⁻⁶) / 2 = 600 / 2 = <strong>300 m</strong>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label" data-i18n="f.lidar3d.lbl">3D POINT COORDINATES FROM LiDAR</div>
+      <div class="formula-eq">X = Xs − r × cos(φ) × cos(θ)</div>
+      <div class="formula-eq">Y = Ys − r × cos(φ) × sin(θ)</div>
+      <div class="formula-eq">Z = Zs − r × sin(φ)</div>
+      <div class="formula-vars">r = range distance · φ = elevation angle · θ = azimuth angle · (Xs,Ys,Zs) = sensor position from GPS/IMU</div>
+    </div>
+
+    <div class="key-point">
+      <strong>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span data-i18n="kp.workedex">WORKED EXAMPLE</span>
+      </strong>
+      Sensor at (Xs=0, Ys=0, Zs=100 m), range r=141.4 m, elevation φ=45°, azimuth θ=0°<br>
+      X = 0 − 141.4 × cos(45°) × cos(0°) = −141.4 × 0.707 × 1 = <strong>−100 m</strong><br>
+      Y = 0 − 141.4 × cos(45°) × sin(0°) = <strong>0 m</strong><br>
+      Z = 100 − 141.4 × sin(45°) = 100 − 100 = <strong>0 m</strong> (ground level, 100 m horizontal from nadir)
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l6.comp.title">★★★ LiDAR System Components</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span><span class="badge badge-hot">★★★</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-title">
+              <div class="card-icon" style="background:#ddeaf8;color:#1d5fa0;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 010 8.49M7.76 7.76a6 6 0 000 8.49M20.49 3.51a14 14 0 010 16.97M3.51 3.51a14 14 0 000 16.97"/></svg>
+              </div>
+              <span data-i18n="l6.gps.title">GPS (GNSS)</span>
+            </div>
+            <p>Provides precise position (Xs, Ys, Zs). Needs differential GPS (DGPS) for accuracy. Receives signals from multiple satellites.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <div class="card-icon" style="background:#f5e9d3;color:#c9882a;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+              </div>
+              <span data-i18n="l6.imu.title">IMU (Inertial Measurement Unit)</span>
+            </div>
+            <p>Provides orientation (ω, φ, κ) — roll, pitch, yaw. Essential because the aircraft is never perfectly level.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">
+              <div class="card-icon" style="background:#dff0e8;color:#2d7a4f;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <span data-i18n="l6.laser.title">Laser Scanner</span>
+            </div>
+            <p>Emits laser pulses and captures returns. Records: Time-of-Flight, intensity, return number, timestamp for each reflected pulse.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l6.scan.title">★★★ Scanning Patterns — Compare &amp; Contrast</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted);" data-i18n="l6.scan.sub">Classic exam comparison question</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span><span class="badge badge-hot">★★★</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <table class="data-table">
+          <tr><th data-i18n="tbl.scanner">Scanner Type</th><th data-i18n="tbl.mechanism">Mechanism</th><th data-i18n="tbl.pattern">Ground Pattern</th><th data-i18n="tbl.bestfor">Best For</th></tr>
+          <tr>
+            <td><strong>Oscillating Mirror</strong> (most common)</td>
+            <td>Mirror oscillates back-and-forth</td>
+            <td>Sawtooth / Z-shaped / sinusoidal, non-uniform density at edges</td>
+            <td>Precise, high-resolution with uniform coverage</td>
+          </tr>
+          <tr>
+            <td><strong>Rotating Polygonal Mirror</strong></td>
+            <td>Multi-sided mirror rotates continuously</td>
+            <td>Parallel lines, uniform spacing</td>
+            <td>Fast, large-area scanning with wider coverage</td>
+          </tr>
+          <tr>
+            <td><strong>Palmer Scanner (Elliptical)</strong></td>
+            <td>Rotating mirror/prism creates elliptical path</td>
+            <td>Elliptical loops</td>
+            <td>Variable point density; specific coverage efficiency</td>
+          </tr>
+        </table>
+        <div class="warn-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span data-i18n="kp.likelyq">LIKELY EXAM QUESTION</span>
+          </strong>
+          "Large area quickly?" → <strong>Rotating Polygonal Mirror</strong>. "Highest point density and resolution?" → <strong>Oscillating Mirror</strong>.
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l6.pulse.title">★★★ Pulse Characteristics</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-mcq">MCQ</span><span class="badge badge-essay">ESSAY</span><span class="badge badge-hot">★★★</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <h3 data-i18n="l6.pulse.wavelength">1. Common Wavelengths</h3>
+        <ul>
+          <li><strong>NIR (905 nm, 1064 nm)</strong> — most airborne and terrestrial LiDAR</li>
+          <li><strong>SWIR (1550 nm)</strong> — high-power LiDAR applications</li>
+          <li><strong>Blue-Green (~532 nm)</strong> — bathymetric LiDAR, penetrates water</li>
+        </ul>
+        <h3 data-i18n="l6.pulse.rate">2. Pulse Rate</h3>
+        <ul>
+          <li>Low-end: 50–100 kHz · Mid-range: 100–500 kHz · High-end: 500 kHz–1 MHz · Ultra: up to 2 MHz</li>
+          <li>Higher pulse rate → more points → higher density</li>
+        </ul>
+        <h3 data-i18n="l6.pulse.duration">3. Pulse Duration</h3>
+        <ul>
+          <li>Modern systems: 5–10 nanoseconds (ns)</li>
+          <li>Shorter → sharper return → more precise distance</li>
+          <li>Longer → more energy → better signal-to-noise for weak targets</li>
+        </ul>
+        <h3 data-i18n="l6.pulse.divergence">4. Beam Divergence</h3>
+        <div class="formula-box">
+          <div class="formula-label" data-i18n="f.beam.lbl">BEAM DIVERGENCE</div>
+          <div class="formula-eq">θ = D / L</div>
+          <div class="formula-vars">θ = divergence angle (radians) · D = beam diameter at target · L = distance from source</div>
+        </div>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span data-i18n="kp.workedex">WORKED EXAMPLE</span>
+          </strong>
+          θ = 0.3 mrad = 0.0003 rad, flight altitude L = 500 m<br>
+          Beam diameter: D = θ × L = 0.0003 × 500 = <strong>0.15 m = 15 cm</strong><br>
+          → Each LiDAR pulse footprint on the ground is a ~15 cm circle
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l6.density.title">★★ Point Density — Formula &amp; Factors</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-calc">CALC</span><span class="badge badge-mcq">MCQ</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <div class="formula-box">
+          <div class="formula-label" data-i18n="f.density.lbl">POINT DENSITY</div>
+          <div class="formula-eq">D = N / A</div>
+          <div class="formula-vars">D = point density (pts/m²) · N = total LiDAR points · A = area covered (m²)</div>
+        </div>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span data-i18n="kp.workedex">WORKED EXAMPLE</span>
+          </strong>
+          Pulse rate = 200,000 pulses/s, flight speed = 50 m/s, scan width = 200 m<br>
+          Area swept/s = 50 × 200 = 10,000 m²/s<br>
+          Point density = 200,000 / 10,000 = <strong>20 pts/m²</strong>
+        </div>
+        <h3 data-i18n="l6.density.factors">Factors Affecting Point Density</h3>
+        <ul>
+          <li><strong>Pulse Rate ↑</strong> → Density ↑</li>
+          <li><strong>Scan Angle ↑</strong> → Density ↓ at edges</li>
+          <li><strong>Flight Altitude ↑</strong> → Density ↓</li>
+          <li><strong>Flight Speed ↑</strong> → Density ↓</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l6.returns.title">★★ Multiple Returns &amp; Point Cloud Data</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <p>A single laser pulse can have <strong>multiple returns</strong> when it partially hits vegetation:</p>
+        <ul>
+          <li><strong>1st return</strong> — top of tree canopy</li>
+          <li><strong>2nd/3rd return</strong> — branches, understory</li>
+          <li><strong>Last return</strong> — ground beneath vegetation</li>
+        </ul>
+        <h3 data-i18n="l6.formats.title">Point Cloud Storage Formats</h3>
+        <table class="data-table">
+          <tr><th data-i18n="tbl.format">Format</th><th data-i18n="tbl.type">Type</th><th data-i18n="tbl.use">Use</th></tr>
+          <tr><td><code>XYZ/TXT/CSV</code></td><td>Text, no metadata</td><td>Simple, human-readable</td></tr>
+          <tr><td><code>PLY</code></td><td>Text with header</td><td>Stores x,y,z + RGB + intensity</td></tr>
+          <tr><td><code>LAS</code></td><td>Binary (standardized)</td><td>Industry standard; Header, VLRs, Point Data Records</td></tr>
+          <tr><td><code>LAZ</code></td><td>Lossless compressed LAS</td><td>Smaller file size; identical data to LAS</td></tr>
+        </table>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span data-i18n="kp.lasfile">LAS FILE STRUCTURE</span>
+          </strong>
+          [Header] — metadata (version, point count, scale, offset, CRS). [VLRs] — additional metadata including coordinate reference system. [Point Data Records] — actual X,Y,Z + Intensity + Return# + Class + GPS_Time.
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l6.dsm.title">DSM vs DTM vs CHM — Surface Model Definitions</div>
+          <div style="font-size:0.85rem; color:var(--ink-muted);" data-i18n="l6.dsm.sub">Critical distinction for LiDAR data products</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <table class="data-table">
+          <tr><th data-i18n="tbl.model">Model</th><th data-i18n="tbl.fullname">Full Name</th><th data-i18n="tbl.represents">What it represents</th><th data-i18n="tbl.lidarsource">LiDAR Source</th></tr>
+          <tr>
+            <td><strong>DSM</strong></td>
+            <td>Digital Surface Model</td>
+            <td>ALL objects above ground — buildings, tree canopy, vehicles, power lines. The "first return" surface.</td>
+            <td>First returns</td>
+          </tr>
+          <tr>
+            <td><strong>DTM</strong></td>
+            <td>Digital Terrain Model</td>
+            <td>Bare earth ONLY — ground points after removing all vegetation and structures via ground classification.</td>
+            <td>Last/ground-classified returns</td>
+          </tr>
+          <tr>
+            <td><strong>CHM</strong></td>
+            <td>Canopy Height Model</td>
+            <td>Height of vegetation above ground. Used to estimate tree heights and forest structure.</td>
+            <td>CHM = DSM − DTM</td>
+          </tr>
+        </table>
+        <div class="formula-box">
+          <div class="formula-label" data-i18n="f.chm.lbl">CHM FORMULA</div>
+          <div class="formula-eq">CHM = DSM − DTM</div>
+          <div class="formula-vars">Result = vegetation height above ground at each pixel location<br>
+          e.g. CHM value of 15 m → tree canopy is 15 m above ground at that point</div>
+        </div>
+        <div class="key-point">
+          <strong>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span data-i18n="kp.appex">APPLICATION EXAMPLE</span>
+          </strong>
+          Forest inventory: DSM shows top of canopy → DTM shows bare earth → CHM = DSM − DTM gives tree heights → used to estimate Above Ground Biomass (AGB).
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-block">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div>
+          <div class="topic-header-title" data-i18n="l6.apps.title">LiDAR Applications</div>
+        </div>
+        <div class="topic-header-badges"><span class="badge badge-essay">ESSAY</span></div>
+        <div class="topic-toggle">▼</div>
+      </div>
+      <div class="topic-body">
+        <ul>
+          <li><strong>Precise 3D mapping</strong> — buildings, terrain, forests (point clouds, DSM, DTM)</li>
+          <li><strong>Bathymetric LiDAR</strong> — blue-green (~532 nm) laser penetrates water for underwater mapping</li>
+          <li><strong>Above Ground Biomass (AGB) Estimation</strong> — tree height (H) + crown diameter (CD) from CHM → estimate DBH → estimate biomass</li>
+          <li><strong>Topo-bathymetric riverbed mapping</strong> — combined aerial and underwater mapping for rivers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAS CHEATSHEET -->
+<section class="section" id="formulas">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">★</div>
+      <div>
+        <div class="section-title" data-i18n="f.title">Formula Cheat Sheet</div>
+        <div class="section-subtitle" data-i18n="f.subtitle">ALL CALCULATION FORMULAS IN ONE PLACE</div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title" data-i18n="f.gsdscale.title">GSD &amp; Scale</div>
+        <div class="formula-box" style="margin:0;">
+          <div class="formula-label" data-i18n="f.scale.lbl">MAP SCALE</div>
+          <div class="formula-eq">1:M = f/H → H = f × M</div>
+          <div class="formula-label" style="margin-top:10px;" data-i18n="f.gsd.lbl">GSD</div>
+          <div class="formula-eq">GSD = (H × pixel_size) / f</div>
+          <div class="formula-vars" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.1); padding-top:8px;">
+            Example: f=35 mm, pixel=0.00452 mm, H=175 m<br>
+            GSD = (175,000 × 0.00452) / 35 = <strong>22.6 mm/px</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" data-i18n="f.lidardist.title">LiDAR Distance</div>
+        <div class="formula-box" style="margin:0;">
+          <div class="formula-label" data-i18n="f.tof.lbl">TIME-OF-FLIGHT</div>
+          <div class="formula-eq">Distance = c × T / 2</div>
+          <div class="formula-label" style="margin-top:10px;" data-i18n="f.density.lbl">POINT DENSITY</div>
+          <div class="formula-eq">D = N / A (pts/m²)</div>
+          <div class="formula-vars" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.1); padding-top:8px;">
+            Example: T=2 μs → dist = (3×10⁸ × 2×10⁻⁶)/2 = <strong>300 m</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" data-i18n="f.lidar3d.title">LiDAR 3D Coords</div>
+        <div class="formula-box" style="margin:0;">
+          <div class="formula-eq">X = Xs − r·cos(φ)·cos(θ)</div>
+          <div class="formula-eq">Y = Ys − r·cos(φ)·sin(θ)</div>
+          <div class="formula-eq">Z = Zs − r·sin(φ)</div>
+          <div class="formula-vars" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.1); padding-top:8px;">
+            Example: Zs=100, r=141.4, φ=45° → Z = 100−100 = <strong>0 m</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" data-i18n="f.beam.title">Beam Divergence</div>
+        <div class="formula-box" style="margin:0;">
+          <div class="formula-eq">θ = D / L</div>
+          <div class="formula-vars">θ = angle (rad) · D = beam diameter · L = distance<br>
+          Example: θ=0.3 mrad, L=500 m → D = <strong>15 cm</strong></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" data-i18n="f.harris.title">Harris Corner</div>
+        <div class="formula-box" style="margin:0;">
+          <div class="formula-label" data-i18n="f.tensor.lbl">STRUCTURE TENSOR</div>
+          <div class="formula-eq">M = Σ[[Ix²,IxIy],[IxIy,Iy²]]</div>
+          <div class="formula-label" style="margin-top:8px;" data-i18n="f.eigen.lbl">EIGENVALUE</div>
+          <div class="formula-eq">det(M − λI) = 0</div>
+          <div class="formula-vars" style="margin-top:8px;">λ₁≈λ₂≈small→Flat · λ₁&gt;&gt;λ₂→Edge · both large→Corner</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" data-i18n="f.collin.title">Collinearity Eq.</div>
+        <div class="formula-box" style="margin:0; font-size:0.9rem;">
+          <div class="formula-eq">x−x₀ = −f · N₁/D</div>
+          <div class="formula-eq">y−y₀ = −f · N₂/D</div>
+          <div class="formula-vars">N₁ = a₁ΔX+b₁ΔY+c₁ΔZ<br>N₂ = a₂ΔX+b₂ΔY+c₂ΔZ<br>D = a₃ΔX+b₃ΔY+c₃ΔZ</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" data-i18n="f.chm.title">DSM / DTM / CHM</div>
+        <div class="formula-box" style="margin:0;">
+          <div class="formula-label" data-i18n="f.chm.lbl">CHM FORMULA</div>
+          <div class="formula-eq">CHM = DSM − DTM</div>
+          <div class="formula-vars">DSM = all surfaces (first return)<br>DTM = bare earth (ground return)<br>CHM = vegetation height above ground</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" data-i18n="f.gcprmse.title">GCP Accuracy</div>
+        <div class="formula-box" style="margin:0;">
+          <div class="formula-label" data-i18n="f.gcprmse.lbl">GCP RMSE</div>
+          <div class="formula-eq">RMSE_X = √(Σ ΔXᵢ² / n)</div>
+          <div class="formula-eq">RMSE_XY = √(RMSE_X² + RMSE_Y²)</div>
+          <div class="formula-vars" style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.1); padding-top:8px;">
+            Typical: 1–3 cm horizontal with RTK/PPK GCPs
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="section" id="quiz">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">Q</div>
+      <div>
+        <div class="section-title" data-i18n="q.title">Practice MCQ — Test Yourself</div>
+        <div class="section-subtitle" data-i18n="q.subtitle">CLICK AN OPTION TO CHECK YOUR ANSWER</div>
+      </div>
+    </div>
+    <div id="quiz-container"></div>
+  </div>
+</section>
+
+<footer>
+  <span data-i18n="footer.text">UAV Remote Sensing — Final Exam Study Guide &nbsp;·&nbsp; Beihang University 2026 Semester 2 &nbsp;·&nbsp; Prof. Lingfeng He</span>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+/* ── TRANSLATIONS ── */
+const T = {
+  en: {
+    'nav.brand':'UAV RS · EXAM PREP','nav.overview':'Overview','nav.l1':'L1: Intro','nav.l2':'L2: Flight','nav.l3':'L3: Projection','nav.l4':'L4: Features','nav.l5':'L5: 3D Recon','nav.l6':'L6: LiDAR','nav.formulas':'Formulas','nav.quiz':'Quiz',
+    'hero.tag':'FINAL EXAM · UAV REMOTE SENSING METHODS AND APPLICATIONS',
+    'hero.h1':'Your Complete<br><span>Study Guide</span>',
+    'hero.sub':'Everything you need to walk into the exam with confidence — concepts, calculations, and likely questions. The professor warned the exam might surprise you. We\'ve prepared for that too.',
+    'hero.stat1':'Lecture Modules','hero.stat2':'Final Exam Weight','hero.stat3':'High-Priority Topics',
+    'alert.label':'PROFESSOR\'S WARNING: "THE EXAM MIGHT SURPRISE YOU"',
+    'alert.text':'This likely means: questions won\'t be straightforward recall — expect application of formulas to new scenarios, conceptual reasoning about why things work, and comparison questions. Focus on understanding, not memorisation alone.',
+    's0.title':'Exam Topic Priority Map','s0.subtitle':'WHAT IS MOST LIKELY TO APPEAR · HOW TO ALLOCATE YOUR STUDY TIME',
+    's0.intro':'Based on the lecture progression and typical exam patterns in photogrammetry/remote sensing courses, here\'s how to prioritize your time.',
+    's0.legend':'BADGE LEGEND','badge.mcq.desc':'Multiple choice / short answer','badge.essay.desc':'Written explanation / describe','badge.calc.desc':'Apply a formula to numbers','badge.hot.desc':'Highest exam probability',
+    's0.weights':'EXAM WEIGHTS','s0.w.attend':'Class Attendance: 40%','s0.w.exam':'Final Exam: 60%',
+    's0.surprise':'THE SURPRISE FACTOR','s0.surprise.text':'Expect questions that combine concepts, e.g. "Given this LiDAR system flying at altitude X with pulse rate Y, calculate point density, then explain which scanning pattern would be best and why."',
+    'l1.title':'UAV Remote Sensing — Introduction','l1.subtitle':'L1 · CONCEPTS, PLATFORMS, APPLICATIONS · MCQ LIKELY',
+    'l1.c1.title':'What is a UAV?','l1.c2.title':'UAV vs Satellite vs Aircraft','l1.c3.title':'UAV Platform Types','l1.c4.title':'UAV RS Applications',
+    'l1.hist.title':'Brief History of Photogrammetry','l1.hist.sub':'Timeline that may appear in MCQ',
+    'l2.title':'UAV Flight Planning & GSD','l2.subtitle':'L2 · IMPLEMENTATION DESIGN · HIGH CALCULATION PROBABILITY',
+    'l2.warn':'VERY LIKELY CALCULATION QUESTION',
+    'l2.overlap.title':'Image Overlap — Why It Matters','l2.overlap.sub':'Front overlap + side overlap for photogrammetry',
+    'l2.ba.title':'Aerial Triangulation (AT) & Bundle Adjustment (BA)',
+    'l2.rtk.title':'RTK vs PPK GPS — Real-Time vs Post-Processing','l2.rtk.sub':'Key distinction for GCP accuracy and georeferencing',
+    'l2.gcp.title':'Ground Control Points (GCPs)','l2.gcp.sub':'Georeferencing and accuracy',
+    'l2.gcperr.title':'GCP Accuracy — Residual Error & RMSE','l2.gcperr.sub':'How to quantify georeferencing accuracy',
+    'l2.relabs.title':'Relative vs Absolute Accuracy',
+    'l3.title':'Projection & Coordinate Systems','l3.subtitle':'L3 · PHOTOGRAMMETRY FUNDAMENTALS · MCQ + ESSAY',
+    'l3.c1.title':'Central (Perspective) Projection','l3.c2.title':'Parallel Projection',
+    'l3.coord.heading':'Coordinate Systems — Three You Must Know',
+    'l3.imgspace.title':'1. Image Space Coordinate System (S-xyz)',
+    'l3.interior.title':'2. Interior Orientation Elements (f, x₀, y₀)',
+    'l3.exterior.title':'3. Exterior Orientation Elements (Xs, Ys, Zs, ω, φ, κ)',
+    'l4.title':'Feature Extraction & Matching','l4.subtitle':'L4 · SIFT, HARRIS, LoG, DoG · CALCULATION + ESSAY',
+    'l4.harris.title':'★★ Harris Corner Detector — Calculation Ready','l4.harris.sub':'Given a pixel window, classify the region type',
+    'l4.log.title':'★★ LoG Detector — Laplacian of Gaussian',
+    'l4.dog.title':'DoG — Difference of Gaussian',
+    'l4.sift.title':'★★★ SIFT Algorithm — 6 Steps','l4.sift.sub':'Scale Invariant Feature Transform — most important feature descriptor',
+    'l5.title':'3D Reconstruction — Collinearity Equation','l5.subtitle':'L5 · PHOTOGRAMMETRIC RECONSTRUCTION · HIGH CALCULATION PROBABILITY',
+    'l5.warn':'THIS IS THE MATHEMATICAL HEART OF THE COURSE',
+    'l5.backward.title':'★★★ Backward Intersection — "What was my camera doing?"',
+    'l5.forward.title':'★★★ Forward Intersection — "Where is that point on the ground?"',
+    'l5.sfm.title':'Structure from Motion (SfM) — Complete Pipeline',
+    'l6.title':'LiDAR — Light Detection & Ranging','l6.subtitle':'L6 · ACTIVE REMOTE SENSING · CALCULATION + ESSAY ★★★',
+    'l6.comp.title':'★★★ LiDAR System Components',
+    'l6.scan.title':'★★★ Scanning Patterns — Compare & Contrast','l6.scan.sub':'Classic exam comparison question',
+    'l6.pulse.title':'★★★ Pulse Characteristics',
+    'l6.density.title':'★★ Point Density — Formula & Factors',
+    'l6.returns.title':'★★ Multiple Returns & Point Cloud Data',
+    'l6.dsm.title':'DSM vs DTM vs CHM — Surface Model Definitions','l6.dsm.sub':'Critical distinction for LiDAR data products',
+    'l6.apps.title':'LiDAR Applications',
+    'f.title':'Formula Cheat Sheet','f.subtitle':'ALL CALCULATION FORMULAS IN ONE PLACE',
+    'f.gsdscale.title':'GSD & Scale','f.lidardist.title':'LiDAR Distance','f.lidar3d.title':'LiDAR 3D Coords',
+    'f.beam.title':'Beam Divergence','f.harris.title':'Harris Corner','f.collin.title':'Collinearity Eq.',
+    'f.chm.title':'DSM / DTM / CHM','f.gcprmse.title':'GCP Accuracy',
+    'q.title':'Practice MCQ — Test Yourself','q.subtitle':'CLICK AN OPTION TO CHECK YOUR ANSWER',
+    'footer.text':'UAV Remote Sensing — Final Exam Study Guide · Beihang University 2026 Semester 2 · Prof. Lingfeng He',
+    'kp.examtip':'EXAM TIP','kp.keydist':'KEY DISTINCTION','kp.keyconcept':'KEY CONCEPT','kp.remember':'REMEMBER',
+    'kp.workedex':'WORKED EXAMPLE','kp.workedlecture':'WORKED EXAMPLE (FROM LECTURE)',
+    'kp.whyoverlap':'WHY OVERLAP?','kp.ba.insight':'BUNDLE ADJUSTMENT INSIGHT',
+    'kp.commonmist':'COMMON MISTAKE TO AVOID','kp.examsurprise':'EXAM SURPRISE — UNIFORM IMAGE',
+    'kp.1line3':'THE "1 LINE, 3 POINTS" RULE','kp.sparsedense':'SPARSE vs DENSE POINT CLOUD',
+    'kp.definition':'DEFINITION','kp.likelyq':'LIKELY EXAM QUESTION','kp.lasfile':'LAS FILE STRUCTURE',
+    'kp.why128':'WHY 128 DIMENSIONS?','kp.illumtrick':'ILLUMINATION INVARIANCE TRICK',
+    'kp.examq':'EXAM QUESTION ALERT','kp.appex':'APPLICATION EXAMPLE',
+    'f.scale.lbl':'SCALE FORMULA','f.gsd.lbl':'GROUND SAMPLING DISTANCE (GSD)',
+    'f.tof.lbl':'TIME-OF-FLIGHT (ToF) FORMULA','f.lidar3d.lbl':'3D POINT COORDINATES FROM LiDAR',
+    'f.beam.lbl':'BEAM DIVERGENCE','f.density.lbl':'POINT DENSITY',
+    'f.tensor.lbl':'STRUCTURE TENSOR (M)','f.eigen.lbl':'EIGENVALUE CALCULATION',
+    'f.collin.lbl':'COLLINEARITY EQUATION','f.laplacian.lbl':'LAPLACIAN (4-NEIGHBOR KERNEL)',
+    'f.dog.lbl':'DoG FORMULA','f.chm.lbl':'CHM FORMULA','f.gcprmse.lbl':'GCP RESIDUAL & RMSE',
+    'tbl.feature':'Feature','tbl.satellite':'Satellite','tbl.resolution':'Resolution','tbl.cost':'Cost',
+    'tbl.verylow':'Very low','tbl.veryhigh':'Very high','tbl.flighttime':'Flight time',
+    'tbl.continuous':'Continuous','tbl.coverage':'Coverage','tbl.thousands':'Thousands km²',
+    'tbl.weather':'Weather','tbl.limited':'Limited','tbl.lessaffect':'Less affected',
+    'tbl.year':'Year','tbl.milestone':'Milestone','tbl.param':'Parameter','tbl.meaning':'Meaning',
+    'tbl.providedby':'Provided by','tbl.aspect':'Aspect','tbl.operation':'Operation',
+    'tbl.speed':'Speed','tbl.slower':'Slower','tbl.faster':'Faster','tbl.noise':'Noise',
+    'tbl.moresens':'More sensitive','tbl.morerobust':'More robust','tbl.usedin':'Used in SIFT',
+    'tbl.theory':'Theory only','tbl.practical':'Practical implementation',
+    'tbl.error':'Error','tbl.cause':'Cause','tbl.solution':'Solution',
+    'tbl.type':'Type','tbl.definition':'Definition','tbl.benchmark':'Typical Benchmark',
+    'tbl.relative':'Relative Accuracy','tbl.absolute':'Absolute Accuracy',
+    'tbl.timing':'Correction Timing','tbl.method':'Method','tbl.range':'Range',
+    'tbl.accuracy':'Accuracy','tbl.infra':'Infrastructure','tbl.bestfor':'Best for',
+    'tbl.model':'Model','tbl.fullname':'Full Name','tbl.represents':'What it represents',
+    'tbl.lidarsource':'LiDAR Source','tbl.scanner':'Scanner Type','tbl.mechanism':'Mechanism',
+    'tbl.pattern':'Ground Pattern','tbl.format':'Format','tbl.use':'Use',
+    'rtk.timing':'Real-time (during flight)','ppk.timing':'Post-processing (after flight)',
+    'rtk.range':'Limited by radio range (~10–20 km)','ppk.range':'No range limit; can use CORS networks',
+    'rtk.infra':'Radio modem + base station on-site','ppk.infra':'Base station logs only (or CORS)',
+    'rtk.best':'Immediate results; real-time feedback needed','ppk.best':'Remote areas; BVLOS flights; complex terrain',
+    'harris.flat':'Flat','harris.edge':'Edge','harris.corner':'Corner',
+    'sift.s1':'Step 1 — Scale-Space Construction','sift.s2':'Step 2 — Keypoint Detection',
+    'sift.s3':'Step 3 — Keypoint Refinement','sift.s4':'Step 4 — Orientation Assignment',
+    'sift.s5':'Step 5 — Feature Descriptor Construction','sift.s6':'Step 6 — Feature Matching',
+    'l5.back.apps':'Applications in UAV','l5.forward.errors':'Error Sources & Solutions',
+    'l6.gps.title':'GPS (GNSS)','l6.imu.title':'IMU (Inertial Measurement Unit)','l6.laser.title':'Laser Scanner',
+    'l6.pulse.wavelength':'1. Common Wavelengths','l6.pulse.rate':'2. Pulse Rate',
+    'l6.pulse.duration':'3. Pulse Duration','l6.pulse.divergence':'4. Beam Divergence',
+    'l6.density.factors':'Factors Affecting Point Density',
+    'l6.formats.title':'Point Cloud Storage Formats',
+    'l3.c2.note':'Example: orthophoto (orthorectified image) uses parallel projection',
+    'l1.plat.heli':'Helicopter (1 rotor)','l1.plat.heli.desc':'stable, heavy payload',
+    'l1.plat.multi':'Multi-rotor (2+ rotors)','l1.plat.multi.desc':'versatile, easy to fly',
+    'l1.plat.quad':'Quad-rotor (4 rotors)','l1.plat.quad.desc':'most common consumer drone',
+    'l1.plat.fixed':'Fixed-wing','l1.plat.fixed.desc':'longer range, larger coverage',
+    'l1.plat.note':'Fixed-wing covers more area but cannot hover. Multi-rotor hovers precisely but has shorter battery life.',
+    'l1.app1':'DEM & 3D mapping','l1.app2':'Agriculture (crop/weed monitoring)',
+    'l1.app3':'Disaster monitoring','l1.app4':'Cadastral (land parcel) surveys',
+    'l1.app5':'Infrastructure inspection','l1.app6':'Wildlife conservation',
+    'l1.app7':'Archaeological documentation','l1.app8':'Environmental monitoring',
+    'l2.warn':'VERY LIKELY CALCULATION QUESTION',
+    'tbl.aspect':'Aspect'
+  },
+  th: {
+    'nav.brand':'UAV RS · เตรียมสอบ','nav.overview':'ภาพรวม','nav.l1':'L1: บทนำ','nav.l2':'L2: การบิน','nav.l3':'L3: การฉาย','nav.l4':'L4: ฟีเจอร์','nav.l5':'L5: 3D','nav.l6':'L6: ไลดาร์','nav.formulas':'สูตร','nav.quiz':'แบบทดสอบ',
+    'hero.tag':'สอบปลายภาค · UAV รีโมทเซนซิ่ง วิธีการและการประยุกต์',
+    'hero.h1':'คู่มือการเรียน<br><span>ฉบับสมบูรณ์</span>',
+    'hero.sub':'ทุกสิ่งที่คุณต้องการก่อนเข้าห้องสอบ — แนวคิด การคำนวณ และคำถามที่น่าจะออกสอบ',
+    'hero.stat1':'บทเรียน','hero.stat2':'น้ำหนักสอบปลายภาค','hero.stat3':'หัวข้อสำคัญ',
+    'alert.label':'คำเตือนจากอาจารย์: "ข้อสอบอาจทำให้คุณประหลาดใจ"',
+    'alert.text':'หมายความว่า: คำถามจะไม่เป็นแค่การท่องจำ — คาดหวังการประยุกต์สูตรกับสถานการณ์ใหม่ และคำถามเปรียบเทียบ เน้นความเข้าใจ ไม่ใช่แค่จำ',
+    's0.title':'แผนที่ลำดับความสำคัญ','s0.subtitle':'หัวข้อที่น่าจะออกสอบ · วิธีจัดสรรเวลาเรียน',
+    's0.intro':'ตามลำดับเนื้อหาในบทเรียน นี่คือวิธีจัดลำดับความสำคัญ คอร์สนี้เริ่มจากทฤษฎี (L1–L2) ไปสู่เนื้อหาเทคนิคหนัก (L3–L6)',
+    's0.legend':'คำอธิบายสัญลักษณ์','badge.mcq.desc':'ตัวเลือก / คำตอบสั้น','badge.essay.desc':'อธิบายเป็นบทความ','badge.calc.desc':'ใช้สูตรคำนวณ','badge.hot.desc':'โอกาสออกสอบสูงสุด',
+    's0.weights':'น้ำหนักคะแนน','s0.w.attend':'การเข้าเรียน: 40%','s0.w.exam':'สอบปลายภาค: 60%',
+    's0.surprise':'ปัจจัยเซอร์ไพรส์','s0.surprise.text':'คาดหวังคำถามที่รวมแนวคิดหลายอย่าง เช่น "ระบบไลดาร์บินที่ความสูง X อัตราพัลส์ Y คำนวณความหนาแน่นจุด แล้วอธิบายรูปแบบการสแกนที่เหมาะสม"',
+    'l1.title':'UAV รีโมทเซนซิ่ง — บทนำ','l1.subtitle':'L1 · แนวคิด แพลตฟอร์ม การประยุกต์',
+    'l1.c1.title':'UAV คืออะไร?','l1.c2.title':'UAV เทียบกับดาวเทียมและเครื่องบิน','l1.c3.title':'ประเภทแพลตฟอร์ม UAV','l1.c4.title':'การประยุกต์ UAV RS',
+    'l1.hist.title':'ประวัติย่อของการวัดภาพถ่าย','l1.hist.sub':'เส้นเวลาที่อาจออกใน MCQ',
+    'l2.title':'การวางแผนการบิน UAV และ GSD','l2.subtitle':'L2 · การออกแบบการดำเนินการ',
+    'l2.warn':'คำถามคำนวณที่น่าจะออกสอบสูงมาก',
+    'l2.overlap.title':'การซ้อนทับภาพ — ทำไมจึงสำคัญ','l2.overlap.sub':'Front overlap + Side overlap สำหรับการวัดภาพถ่าย',
+    'l2.ba.title':'การสามเหลี่ยมทางอากาศ (AT) และการปรับมัดรังสี (BA)',
+    'l2.rtk.title':'RTK เทียบกับ PPK — แบบเรียลไทม์เทียบกับหลังประมวลผล','l2.rtk.sub':'ความแตกต่างสำคัญสำหรับความแม่นยำ GCP',
+    'l2.gcp.title':'จุดควบคุมภาคพื้นดิน (GCPs)','l2.gcp.sub':'การอ้างอิงพิกัดและความแม่นยำ',
+    'l2.gcperr.title':'ความแม่นยำ GCP — ค่าคลาดเคลื่อนและ RMSE','l2.gcperr.sub':'วิธีประเมินความแม่นยำของการอ้างอิงพิกัด',
+    'l2.relabs.title':'ความแม่นยำสัมพัทธ์เทียบกับสัมบูรณ์',
+    'l3.title':'การฉายภาพและระบบพิกัด','l3.subtitle':'L3 · พื้นฐานการวัดภาพถ่าย',
+    'l3.c1.title':'การฉายภาพแบบมีจุดกึ่งกลาง (Perspective)','l3.c2.title':'การฉายภาพแบบขนาน',
+    'l3.coord.heading':'ระบบพิกัด — สามระบบที่ต้องรู้',
+    'l3.imgspace.title':'1. ระบบพิกัดในช่องภาพ (S-xyz)',
+    'l3.interior.title':'2. องค์ประกอบการวางแนวภายใน (f, x₀, y₀)',
+    'l3.exterior.title':'3. องค์ประกอบการวางแนวภายนอก (Xs, Ys, Zs, ω, φ, κ)',
+    'l4.title':'การสกัดและจับคู่ฟีเจอร์','l4.subtitle':'L4 · SIFT, HARRIS, LoG, DoG',
+    'l4.harris.title':'★★ Harris Corner Detector (ตัวตรวจจับมุม) — พร้อมคำนวณ','l4.harris.sub':'ให้กรอบพิกเซล จำแนกประเภทบริเวณ',
+    'l4.log.title':'★★ LoG Detector (ตัวตรวจจับลาปลาซียน-เกาส์) — Laplacian of Gaussian',
+    'l4.dog.title':'DoG (ผลต่างเกาส์เซียน) — Difference of Gaussian',
+    'l4.sift.title':'★★★ อัลกอริทึม SIFT — 6 ขั้นตอน','l4.sift.sub':'Scale Invariant Feature Transform — ตัวอธิบายฟีเจอร์ที่สำคัญที่สุด',
+    'l5.title':'การสร้างแบบจำลอง 3D — สมการเส้นตรงร่วม','l5.subtitle':'L5 · การสร้างแบบจำลองด้วยภาพถ่าย',
+    'l5.warn':'นี่คือหัวใจทางคณิตศาสตร์ของวิชานี้',
+    'l5.backward.title':'★★★ Backward Intersection — "กล้องกำลังทำอะไร?"',
+    'l5.forward.title':'★★★ Forward Intersection — "จุดนั้นอยู่ที่ไหนบนพื้นดิน?"',
+    'l5.sfm.title':'Structure from Motion (SfM) — ขั้นตอนทั้งหมด',
+    'l6.title':'ไลดาร์ — การตรวจจับและวัดแสง','l6.subtitle':'L6 · การสำรวจระยะไกลเชิงรุก · ★★★',
+    'l6.comp.title':'★★★ ส่วนประกอบระบบไลดาร์',
+    'l6.scan.title':'★★★ รูปแบบการสแกน — เปรียบเทียบ','l6.scan.sub':'คำถามเปรียบเทียบที่มักออกสอบ',
+    'l6.pulse.title':'★★★ คุณสมบัติของพัลส์',
+    'l6.density.title':'★★ ความหนาแน่นของจุด — สูตรและปัจจัย',
+    'l6.returns.title':'★★ Multiple Returns และข้อมูล Point Cloud',
+    'l6.dsm.title':'DSM เทียบกับ DTM เทียบกับ CHM','l6.dsm.sub':'ความแตกต่างสำคัญสำหรับผลิตภัณฑ์ข้อมูลไลดาร์',
+    'l6.apps.title':'การประยุกต์ใช้ไลดาร์',
+    'f.title':'สรุปสูตร','f.subtitle':'สูตรคำนวณทั้งหมดในที่เดียว',
+    'f.gsdscale.title':'GSD และมาตราส่วน','f.lidardist.title':'ระยะทางไลดาร์','f.lidar3d.title':'พิกัด 3D ไลดาร์',
+    'f.beam.title':'การกระจายลำแสง','f.harris.title':'Harris Corner','f.collin.title':'สมการเส้นตรงร่วม',
+    'f.chm.title':'DSM / DTM / CHM','f.gcprmse.title':'ความแม่นยำ GCP',
+    'q.title':'แบบฝึกหัด — ทดสอบตัวเอง','q.subtitle':'คลิกตัวเลือกเพื่อตรวจคำตอบ',
+    'footer.text':'UAV รีโมทเซนซิ่ง — คู่มือสอบปลายภาค · มหาวิทยาลัยเป่ยหาง 2026 ภาคเรียนที่ 2 · อ.Lingfeng He',
+    'kp.examtip':'เคล็ดลับการสอบ','kp.keydist':'ความแตกต่างสำคัญ','kp.keyconcept':'แนวคิดสำคัญ','kp.remember':'จำไว้',
+    'kp.workedex':'ตัวอย่างการคำนวณ','kp.workedlecture':'ตัวอย่างจากบทเรียน',
+    'kp.whyoverlap':'ทำไมต้องซ้อนทับ?','kp.ba.insight':'ข้อมูลเชิงลึก Bundle Adjustment',
+    'kp.commonmist':'ข้อผิดพลาดที่ต้องหลีกเลี่ยง','kp.examsurprise':'คำถามเซอร์ไพรส์ — ภาพสม่ำเสมอ',
+    'kp.1line3':'กฎ "1 เส้น 3 จุด"','kp.sparsedense':'Point Cloud เบาบาง เทียบกับ หนาแน่น',
+    'kp.definition':'นิยาม','kp.likelyq':'คำถามที่น่าจะออกสอบ','kp.lasfile':'โครงสร้างไฟล์ LAS',
+    'kp.why128':'ทำไมถึง 128 มิติ?','kp.illumtrick':'เทคนิคความคงทนต่อแสง',
+    'kp.examq':'คำถามที่น่าจะออกสอบ','kp.appex':'ตัวอย่างการประยุกต์',
+    'f.scale.lbl':'สูตรมาตราส่วน','f.gsd.lbl':'ระยะห่างตัวอย่างบนพื้นดิน (GSD)',
+    'f.tof.lbl':'สูตร Time-of-Flight','f.lidar3d.lbl':'พิกัด 3D จากไลดาร์',
+    'f.beam.lbl':'การกระจายลำแสง','f.density.lbl':'ความหนาแน่นของจุด',
+    'f.tensor.lbl':'Structure Tensor (M)','f.eigen.lbl':'การคำนวณค่าเจาะจง',
+    'f.collin.lbl':'สมการเส้นตรงร่วม','f.laplacian.lbl':'Laplacian (4-Neighbor Kernel)',
+    'f.dog.lbl':'สูตร DoG','f.chm.lbl':'สูตร CHM','f.gcprmse.lbl':'ค่าคลาดเคลื่อน GCP และ RMSE',
+    'tbl.feature':'คุณสมบัติ','tbl.satellite':'ดาวเทียม','tbl.resolution':'ความละเอียด','tbl.cost':'ต้นทุน',
+    'tbl.verylow':'ต่ำมาก','tbl.veryhigh':'สูงมาก','tbl.flighttime':'เวลาบิน',
+    'tbl.continuous':'ต่อเนื่อง','tbl.coverage':'พื้นที่ครอบคลุม','tbl.thousands':'หลายพันกม²',
+    'tbl.weather':'สภาพอากาศ','tbl.limited':'จำกัด','tbl.lessaffect':'ได้รับผลกระทบน้อยกว่า',
+    'tbl.year':'ปี','tbl.milestone':'เหตุการณ์สำคัญ','tbl.param':'พารามิเตอร์','tbl.meaning':'ความหมาย',
+    'tbl.providedby':'ให้โดย','tbl.aspect':'ด้าน','tbl.operation':'การดำเนินการ',
+    'tbl.speed':'ความเร็ว','tbl.slower':'ช้ากว่า','tbl.faster':'เร็วกว่า','tbl.noise':'สัญญาณรบกวน',
+    'tbl.moresens':'ไวต่อสัญญาณรบกวนมากกว่า','tbl.morerobust':'ทนทานกว่า','tbl.usedin':'ใช้ใน SIFT',
+    'tbl.theory':'เชิงทฤษฎีเท่านั้น','tbl.practical':'การใช้งานจริง',
+    'tbl.error':'ข้อผิดพลาด','tbl.cause':'สาเหตุ','tbl.solution':'วิธีแก้ไข',
+    'tbl.type':'ประเภท','tbl.definition':'นิยาม','tbl.benchmark':'มาตรฐานอ้างอิง',
+    'tbl.relative':'ความแม่นยำสัมพัทธ์','tbl.absolute':'ความแม่นยำสัมบูรณ์',
+    'tbl.timing':'ช่วงเวลาแก้ไข','tbl.method':'วิธีการ','tbl.range':'ระยะทาง',
+    'tbl.accuracy':'ความแม่นยำ','tbl.infra':'โครงสร้างพื้นฐาน','tbl.bestfor':'เหมาะกับ',
+    'tbl.model':'โมเดล','tbl.fullname':'ชื่อเต็ม','tbl.represents':'แสดงถึง',
+    'tbl.lidarsource':'แหล่งข้อมูลไลดาร์','tbl.scanner':'ประเภทเครื่องสแกน','tbl.mechanism':'กลไก',
+    'tbl.pattern':'รูปแบบบนพื้นดิน','tbl.format':'รูปแบบ','tbl.use':'การใช้งาน',
+    'rtk.timing':'แบบเรียลไทม์ (ระหว่างการบิน)','ppk.timing':'หลังประมวลผล (หลังการบิน)',
+    'rtk.range':'จำกัดโดยระยะวิทยุ (~10–20 กม.)','ppk.range':'ไม่จำกัดระยะ ใช้เครือข่าย CORS ได้',
+    'rtk.infra':'วิทยุโมเด็ม + สถานีฐานในพื้นที่','ppk.infra':'แค่บันทึกข้อมูลสถานีฐาน (หรือ CORS)',
+    'rtk.best':'ต้องการผลทันที ต้องการข้อเสนอแนะแบบเรียลไทม์','ppk.best':'พื้นที่ห่างไกล การบินนอกสายตา (BVLOS)',
+    'harris.flat':'พื้นราบ','harris.edge':'ขอบ','harris.corner':'มุม',
+    'sift.s1':'ขั้น 1 — สร้าง Scale-Space','sift.s2':'ขั้น 2 — ตรวจจับ Keypoint',
+    'sift.s3':'ขั้น 3 — ปรับแต่ง Keypoint','sift.s4':'ขั้น 4 — กำหนดทิศทาง',
+    'sift.s5':'ขั้น 5 — สร้าง Feature Descriptor','sift.s6':'ขั้น 6 — จับคู่ฟีเจอร์',
+    'l5.back.apps':'การประยุกต์ใช้กับ UAV','l5.forward.errors':'แหล่งข้อผิดพลาดและวิธีแก้ไข',
+    'l6.gps.title':'GPS (GNSS)','l6.imu.title':'IMU (หน่วยวัดเฉื่อย)','l6.laser.title':'เครื่องสแกนเลเซอร์',
+    'l6.pulse.wavelength':'1. ความยาวคลื่นทั่วไป','l6.pulse.rate':'2. อัตราพัลส์',
+    'l6.pulse.duration':'3. ระยะเวลาพัลส์','l6.pulse.divergence':'4. การกระจายลำแสง',
+    'l6.density.factors':'ปัจจัยที่มีผลต่อความหนาแน่นจุด',
+    'l6.formats.title':'รูปแบบการจัดเก็บ Point Cloud',
+    'l3.c2.note':'ตัวอย่าง: ภาพออร์โธโฟโต (orthorectified) ใช้การฉายแบบขนาน',
+    'l1.plat.heli':'เฮลิคอปเตอร์ (1 rotor)','l1.plat.heli.desc':'เสถียร บรรทุกหนัก',
+    'l1.plat.multi':'Multi-rotor (2+ rotors)','l1.plat.multi.desc':'ยืดหยุ่น ใช้งานง่าย',
+    'l1.plat.quad':'Quad-rotor (4 rotors)','l1.plat.quad.desc':'โดรนผู้บริโภคที่พบมากที่สุด',
+    'l1.plat.fixed':'Fixed-wing','l1.plat.fixed.desc':'ระยะทางไกล ครอบคลุมพื้นที่มาก',
+    'l1.plat.note':'Fixed-wing ครอบคลุมพื้นที่ได้มากกว่า แต่บินวนไม่ได้ Multi-rotor บินวนได้แม่นยำ แต่แบตฯ สั้นกว่า',
+    'l1.app1':'DEM และการทำแผนที่ 3D','l1.app2':'เกษตรกรรม (ตรวจสอบพืชผล)',
+    'l1.app3':'ติดตามภัยพิบัติ','l1.app4':'สำรวจที่ดิน (โฉนด)',
+    'l1.app5':'ตรวจสอบโครงสร้างพื้นฐาน','l1.app6':'อนุรักษ์สัตว์ป่า',
+    'l1.app7':'บันทึกทางโบราณคดี','l1.app8':'ติดตามสิ่งแวดล้อม'
+  },
+  zh: {
+    'nav.brand':'UAV RS · 考试准备','nav.overview':'概览','nav.l1':'L1: 简介','nav.l2':'L2: 飞行','nav.l3':'L3: 投影','nav.l4':'L4: 特征','nav.l5':'L5: 三维重建','nav.l6':'L6: 激光雷达','nav.formulas':'公式','nav.quiz':'测验',
+    'hero.tag':'期末考试 · 无人机遥感方法与应用',
+    'hero.h1':'完整<br><span>学习指南</span>',
+    'hero.sub':'备考所需的一切 — 概念、计算方法和可能的考题。教授提醒考试可能出乎意料，我们也为此做好了准备。',
+    'hero.stat1':'讲义模块','hero.stat2':'期末考试权重','hero.stat3':'高优先级主题',
+    'alert.label':'教授警告："考试可能会让你惊讶"',
+    'alert.text':'这意味着：考题不会是简单的记忆 — 预计需要将公式应用到新情景、对原理进行推理以及比较类问题。注重理解，而非死记硬背。',
+    's0.title':'考试主题优先级图','s0.subtitle':'最可能出现的考点 · 如何分配学习时间',
+    's0.intro':'根据讲义进度和摄影测量/遥感课程的典型考试模式，以下是优先级建议。',
+    's0.legend':'标签说明','badge.mcq.desc':'选择题 / 简答题','badge.essay.desc':'书面说明 / 描述','badge.calc.desc':'代入公式计算','badge.hot.desc':'最高考试概率',
+    's0.weights':'考试权重','s0.w.attend':'课堂出勤：40%','s0.w.exam':'期末考试：60%',
+    's0.surprise':'惊喜因素','s0.surprise.text':'预计考题会综合多个概念，例如："给定激光雷达系统以高度X、脉冲率Y飞行，计算点密度，然后解释哪种扫描模式最佳。"',
+    'l1.title':'无人机遥感 — 简介','l1.subtitle':'L1 · 概念、平台、应用',
+    'l1.c1.title':'什么是无人机？','l1.c2.title':'无人机 vs 卫星 vs 飞机','l1.c3.title':'无人机平台类型','l1.c4.title':'无人机遥感应用',
+    'l1.hist.title':'摄影测量简史','l1.hist.sub':'可能出现在选择题中的时间线',
+    'l2.title':'无人机飞行规划与地面采样距离','l2.subtitle':'L2 · 实施设计 · 高计算概率',
+    'l2.warn':'极可能考计算题',
+    'l2.overlap.title':'图像重叠 — 为何重要','l2.overlap.sub':'沿航线重叠 + 旁向重叠',
+    'l2.ba.title':'空中三角测量 (AT) 与光束法平差 (BA)',
+    'l2.rtk.title':'RTK vs PPK — 实时 vs 后处理','l2.rtk.sub':'GCP精度和地理参考的关键区别',
+    'l2.gcp.title':'地面控制点 (GCP)','l2.gcp.sub':'地理参考与精度',
+    'l2.gcperr.title':'GCP精度 — 残差与RMSE','l2.gcperr.sub':'如何量化地理参考精度',
+    'l2.relabs.title':'相对精度与绝对精度',
+    'l3.title':'投影与坐标系','l3.subtitle':'L3 · 摄影测量基础',
+    'l3.c1.title':'中心（透视）投影','l3.c2.title':'平行投影',
+    'l3.coord.heading':'坐标系 — 必须掌握的三个',
+    'l3.imgspace.title':'1. 像空间坐标系 (S-xyz)',
+    'l3.interior.title':'2. 内方位元素 (f, x₀, y₀)',
+    'l3.exterior.title':'3. 外方位元素 (Xs, Ys, Zs, ω, φ, κ)',
+    'l4.title':'特征提取与匹配','l4.subtitle':'L4 · SIFT, HARRIS, LoG, DoG',
+    'l4.harris.title':'★★ Harris角点检测器 — 准备计算','l4.harris.sub':'给定像素窗口，对区域类型进行分类',
+    'l4.log.title':'★★ LoG检测器 — 高斯拉普拉斯',
+    'l4.dog.title':'DoG — 高斯差分',
+    'l4.sift.title':'★★★ SIFT算法 — 6个步骤','l4.sift.sub':'尺度不变特征变换 — 最重要的特征描述符',
+    'l5.title':'三维重建 — 共线方程','l5.subtitle':'L5 · 摄影测量重建 · 高计算概率',
+    'l5.warn':'这是本课程的数学核心',
+    'l5.backward.title':'★★★ 后方交会 — "相机在做什么？"',
+    'l5.forward.title':'★★★ 前方交会 — "那个点在地面上哪里？"',
+    'l5.sfm.title':'运动恢复结构 (SfM) — 完整流程',
+    'l6.title':'激光雷达 — 光探测与测距','l6.subtitle':'L6 · 主动遥感 · 计算+论述 ★★★',
+    'l6.comp.title':'★★★ 激光雷达系统组成',
+    'l6.scan.title':'★★★ 扫描模式 — 对比分析','l6.scan.sub':'经典考试比较题',
+    'l6.pulse.title':'★★★ 脉冲特性',
+    'l6.density.title':'★★ 点密度 — 公式与影响因素',
+    'l6.returns.title':'★★ 多次回波与点云数据',
+    'l6.dsm.title':'DSM vs DTM vs CHM — 表面模型定义','l6.dsm.sub':'激光雷达数据产品的关键区别',
+    'l6.apps.title':'激光雷达应用',
+    'f.title':'公式速查表','f.subtitle':'所有计算公式汇总',
+    'f.gsdscale.title':'GSD与比例尺','f.lidardist.title':'激光雷达距离','f.lidar3d.title':'激光雷达三维坐标',
+    'f.beam.title':'光束发散度','f.harris.title':'Harris角点','f.collin.title':'共线方程',
+    'f.chm.title':'DSM / DTM / CHM','f.gcprmse.title':'GCP精度',
+    'q.title':'练习题 — 自我测试','q.subtitle':'点击选项检查答案',
+    'footer.text':'无人机遥感 — 期末考试学习指南 · 北京航空航天大学 2026年第二学期 · He Lingfeng教授',
+    'kp.examtip':'考试提示','kp.keydist':'关键区别','kp.keyconcept':'关键概念','kp.remember':'记住',
+    'kp.workedex':'计算示例','kp.workedlecture':'讲座示例',
+    'kp.whyoverlap':'为什么需要重叠？','kp.ba.insight':'光束法平差要点',
+    'kp.commonmist':'考试中避免的常见错误','kp.examsurprise':'考试惊喜 — 均匀图像',
+    'kp.1line3':'"一线三点"规则','kp.sparsedense':'稀疏 vs 密集点云',
+    'kp.definition':'定义','kp.likelyq':'可能的考题','kp.lasfile':'LAS文件结构',
+    'kp.why128':'为什么是128维？','kp.illumtrick':'光照不变性技巧',
+    'kp.examq':'考试题目提示','kp.appex':'应用示例',
+    'f.scale.lbl':'比例尺公式','f.gsd.lbl':'地面采样距离 (GSD)',
+    'f.tof.lbl':'飞行时间公式','f.lidar3d.lbl':'激光雷达三维点坐标',
+    'f.beam.lbl':'光束发散度','f.density.lbl':'点密度',
+    'f.tensor.lbl':'结构张量 (M)','f.eigen.lbl':'特征值计算',
+    'f.collin.lbl':'共线方程','f.laplacian.lbl':'拉普拉斯算子（4邻域核）',
+    'f.dog.lbl':'DoG公式','f.chm.lbl':'冠层高度模型公式','f.gcprmse.lbl':'GCP残差与RMSE',
+    'tbl.feature':'特征','tbl.satellite':'卫星','tbl.resolution':'分辨率','tbl.cost':'成本',
+    'tbl.verylow':'极低','tbl.veryhigh':'极高','tbl.flighttime':'飞行时间',
+    'tbl.continuous':'持续','tbl.coverage':'覆盖范围','tbl.thousands':'数千平方公里',
+    'tbl.weather':'天气','tbl.limited':'有限','tbl.lessaffect':'受影响较小',
+    'tbl.year':'年份','tbl.milestone':'里程碑','tbl.param':'参数','tbl.meaning':'含义',
+    'tbl.providedby':'由...提供','tbl.aspect':'方面','tbl.operation':'操作',
+    'tbl.speed':'速度','tbl.slower':'较慢','tbl.faster':'较快','tbl.noise':'噪声',
+    'tbl.moresens':'更敏感','tbl.morerobust':'更鲁棒','tbl.usedin':'在SIFT中使用',
+    'tbl.theory':'仅限理论','tbl.practical':'实际应用',
+    'tbl.error':'误差','tbl.cause':'原因','tbl.solution':'解决方案',
+    'tbl.type':'类型','tbl.definition':'定义','tbl.benchmark':'典型基准',
+    'tbl.relative':'相对精度','tbl.absolute':'绝对精度',
+    'tbl.timing':'修正时间','tbl.method':'方法','tbl.range':'范围',
+    'tbl.accuracy':'精度','tbl.infra':'基础设施','tbl.bestfor':'最适合',
+    'tbl.model':'模型','tbl.fullname':'全称','tbl.represents':'代表什么',
+    'tbl.lidarsource':'激光雷达来源','tbl.scanner':'扫描仪类型','tbl.mechanism':'机制',
+    'tbl.pattern':'地面图案','tbl.format':'格式','tbl.use':'用途',
+    'rtk.timing':'实时（飞行中）','ppk.timing':'后处理（飞行后）',
+    'rtk.range':'受无线电范围限制（约10–20千米）','ppk.range':'无距离限制；可使用CORS网络',
+    'rtk.infra':'无线电调制解调器 + 现场基准站','ppk.infra':'仅需基准站日志（或CORS）',
+    'rtk.best':'需要即时结果；需要实时反馈','ppk.best':'偏远地区；超视距飞行；复杂地形',
+    'harris.flat':'平坦区域','harris.edge':'边缘','harris.corner':'角点',
+    'sift.s1':'步骤1 — 尺度空间构建','sift.s2':'步骤2 — 关键点检测',
+    'sift.s3':'步骤3 — 关键点精化','sift.s4':'步骤4 — 方向分配',
+    'sift.s5':'步骤5 — 特征描述符构建','sift.s6':'步骤6 — 特征匹配',
+    'l5.back.apps':'在无人机中的应用','l5.forward.errors':'误差来源与解决方案',
+    'l6.gps.title':'GPS（GNSS）','l6.imu.title':'IMU（惯性测量单元）','l6.laser.title':'激光扫描仪',
+    'l6.pulse.wavelength':'1. 常用波长','l6.pulse.rate':'2. 脉冲频率',
+    'l6.pulse.duration':'3. 脉冲持续时间','l6.pulse.divergence':'4. 光束发散度',
+    'l6.density.factors':'影响点密度的因素',
+    'l6.formats.title':'点云存储格式',
+    'l3.c2.note':'示例：正射影像（纠正影像）使用平行投影',
+    'l1.plat.heli':'直升机（1个旋翼）','l1.plat.heli.desc':'稳定，有效载荷重',
+    'l1.plat.multi':'多旋翼（2+旋翼）','l1.plat.multi.desc':'多功能，易于飞行',
+    'l1.plat.quad':'四旋翼（4旋翼）','l1.plat.quad.desc':'最常见的消费级无人机',
+    'l1.plat.fixed':'固定翼','l1.plat.fixed.desc':'航程更远，覆盖范围更大',
+    'l1.plat.note':'固定翼覆盖面积更大但不能悬停。多旋翼可精确悬停但电池续航较短。',
+    'l1.app1':'DEM与三维制图','l1.app2':'农业（作物/杂草监测）',
+    'l1.app3':'灾害监测','l1.app4':'地籍（地块）测量',
+    'l1.app5':'基础设施检查','l1.app6':'野生动物保护',
+    'l1.app7':'考古记录','l1.app8':'环境监测'
+  }
+};
+
+let currentLang = localStorage.getItem('uav_lang') || 'en';
+
+function switchLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('uav_lang', lang);
+  document.documentElement.lang = lang;
+  const dict = T[lang] || T.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  buildQuiz();
+  try { lucide.createIcons(); } catch(e) {}
+}
+
+/* ── TOPIC TOGGLES ── */
+function toggleTopic(header) {
+  const block = header.closest('.topic-block');
+  const body = block.querySelector('.topic-body');
+  const isOpen = block.classList.contains('open');
+  block.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+
+/* ── QUIZ ── */
+const quizDataI18n = {
+  en: [
+    {
+      q: "What does DGPS stand for in the context of LiDAR, and why is it used instead of regular GPS?",
+      opts: ["Digital GPS — used for digital mapping applications","Differential GPS — provides higher accuracy by correcting satellite signal errors using a ground base station","Dual GPS — uses two satellites for better triangulation","Dynamic GPS — adjusts to moving platforms"],
+      ans: 1,
+      explain: "DGPS (Differential GPS) improves positioning accuracy by comparing the GPS receiver's signal with a fixed ground base station that knows its exact location. This corrects atmospheric and satellite errors, achieving centimetre-level accuracy needed for LiDAR mapping."
+    },
+    {
+      q: "A UAV camera has a focal length of 24 mm, sensor pixel size of 0.0038 mm, and flies at 300 m altitude. What is the approximate GSD?",
+      opts: ["0.047 mm/px (units error)","47.5 cm/px","4.75 cm/px","47.5 mm/px"],
+      ans: 2,
+      explain: "GSD = (H × pixel_size) / f = (300,000 mm × 0.0038 mm) / 24 mm = 1140/24 = 47.5 mm/px = 4.75 cm/px. Watch units! H must be in the same units as focal length."
+    },
+    {
+      q: "In SIFT, why does the descriptor vector have exactly 128 dimensions?",
+      opts: ["It was chosen arbitrarily by Lowe as a computationally efficient size","16×16 window → 4×4 sub-blocks → each block gets an 8-bin orientation histogram → 16 × 8 = 128","128 is the number of unique corner types in a natural image","8×8 window with 2 bins per cell → 64×2 = 128"],
+      ans: 1,
+      explain: "The 16×16 pixel window around each keypoint is divided into a 4×4 grid of sub-blocks (16 blocks). Each sub-block generates an 8-bin orientation histogram. 16 blocks × 8 bins = 128 dimensions."
+    },
+    {
+      q: "Harris corner detector — all pixels in a 3×3 patch have identical intensity. What is the result?",
+      opts: ["Corner — uniform patches are rare and distinctive","Edge — gradient is uniform in one direction","Flat region — Ix = Iy = 0 everywhere, M is the zero matrix, both eigenvalues are 0","Cannot be determined without calculating Sobel responses"],
+      ans: 2,
+      explain: "When all pixels have the same value, both Sobel filters produce 0. M = [[0,0],[0,0]]. Both eigenvalues λ₁ = λ₂ = 0 → FLAT region. This is the 'surprise' question from the lecture."
+    },
+    {
+      q: "What is the key difference between Backward Intersection and Forward Intersection?",
+      opts: ["Backward uses LiDAR; Forward uses cameras","Backward uses known GCPs to find camera orientation (exterior elements); Forward uses known camera orientation to find ground point coordinates","Backward is applied after flight; Forward during flight","Backward gives approximate results; Forward gives precise results"],
+      ans: 1,
+      explain: "Backward: know GCP coordinates AND their image coordinates → solve for 6 exterior orientation parameters. Forward: know camera position/orientation AND image coordinates → solve for 3D ground coordinates of the point."
+    },
+    {
+      q: "A LiDAR pulse takes 2 microseconds (2 × 10⁻⁶ s) to return. What is the distance to the target?",
+      opts: ["600 m","300 m","150 m","1200 m"],
+      ans: 1,
+      explain: "Distance = (c × T) / 2 = (3×10⁸ m/s × 2×10⁻⁶ s) / 2 = 600/2 = 300 m. Remember to divide by 2 — light travels TO the target and BACK."
+    },
+    {
+      q: "Which LiDAR scanning pattern is best for large-area fast coverage, and which for high-precision detailed mapping?",
+      opts: ["Palmer for large area; Oscillating mirror for detailed","Rotating polygonal mirror for large area; Oscillating mirror for detailed","Oscillating mirror for large area; Rotating polygonal mirror for detailed","All three produce identical results"],
+      ans: 1,
+      explain: "Rotating Polygonal Mirror: fast rotation → parallel lines → good for large areas. Oscillating Mirror: back-and-forth → more uniform point density → better for high-resolution precise mapping."
+    },
+    {
+      q: "In the LAS file format, where is the coordinate reference system (CRS / EPSG code) stored?",
+      opts: ["In the Point Data Records next to each coordinate","In the Variable Length Records (VLRs)","It is not stored in LAS — must be provided separately","In the file name by convention"],
+      ans: 1,
+      explain: "VLRs (Variable Length Records) store the coordinate reference system (CRS/EPSG code), projection info, and other variable metadata. The Header stores fixed fields like point count, scale, offset, and bounding box."
+    },
+    {
+      q: "What is CHM (Canopy Height Model) and how is it computed from LiDAR data?",
+      opts: ["CHM = DSM + DTM — the sum of surface and terrain models","CHM = DSM − DTM — vegetation height above bare earth","CHM = first return intensity — a radiometric product","CHM is a colour map derived from point cloud classification"],
+      ans: 1,
+      explain: "CHM = DSM − DTM. DSM captures the top of all surfaces (first returns), DTM captures bare earth (ground returns). Their difference gives the height of vegetation above ground — used in forest inventory and biomass estimation."
+    },
+    {
+      q: "What makes SIFT invariant to illumination changes?",
+      opts: ["Using LoG which is illumination-independent by design","Normalizing the descriptor and clamping any value greater than 0.2 to 0.2 before re-normalizing","Only using gradient direction (not magnitude) in the descriptor","Converting the image to grayscale before processing"],
+      ans: 1,
+      explain: "SIFT clamps descriptor values exceeding 0.2 to 0.2, then re-normalizes. This prevents a single strong gradient from dominating the descriptor under bright illumination, making it stable across lighting changes."
+    }
+  ],
+  th: [
+    {
+      q: "DGPS ย่อมาจากอะไรในบริบทของ LiDAR และทำไมจึงใช้แทน GPS ธรรมดา?",
+      opts: ["Digital GPS — ใช้สำหรับแอปพลิเคชันทำแผนที่ดิจิทัล","Differential GPS — ให้ความแม่นยำสูงขึ้นโดยแก้ไขสัญญาณดาวเทียมด้วยสถานีฐานภาคพื้นดิน","Dual GPS — ใช้ดาวเทียมสองดวงเพื่อการกำหนดตำแหน่งที่ดีขึ้น","Dynamic GPS — ปรับตัวตามแพลตฟอร์มที่เคลื่อนที่"],
+      ans: 1,
+      explain: "DGPS (Differential GPS) เพิ่มความแม่นยำในการกำหนดตำแหน่งโดยเปรียบเทียบสัญญาณของเครื่องรับ GPS กับสถานีฐานภาคพื้นดินที่ทราบตำแหน่งที่แน่นอน วิธีนี้ช่วยแก้ไขข้อผิดพลาดจากบรรยากาศและดาวเทียม ทำให้ได้ความแม่นยำระดับเซนติเมตรที่จำเป็นสำหรับการทำแผนที่ด้วย LiDAR"
+    },
+    {
+      q: "กล้อง UAV มีทางยาวโฟกัส 24 มม. ขนาดพิกเซลของเซนเซอร์ 0.0038 มม. และบินที่ความสูง 300 ม. GSD โดยประมาณเท่าไร?",
+      opts: ["0.047 มม./พิกเซล (ข้อผิดพลาดหน่วย)","47.5 ซม./พิกเซล","4.75 ซม./พิกเซล","47.5 มม./พิกเซล"],
+      ans: 2,
+      explain: "GSD = (H × ขนาดพิกเซล) / f = (300,000 มม. × 0.0038 มม.) / 24 มม. = 1140/24 = 47.5 มม./พิกเซล = 4.75 ซม./พิกเซล ระวังหน่วย! H ต้องอยู่ในหน่วยเดียวกับทางยาวโฟกัส"
+    },
+    {
+      q: "ใน SIFT ทำไม descriptor vector ถึงมีขนาด 128 มิติ?",
+      opts: ["ถูกเลือกโดย Lowe แบบสุ่มเพื่อประสิทธิภาพในการคำนวณ","กรอบ 16×16 → บล็อก 4×4 → แต่ละบล็อกมีฮิสโตแกรม 8 ทิศทาง → 16 × 8 = 128","128 คือจำนวนประเภทมุมที่ไม่ซ้ำกันในภาพธรรมชาติ","กรอบ 8×8 ที่มี 2 bin ต่อเซลล์ → 64×2 = 128"],
+      ans: 1,
+      explain: "กรอบพิกเซล 16×16 รอบ keypoint แต่ละจุดถูกแบ่งเป็นกริด 4×4 ของบล็อกย่อย (16 บล็อก) แต่ละบล็อกย่อยสร้างฮิสโตแกรมทิศทาง 8 bin ดังนั้น 16 บล็อก × 8 bin = 128 มิติ"
+    },
+    {
+      q: "Harris corner detector — พิกเซลทั้งหมดใน patch ขนาด 3×3 มีความเข้มเท่ากัน ผลลัพธ์คืออะไร?",
+      opts: ["มุม (Corner) — patch ที่สม่ำเสมอหาได้ยากและโดดเด่น","ขอบ (Edge) — gradient สม่ำเสมอในทิศทางหนึ่ง","บริเวณราบ (Flat region) — Ix = Iy = 0 ทุกที่ M เป็น zero matrix ค่าเจาะจงทั้งสองเป็น 0","ไม่สามารถระบุได้โดยไม่คำนวณ Sobel responses"],
+      ans: 2,
+      explain: "เมื่อพิกเซลทั้งหมดมีค่าเท่ากัน Sobel filter ทั้งสองให้ผลเป็น 0 M = [[0,0],[0,0]] ค่าเจาะจงทั้งสอง λ₁ = λ₂ = 0 → บริเวณราบ (FLAT) นี่คือคำถาม 'เซอร์ไพรส์' จากบทเรียน"
+    },
+    {
+      q: "ความแตกต่างสำคัญระหว่าง Backward Intersection และ Forward Intersection คืออะไร?",
+      opts: ["Backward ใช้ LiDAR; Forward ใช้กล้อง","Backward ใช้ GCP ที่รู้จักเพื่อหาทิศทางกล้อง (exterior orientation); Forward ใช้ทิศทางกล้องที่รู้จักเพื่อหาพิกัดจุดภาคพื้นดิน","Backward ทำหลังการบิน; Forward ทำระหว่างการบิน","Backward ให้ผลโดยประมาณ; Forward ให้ผลแม่นยำ"],
+      ans: 1,
+      explain: "Backward: รู้พิกัด GCP และพิกัดภาพของมัน → แก้หาพารามิเตอร์ exterior orientation 6 ตัว Forward: รู้ตำแหน่ง/ทิศทางกล้องและพิกัดภาพ → แก้หาพิกัด 3D ของจุดภาคพื้นดิน"
+    },
+    {
+      q: "พัลส์ LiDAR ใช้เวลา 2 ไมโครวินาที (2 × 10⁻⁶ วินาที) ในการกลับมา ระยะทางไปยังเป้าหมายคือเท่าไร?",
+      opts: ["600 ม.","300 ม.","150 ม.","1200 ม."],
+      ans: 1,
+      explain: "ระยะทาง = (c × T) / 2 = (3×10⁸ ม./วินาที × 2×10⁻⁶ วินาที) / 2 = 600/2 = 300 ม. จำไว้ต้องหาร 2 — แสงเดินทางไปยังเป้าหมายและกลับมา"
+    },
+    {
+      q: "รูปแบบการสแกน LiDAR แบบใดดีที่สุดสำหรับครอบคลุมพื้นที่ขนาดใหญ่อย่างรวดเร็ว และแบบใดดีที่สุดสำหรับการทำแผนที่รายละเอียดความแม่นยำสูง?",
+      opts: ["Palmer สำหรับพื้นที่ขนาดใหญ่; กระจกแกว่งสำหรับรายละเอียด","กระจกหมุนแบบมีหลายหน้าสำหรับพื้นที่ขนาดใหญ่; กระจกแกว่งสำหรับรายละเอียด","กระจกแกว่งสำหรับพื้นที่ขนาดใหญ่; กระจกหมุนแบบมีหลายหน้าสำหรับรายละเอียด","ทั้งสามแบบให้ผลเหมือนกัน"],
+      ans: 1,
+      explain: "กระจกหมุนแบบมีหลายหน้า: หมุนเร็ว → เส้นขนาน → ดีสำหรับพื้นที่ขนาดใหญ่ กระจกแกว่ง: ไปมา → ความหนาแน่นจุดสม่ำเสมอมากขึ้น → ดีกว่าสำหรับการทำแผนที่ความละเอียดสูงที่แม่นยำ"
+    },
+    {
+      q: "ในรูปแบบไฟล์ LAS ระบบอ้างอิงพิกัด (CRS / EPSG code) ถูกเก็บไว้ที่ไหน?",
+      opts: ["ใน Point Data Records ถัดจากพิกัดแต่ละพิกัด","ใน Variable Length Records (VLRs)","ไม่ได้เก็บใน LAS — ต้องระบุแยกต่างหาก","ในชื่อไฟล์ตามธรรมเนียม"],
+      ans: 1,
+      explain: "VLRs (Variable Length Records) เก็บระบบอ้างอิงพิกัด (CRS/EPSG code) ข้อมูลการฉายภาพ และข้อมูลเมตาตัวแปรอื่นๆ ส่วน Header เก็บฟิลด์คงที่เช่น จำนวนจุด มาตราส่วน offset และ bounding box"
+    },
+    {
+      q: "CHM (Canopy Height Model) คืออะไร และคำนวณอย่างไรจากข้อมูล LiDAR?",
+      opts: ["CHM = DSM + DTM — ผลรวมของโมเดลพื้นผิวและภูมิประเทศ","CHM = DSM − DTM — ความสูงพืชพรรณเหนือพื้นดินเปล่า","CHM = ความเข้มของ first return — ผลิตภัณฑ์เรดิโอเมตริก","CHM คือแผนที่สีที่ได้จากการจำแนกประเภท point cloud"],
+      ans: 1,
+      explain: "CHM = DSM − DTM DSM จับพื้นผิวสูงสุดของทุกอย่าง (first returns) DTM จับพื้นดินเปล่า (ground returns) ความแตกต่างของทั้งสองให้ความสูงพืชพรรณเหนือพื้นดิน — ใช้ในการสำรวจป่าไม้และการประมาณชีวมวล"
+    },
+    {
+      q: "อะไรทำให้ SIFT ไม่ได้รับผลกระทบจากการเปลี่ยนแปลงความสว่าง?",
+      opts: ["การใช้ LoG ซึ่งไม่ขึ้นกับความสว่างโดยออกแบบ","การ normalize descriptor และ clamp ค่าที่มากกว่า 0.2 ให้เป็น 0.2 ก่อน re-normalize ใหม่","การใช้เฉพาะทิศทาง gradient (ไม่ใช่ขนาด) ใน descriptor","การแปลงภาพเป็น grayscale ก่อนประมวลผล"],
+      ans: 1,
+      explain: "SIFT clamp ค่า descriptor ที่เกิน 0.2 ให้เป็น 0.2 แล้ว re-normalize ใหม่ วิธีนี้ป้องกันไม่ให้ gradient ที่แข็งแกร่งเพียงหนึ่งเดียวครอบงำ descriptor ภายใต้ความสว่างสูง ทำให้มีเสถียรภาพต่อการเปลี่ยนแปลงความสว่าง"
+    }
+  ],
+  zh: [
+    {
+      q: "DGPS在LiDAR中代表什么，为什么用它代替普通GPS？",
+      opts: ["Digital GPS — 用于数字制图应用","差分GPS (Differential GPS) — 通过地面基准站纠正卫星信号误差提高精度","双GPS (Dual GPS) — 使用两颗卫星进行更好的三角定位","动态GPS (Dynamic GPS) — 适应移动平台"],
+      ans: 1,
+      explain: "DGPS（差分GPS）通过将GPS接收机信号与已知精确位置的固定地面基准站进行比较来提高定位精度。这可以纠正大气和卫星误差，达到激光雷达制图所需的厘米级精度。"
+    },
+    {
+      q: "无人机相机焦距24毫米，传感器像素尺寸0.0038毫米，飞行高度300米，GSD大约是多少？",
+      opts: ["0.047毫米/像素（单位错误）","47.5厘米/像素","4.75厘米/像素","47.5毫米/像素"],
+      ans: 2,
+      explain: "GSD = (H × 像素尺寸) / f = (300,000毫米 × 0.0038毫米) / 24毫米 = 1140/24 = 47.5毫米/像素 = 4.75厘米/像素。注意单位！H必须与焦距单位相同。"
+    },
+    {
+      q: "在SIFT中，为什么描述符向量恰好有128个维度？",
+      opts: ["Lowe任意选择的计算高效尺寸","16×16窗口 → 4×4子块 → 每个子块得到8 bin方向直方图 → 16 × 8 = 128","128是自然图像中唯一角点类型的数量","8×8窗口，每个单元格2个bin → 64×2 = 128"],
+      ans: 1,
+      explain: "每个关键点周围的16×16像素窗口被分成4×4个子块网格（16个子块）。每个子块生成一个8 bin的方向直方图。16个子块 × 8个bin = 128个维度。"
+    },
+    {
+      q: "Harris角点检测器 — 3×3像素块中所有像素强度相同。结果是什么？",
+      opts: ["角点 — 均匀的块很少见且很特殊","边缘 — 梯度在一个方向上均匀","平坦区域 — 到处Ix = Iy = 0，M是零矩阵，两个特征值都是0","没有计算Sobel响应无法确定"],
+      ans: 2,
+      explain: "当所有像素值相同时，两个Sobel滤波器都产生0。M = [[0,0],[0,0]]。两个特征值λ₁ = λ₂ = 0 → 平坦区域。这是讲座中的'惊喜'题。"
+    },
+    {
+      q: "后方交会与前方交会的主要区别是什么？",
+      opts: ["后方交会使用激光雷达；前方交会使用相机","后方交会使用已知GCP找相机方位（外方位元素）；前方交会使用已知相机方位找地面点坐标","后方交会在飞行后进行；前方交会在飞行中进行","后方交会给近似结果；前方交会给精确结果"],
+      ans: 1,
+      explain: "后方交会：已知GCP坐标及其像点坐标 → 求解6个外方位元素。前方交会：已知相机位置/方位及像点坐标 → 求解点的三维地面坐标。"
+    },
+    {
+      q: "激光雷达脉冲需要2微秒（2×10⁻⁶秒）才能返回。目标距离是多少？",
+      opts: ["600米","300米","150米","1200米"],
+      ans: 1,
+      explain: "距离 = (c × T) / 2 = (3×10⁸ m/s × 2×10⁻⁶ s) / 2 = 600/2 = 300米。记得除以2 — 光往返目标一次。"
+    },
+    {
+      q: "哪种激光雷达扫描模式最适合大面积快速覆盖，哪种最适合高精度详细测图？",
+      opts: ["Palmer适合大面积；摆动镜适合详细测图","旋转多边形镜适合大面积；摆动镜适合详细测图","摆动镜适合大面积；旋转多边形镜适合详细测图","三种模式效果相同"],
+      ans: 1,
+      explain: "旋转多边形镜：旋转快 → 平行线 → 适合大面积。摆动镜：来回扫描 → 点密度更均匀 → 更适合高分辨率精密测图。"
+    },
+    {
+      q: "在LAS文件格式中，坐标参考系统（CRS/EPSG代码）存储在哪里？",
+      opts: ["在每个坐标旁边的点数据记录中","在可变长度记录（VLRs）中","不存储在LAS中 — 必须单独提供","按惯例在文件名中"],
+      ans: 1,
+      explain: "VLRs（可变长度记录）存储坐标参考系统（CRS/EPSG代码）、投影信息和其他可变元数据。头文件存储固定字段，如点数量、比例、偏移量和边界框。"
+    },
+    {
+      q: "什么是CHM（冠层高度模型），如何从激光雷达数据中计算？",
+      opts: ["CHM = DSM + DTM — 地表模型和地形模型之和","CHM = DSM − DTM — 植被高于裸地的高度","CHM = 首次回波强度 — 辐射测量产品","CHM是从点云分类中得到的色彩图"],
+      ans: 1,
+      explain: "CHM = DSM − DTM。DSM捕获所有表面的顶部（首次回波），DTM捕获裸地（地面回波）。两者之差给出植被高于地面的高度 — 用于森林清查和生物量估算。"
+    },
+    {
+      q: "是什么使SIFT对光照变化具有不变性？",
+      opts: ["使用设计上与光照无关的LoG","归一化描述符并将任何大于0.2的值截断为0.2，再重新归一化","描述符中只使用梯度方向（不使用梯度幅值）","处理前将图像转换为灰度图"],
+      ans: 1,
+      explain: "SIFT将超过0.2的描述符值截断为0.2，然后重新归一化。这可以防止强光照下单个强梯度主导描述符，使其在光照变化下保持稳定。"
+    }
+  ]
+};
+
+const expLabel = { en: 'Explanation:', th: 'คำอธิบาย:', zh: '解释：' };
+
+function buildQuiz() {
+  const container = document.getElementById('quiz-container');
+  container.innerHTML = '';
+  const qData = quizDataI18n[currentLang] || quizDataI18n.en;
+  const label = expLabel[currentLang] || expLabel.en;
+  qData.forEach((q, qi) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-q';
+    div.innerHTML = `
+      <div class="quiz-q-text">Q${qi+1}. ${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((o, oi) => `
+          <div class="quiz-opt" onclick="checkAnswer(this, ${qi}, ${oi})">
+            <span class="quiz-key">${String.fromCharCode(65+oi)}</span>
+            <span>${o}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="quiz-explain" id="explain-${qi}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px;"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        <strong>${label}</strong> ${q.explain}
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function checkAnswer(el, qi, oi) {
+  const block = el.closest('.quiz-q');
+  const opts = block.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.style.pointerEvents = 'none');
+  const correct = (quizDataI18n[currentLang] || quizDataI18n.en)[qi].ans;
+  opts[correct].classList.add('correct');
+  if (oi !== correct) el.classList.add('wrong');
+  const explain = document.getElementById(`explain-${qi}`);
+  explain.classList.add('show');
+  explain.style.borderLeft = oi !== correct ? '3px solid var(--accent-red)' : '3px solid var(--accent-green)';
+}
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  switchLang(currentLang);   // restores saved language (or 'en' if none saved)
+  try { lucide.createIcons(); } catch(e) {}
+});
+</script>
+</body>
+</html>
