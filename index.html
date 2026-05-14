@@ -4,8 +4,62 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UAV Remote Sensing — Final Exam Study Guide</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ── Offline-safe font stack ──────────────────────────────────────────────
+     Uses local() so installed fonts are loaded instantly with no network.
+     Falls back gracefully to system fonts when not installed.
+  ──────────────────────────────────────────────────────────────────────── */
+
+  /* Playfair Display — display serif (headings) */
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: normal; font-weight: 700; font-display: swap;
+    src: local('Playfair Display Bold'), local('PlayfairDisplay-Bold');
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: normal; font-weight: 900; font-display: swap;
+    src: local('Playfair Display Black'), local('PlayfairDisplay-Black');
+  }
+
+  /* Source Serif 4 — body serif */
+  @font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal; font-weight: 300; font-display: swap;
+    src: local('Source Serif 4 Light'), local('SourceSerif4-Light'),
+         local('Source Serif Pro Light'), local('SourceSerifPro-Light');
+  }
+  @font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal; font-weight: 400; font-display: swap;
+    src: local('Source Serif 4'), local('SourceSerif4-Regular'),
+         local('Source Serif Pro'), local('SourceSerifPro-Regular');
+  }
+  @font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal; font-weight: 600; font-display: swap;
+    src: local('Source Serif 4 SemiBold'), local('SourceSerif4-SemiBold'),
+         local('Source Serif Pro SemiBold'), local('SourceSerifPro-SemiBold');
+  }
+  @font-face {
+    font-family: 'Source Serif 4';
+    font-style: italic; font-weight: 300; font-display: swap;
+    src: local('Source Serif 4 Light Italic'), local('SourceSerif4-LightIt'),
+         local('Source Serif Pro Light Italic'), local('SourceSerifPro-LightIt');
+  }
+
+  /* JetBrains Mono — monospace (code / nav) */
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal; font-weight: 400; font-display: swap;
+    src: local('JetBrains Mono'), local('JetBrainsMono-Regular');
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal; font-weight: 600; font-display: swap;
+    src: local('JetBrains Mono SemiBold'), local('JetBrainsMono-SemiBold');
+  }
+</style>
 <style>
   :root {
     --ink: #1a1410;
@@ -451,6 +505,13 @@
     background: var(--paper-warm);
   }
   .quiz-opt:hover { border-color: var(--accent-gold); background: var(--accent-gold-light); }
+  /* After an answer is picked, suppress hover on all remaining options */
+  .quiz-q.answered .quiz-opt:not(.correct):not(.wrong):hover {
+    border-color: var(--border);
+    background: transparent;
+    cursor: default;
+  }
+  .quiz-q.answered .quiz-opt { cursor: default; }
   .quiz-opt.correct { background: var(--accent-green-light); border-color: var(--accent-green); color: var(--accent-green); }
   .quiz-opt.wrong { background: var(--accent-red-light); border-color: var(--accent-red); color: var(--accent-red); }
   .quiz-key { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; min-width: 20px; }
@@ -567,9 +628,9 @@
     <a href="#formulas" data-i18n="nav.formulas">Formulas</a>
     <a href="#quiz" data-i18n="nav.quiz">Quiz</a>
     <div class="lang-switcher">
-      <button class="lang-btn active" data-lang="en" onclick="switchLang('en')">EN</button>
-      <button class="lang-btn" data-lang="th" onclick="switchLang('th')">ไทย</button>
-      <button class="lang-btn" data-lang="zh" onclick="switchLang('zh')">中文</button>
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="th">ไทย</button>
+      <button class="lang-btn" data-lang="zh">中文</button>
     </div>
   </div>
 </nav>
@@ -740,10 +801,10 @@
         </div>
         <table class="data-table" style="margin:0;">
           <tr><th data-i18n="tbl.feature">Feature</th><th>UAV</th><th data-i18n="tbl.satellite">Satellite</th></tr>
-          <tr><td data-i18n="tbl.resolution">Resolution</td><td>mm–cm</td><td>&gt;0.3 m</td></tr>
+          <tr><td data-i18n="tbl.resolution">Resolution</td><td data-i18n="tbl.res.uav">mm–cm</td><td data-i18n="tbl.res.sat">&gt;0.3 m</td></tr>
           <tr><td data-i18n="tbl.cost">Cost</td><td data-i18n="tbl.verylow">Very low</td><td data-i18n="tbl.veryhigh">Very high</td></tr>
-          <tr><td data-i18n="tbl.flighttime">Flight time</td><td>~2 hrs</td><td data-i18n="tbl.continuous">Continuous</td></tr>
-          <tr><td data-i18n="tbl.coverage">Coverage</td><td>~9 km²</td><td data-i18n="tbl.thousands">Thousands km²</td></tr>
+          <tr><td data-i18n="tbl.flighttime">Flight time</td><td data-i18n="tbl.flighttime.uav">~2 hrs</td><td data-i18n="tbl.continuous">Continuous</td></tr>
+          <tr><td data-i18n="tbl.coverage">Coverage</td><td data-i18n="tbl.coverage.uav">~9 km²</td><td data-i18n="tbl.thousands">Thousands km²</td></tr>
           <tr><td data-i18n="tbl.weather">Weather</td><td data-i18n="tbl.limited">Limited</td><td data-i18n="tbl.lessaffect">Less affected</td></tr>
         </table>
       </div>
@@ -1182,9 +1243,18 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             <span data-i18n="kp.workedlecture">WORKED EXAMPLE (FROM LECTURE)</span>
           </strong>
-          Image patch all 10s → Ix = 120, Iy = 120 → M = [[14400, 14400],[14400, 14400]]<br>
+          Step-edge patch (bottom row &amp; right column = 40, rest = 0):<br>
+          <code style="display:inline-block;margin:.35rem 0 .5rem;letter-spacing:.04em;line-height:1.6">
+            &nbsp;0&nbsp;&nbsp;0&nbsp;40<br>
+            &nbsp;0&nbsp;&nbsp;0&nbsp;40<br>
+            40&nbsp;40&nbsp;40
+          </code><br>
+          Sobel X at centre: (−1·0)+(0·0)+(1·40)+(−2·0)+(0·0)+(2·40)+(−1·40)+(0·40)+(1·40) = <strong>Ix = 120</strong><br>
+          Sobel Y at centre: (−1·0)+(−2·0)+(−1·40)+(0·0)+(0·0)+(0·40)+(1·40)+(2·40)+(1·40) = <strong>Iy = 120</strong><br>
+          M = [[Ix², IxIy],[IxIy, Iy²]] = [[14400, 14400],[14400, 14400]]<br>
           det(M − λI) = 0 → λ² − 28800λ = 0 → <strong>λ₁ = 28800, λ₂ = 0</strong><br>
-          Since λ₁ &gt;&gt; λ₂, this is an <strong>EDGE</strong>.
+          Since λ₁ &gt;&gt; λ₂ = 0, this is an <strong>EDGE</strong>.<br>
+          <em style="font-size:.85em;color:var(--ink-muted)">(Note: a truly uniform patch — all pixels identical — gives Ix = Iy = 0 → FLAT. See warning below.)</em>
         </div>
         <div class="warn-point">
           <strong>
@@ -1954,6 +2024,7 @@ const T = {
     'f.dog.lbl':'DoG FORMULA','f.chm.lbl':'CHM FORMULA','f.gcprmse.lbl':'GCP RESIDUAL & RMSE',
     'tbl.feature':'Feature','tbl.satellite':'Satellite','tbl.resolution':'Resolution','tbl.cost':'Cost',
     'tbl.verylow':'Very low','tbl.veryhigh':'Very high','tbl.flighttime':'Flight time',
+    'tbl.res.uav':'mm–cm','tbl.res.sat':'&gt;0.3 m','tbl.flighttime.uav':'~2 hrs','tbl.coverage.uav':'~9 km²',
     'tbl.continuous':'Continuous','tbl.coverage':'Coverage','tbl.thousands':'Thousands km²',
     'tbl.weather':'Weather','tbl.limited':'Limited','tbl.lessaffect':'Less affected',
     'tbl.year':'Year','tbl.milestone':'Milestone','tbl.param':'Parameter','tbl.meaning':'Meaning',
@@ -1993,7 +2064,6 @@ const T = {
     'l1.app3':'Disaster monitoring','l1.app4':'Cadastral (land parcel) surveys',
     'l1.app5':'Infrastructure inspection','l1.app6':'Wildlife conservation',
     'l1.app7':'Archaeological documentation','l1.app8':'Environmental monitoring',
-    'l2.warn':'VERY LIKELY CALCULATION QUESTION',
     'tbl.aspect':'Aspect'
   },
   th: {
@@ -2066,6 +2136,7 @@ const T = {
     'f.dog.lbl':'สูตร DoG','f.chm.lbl':'สูตร CHM','f.gcprmse.lbl':'ค่าคลาดเคลื่อน GCP และ RMSE',
     'tbl.feature':'คุณสมบัติ','tbl.satellite':'ดาวเทียม','tbl.resolution':'ความละเอียด','tbl.cost':'ต้นทุน',
     'tbl.verylow':'ต่ำมาก','tbl.veryhigh':'สูงมาก','tbl.flighttime':'เวลาบิน',
+    'tbl.res.uav':'มม.–ซม.','tbl.res.sat':'&gt;0.3 ม.','tbl.flighttime.uav':'~2 ชม.','tbl.coverage.uav':'~9 กม.²',
     'tbl.continuous':'ต่อเนื่อง','tbl.coverage':'พื้นที่ครอบคลุม','tbl.thousands':'หลายพันกม²',
     'tbl.weather':'สภาพอากาศ','tbl.limited':'จำกัด','tbl.lessaffect':'ได้รับผลกระทบน้อยกว่า',
     'tbl.year':'ปี','tbl.milestone':'เหตุการณ์สำคัญ','tbl.param':'พารามิเตอร์','tbl.meaning':'ความหมาย',
@@ -2176,6 +2247,7 @@ const T = {
     'f.dog.lbl':'DoG公式','f.chm.lbl':'冠层高度模型公式','f.gcprmse.lbl':'GCP残差与RMSE',
     'tbl.feature':'特征','tbl.satellite':'卫星','tbl.resolution':'分辨率','tbl.cost':'成本',
     'tbl.verylow':'极低','tbl.veryhigh':'极高','tbl.flighttime':'飞行时间',
+    'tbl.res.uav':'毫米–厘米','tbl.res.sat':'&gt;0.3 米','tbl.flighttime.uav':'~2 小时','tbl.coverage.uav':'~9 千米²',
     'tbl.continuous':'持续','tbl.coverage':'覆盖范围','tbl.thousands':'数千平方公里',
     'tbl.weather':'天气','tbl.limited':'有限','tbl.lessaffect':'受影响较小',
     'tbl.year':'年份','tbl.milestone':'里程碑','tbl.param':'参数','tbl.meaning':'含义',
@@ -2218,11 +2290,12 @@ const T = {
   }
 };
 
-let currentLang = localStorage.getItem('uav_lang') || 'en';
+let currentLang;
+try { currentLang = localStorage.getItem('uav_lang') || 'en'; } catch(e) { currentLang = 'en'; }
 
 function switchLang(lang) {
   currentLang = lang;
-  localStorage.setItem('uav_lang', lang);
+  try { localStorage.setItem('uav_lang', lang); } catch(e) {}
   document.documentElement.lang = lang;
   const dict = T[lang] || T.en;
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -2236,7 +2309,13 @@ function switchLang(lang) {
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
+  // ── Loading state: fade out quiz while rebuilding ──
+  const qc = document.getElementById('quiz-container');
+  if (qc) { qc.style.opacity = '0.35'; qc.style.transition = 'opacity 0.15s'; }
+  // ── Rebuild quiz in new language (innerHTML='' inside resets all quiz state) ──
   buildQuiz();
+  // ── Fade back in after paint ──
+  if (qc) requestAnimationFrame(() => { qc.style.opacity = '1'; });
   try { lucide.createIcons(); } catch(e) {}
 }
 
@@ -2471,7 +2550,9 @@ function buildQuiz() {
 function checkAnswer(el, qi, oi) {
   const block = el.closest('.quiz-q');
   const opts = block.querySelectorAll('.quiz-opt');
+  // Lock all options: disable pointer events + mark block as answered (kills hover via CSS)
   opts.forEach(o => o.style.pointerEvents = 'none');
+  block.classList.add('answered');
   const correct = (quizDataI18n[currentLang] || quizDataI18n.en)[qi].ans;
   opts[correct].classList.add('correct');
   if (oi !== correct) el.classList.add('wrong');
@@ -2482,9 +2563,21 @@ function checkAnswer(el, qi, oi) {
 
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', () => {
-  switchLang(currentLang);   // restores saved language (or 'en' if none saved)
+  // Wire up language buttons via event listeners (no inline onclick)
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang;
+      if (lang) switchLang(lang);
+    });
+  });
+
+  // Apply saved/default language — switchLang() calls buildQuiz() internally
+  switchLang(currentLang);
+
   try { lucide.createIcons(); } catch(e) {}
 });
 </script>
 </body>
 </html>
+
+
