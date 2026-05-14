@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UAV Remote Sensing — Final Exam Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
   /* ── Offline-safe font stack ──────────────────────────────────────────────
      Uses local() so installed fonts are loaded instantly with no network.
@@ -20,6 +23,16 @@
     font-family: 'Playfair Display';
     font-style: normal; font-weight: 900; font-display: swap;
     src: local('Playfair Display Black'), local('PlayfairDisplay-Black');
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: normal; font-weight: 400; font-display: swap;
+    src: local('Playfair Display'), local('PlayfairDisplay-Regular');
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: italic; font-weight: 400; font-display: swap;
+    src: local('Playfair Display Italic'), local('PlayfairDisplay-Italic');
   }
 
   /* Source Serif 4 — body serif */
@@ -611,6 +624,226 @@
     .hero-stats { gap: 1.5rem; }
     .section { padding: 2.5rem 0; }
   }
+
+  /* ══════════════════════════════════════════════════════════
+     SECTION SUMMARY / CHEAT-SHEET CARDS
+  ══════════════════════════════════════════════════════════ */
+  .section-summary {
+    background: linear-gradient(135deg,#16120e 0%,#24190f 100%);
+    border: 1px solid rgba(201,136,42,0.5);
+    border-left: 4px solid var(--accent-gold);
+    border-radius: 0 8px 8px 0;
+    padding: 1.6rem 2rem 1.8rem;
+    margin: 3rem 0 0;
+  }
+  .summary-header {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em;
+    color: var(--accent-gold);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(201,136,42,0.2);
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1.5rem;
+  }
+  .summary-col h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em;
+    color: rgba(240,236,229,0.45);
+    margin-bottom: 0.6rem; text-transform: uppercase;
+  }
+  .summary-col ul { list-style: none; padding: 0; margin: 0; }
+  .summary-col li {
+    color: rgba(240,236,229,0.82);
+    font-size: 0.845rem; line-height: 1.5;
+    padding: 2px 0 2px 1rem; position: relative;
+  }
+  .summary-col li::before {
+    content: '›'; position: absolute; left: 0;
+    color: var(--accent-gold); font-weight: 700;
+  }
+  .summary-formula {
+    background: rgba(201,136,42,0.12);
+    border-left: 3px solid var(--accent-gold);
+    padding: 5px 10px; margin: 4px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: #f5e9d3;
+    border-radius: 0 3px 3px 0; line-height: 1.6;
+  }
+  .summary-exam {
+    background: rgba(184,50,50,0.1);
+    border-left: 3px solid var(--accent-red);
+    padding: 5px 10px; margin: 4px 0;
+    font-size: 0.82rem; color: rgba(240,236,229,0.85);
+    border-radius: 0 3px 3px 0; line-height: 1.45;
+  }
+  .summary-exam strong { color: #f5baba; }
+
+  /* ══════════════════════════════════════════════════════════
+     FLASHCARD SECTION
+  ══════════════════════════════════════════════════════════ */
+  .flashcard-tabs {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+  .fc-tab {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.05em; padding: 5px 14px; border-radius: 3px;
+    border: 1px solid var(--border-strong); background: transparent;
+    color: var(--ink-muted); cursor: pointer; transition: all 0.2s;
+  }
+  .fc-tab.active, .fc-tab:hover {
+    border-color: var(--accent-blue); color: var(--accent-blue);
+    background: var(--accent-blue-light);
+  }
+  .fc-deck { display: none; }
+  .fc-deck.active { display: grid; }
+  .flashcard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1rem;
+  }
+  .flashcard { perspective: 1000px; height: 170px; cursor: pointer; }
+  .flashcard-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.45s ease; transform-style: preserve-3d;
+  }
+  .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back {
+    position: absolute; inset: 0; border-radius: 8px;
+    padding: 1.1rem 1.2rem; backface-visibility: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .flashcard-front {
+    background: var(--paper-card);
+    border: 1px solid var(--border-strong);
+    box-shadow: var(--shadow);
+  }
+  .flashcard-back {
+    background: var(--ink); color: var(--paper);
+    transform: rotateY(180deg);
+    border: 1px solid var(--accent-gold);
+  }
+  .fc-topic {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .fc-q { font-size: 0.875rem; font-weight: 600; line-height: 1.45; color: var(--ink); }
+  .fc-hint {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    color: var(--accent-gold); margin-top: auto; padding-top: 6px;
+  }
+  .fc-a { font-size: 0.845rem; line-height: 1.55; color: rgba(240,236,229,0.92); }
+  .fc-a strong { color: var(--accent-gold); }
+  .fc-score {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: rgba(240,236,229,0.4); margin-top: auto; padding-top: 6px;
+  }
+  .fc-controls {
+    display: flex; gap: 8px; margin-top: 1.2rem; align-items: center;
+  }
+  .fc-btn {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.04em; padding: 6px 14px; border-radius: 3px;
+    border: 1px solid var(--border-strong); background: var(--paper-card);
+    color: var(--ink-soft); cursor: pointer; transition: all 0.2s;
+  }
+  .fc-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+  .fc-counter {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-muted); margin-left: auto;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     SVG FLOW DIAGRAMS
+  ══════════════════════════════════════════════════════════ */
+  .diagram-wrap {
+    margin: 1.5rem 0; overflow-x: auto;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--paper-card); padding: 1rem;
+  }
+  .diagram-wrap svg { display: block; margin: 0 auto; max-width: 100%; }
+  .diagram-caption {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.06em; color: var(--ink-muted);
+    text-align: center; margin-top: 0.5rem;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     MOBILE RESPONSIVE
+  ══════════════════════════════════════════════════════════ */
+  @media (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; }
+    .sticky-panel { position: static; max-height: none; }
+  }
+  @media (max-width: 768px) {
+    body { font-size: 15px; }
+    .hero { padding: 3.5rem 1.2rem 3rem; }
+    .hero h1 { font-size: clamp(1.6rem,6vw,2.2rem); }
+    .hero-sub { font-size: 1rem; }
+    .hero-stats { gap: 1.5rem; }
+    .hero-stat-num { font-size: 1.6rem; }
+    nav a { font-size: 10px; padding: 12px 10px; }
+    .nav-brand { font-size: 10px; margin-right: 12px; }
+    .container { padding: 0 1rem; }
+    .section { padding: 2.5rem 0; scroll-margin-top: 48px; }
+    .section-num { font-size: 2.2rem; }
+    .section-title { font-size: 1.45rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .formula-box { font-size: 0.82rem; padding: 0.9rem; }
+    .formula-eq { font-size: 0.88rem; overflow-x: auto; white-space: nowrap; }
+    .formula-vars { font-size: 0.78rem; }
+    .data-table { font-size: 0.78rem; display: block; overflow-x: auto; white-space: nowrap; }
+    .key-point, .warn-point, .info-point { font-size: 0.855rem; }
+    .roadmap-label { font-size: 0.85rem; }
+    .roadmap-desc { font-size: 0.82rem; }
+    .section-summary { padding: 1.2rem; }
+    .summary-grid { grid-template-columns: 1fr; }
+    .flashcard-grid { grid-template-columns: 1fr; }
+    .flashcard { height: 180px; }
+    .exam-alert { padding: 1rem 1.2rem; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 2.5rem 1rem 2rem; }
+    .hero-stats { gap: 1rem; }
+    .hero-stat-num { font-size: 1.4rem; }
+    .section-header { flex-direction: column; gap: 0.3rem; }
+    .section-num { font-size: 1.8rem; -webkit-text-stroke: 1.5px var(--ink); }
+    .lang-btn { padding: 4px 7px; font-size: 9px; }
+    .topic-header { padding: 0.9rem 1rem; }
+    .badge { font-size: 9px; padding: 2px 7px; }
+  }
+
+  /* ── Thai language font override ───────────────────────────── */
+  html[lang="th"] body,
+  html[lang="th"] p,
+  html[lang="th"] li,
+  html[lang="th"] td,
+  html[lang="th"] th,
+  html[lang="th"] h1, html[lang="th"] h2, html[lang="th"] h3,
+  html[lang="th"] .section-title,
+  html[lang="th"] .section-subtitle,
+  html[lang="th"] .hero-sub,
+  html[lang="th"] .card-title span,
+  html[lang="th"] .topic-header-title,
+  html[lang="th"] .roadmap-label,
+  html[lang="th"] .roadmap-desc,
+  html[lang="th"] .key-point,
+  html[lang="th"] .warn-point,
+  html[lang="th"] .info-point,
+  html[lang="th"] .exam-alert,
+  html[lang="th"] .formula-vars,
+  html[lang="th"] .formula-label,
+  html[lang="th"] .badge {
+    font-family: 'Sarabun', 'TH SarabunPSK', 'Noto Sans Thai', sans-serif !important;
+  }
+  /* Slightly larger Thai section titles for readability */
+  html[lang="th"] .section-title { font-size: 1.95rem; font-family: 'Sarabun', sans-serif !important; }
+  html[lang="th"] .hero h1       { font-family: 'Sarabun', sans-serif !important; }
 </style>
 </head>
 <body>
@@ -626,6 +859,7 @@
     <a href="#l5" data-i18n="nav.l5">L5: 3D Recon</a>
     <a href="#l6" data-i18n="nav.l6">L6: LiDAR</a>
     <a href="#formulas" data-i18n="nav.formulas">Formulas</a>
+    <a href="#flashcards" data-i18n="nav.fc">Flashcards</a>
     <a href="#quiz" data-i18n="nav.quiz">Quiz</a>
     <div class="lang-switcher">
       <button class="lang-btn active" data-lang="en">EN</button>
@@ -685,50 +919,50 @@
         <div class="roadmap">
           <div class="roadmap-item">
             <div class="roadmap-dot high"></div>
-            <div class="roadmap-label">★★★ LiDAR Mechanisms (L6) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span></div>
-            <div class="roadmap-desc">ToF formula, point density, scanning patterns, pulse characteristics, point cloud formats. Very likely to have both MCQ and calculation questions.</div>
+            <div class="roadmap-label" data-i18n-html="rm.lidar.label">★★★ LiDAR Mechanisms (L6) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span></div>
+            <div class="roadmap-desc" data-i18n="rm.lidar.desc">ToF formula, point density, scanning patterns, pulse characteristics, point cloud formats. Very likely to have both MCQ and calculation questions.</div>
             <div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot high"></div>
-            <div class="roadmap-label">★★★ Collinearity Equation (L5) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span></div>
-            <div class="roadmap-desc">The mathematical backbone of photogrammetry. Forward/backward intersection, rotation matrices. Expect to be given numbers and asked to apply the formula.</div>
+            <div class="roadmap-label" data-i18n-html="rm.collin.label">★★★ Collinearity Equation (L5) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span></div>
+            <div class="roadmap-desc" data-i18n="rm.collin.desc">The mathematical backbone of photogrammetry. Forward/backward intersection, rotation matrices. Expect to be given numbers and asked to apply the formula.</div>
             <div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot high"></div>
-            <div class="roadmap-label">★★★ GSD &amp; Scale (L2) <span class="badge badge-calc">CALC</span></div>
-            <div class="roadmap-desc">GSD formula, scale formula, flight altitude calculation. Classic calculation question — given camera specs, find GSD or flight height.</div>
+            <div class="roadmap-label" data-i18n-html="rm.gsd.label">★★★ GSD &amp; Scale (L2) <span class="badge badge-calc">CALC</span></div>
+            <div class="roadmap-desc" data-i18n="rm.gsd.desc">GSD formula, scale formula, flight altitude calculation. Classic calculation question — given camera specs, find GSD or flight height.</div>
             <div class="progress-bar"><div class="progress-fill" style="width:88%"></div></div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot med"></div>
-            <div class="roadmap-label">★★☆ SIFT Algorithm (L4) <span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span></div>
-            <div class="roadmap-desc">6-step pipeline, DoG detection, 128-dim descriptor, rotation/illumination invariance.</div>
+            <div class="roadmap-label" data-i18n-html="rm.sift.label">★★☆ SIFT Algorithm (L4) <span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span></div>
+            <div class="roadmap-desc" data-i18n="rm.sift.desc">6-step pipeline, DoG detection, 128-dim descriptor, rotation/illumination invariance.</div>
             <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot med"></div>
-            <div class="roadmap-label">★★☆ Harris Corner Detector (L4) <span class="badge badge-calc">CALC</span><span class="badge badge-mcq">MCQ</span></div>
-            <div class="roadmap-desc">Structure tensor, eigenvalue interpretation (flat/edge/corner). Given a pixel window, be ready to compute M matrix and classify the patch.</div>
+            <div class="roadmap-label" data-i18n-html="rm.harris.label">★★☆ Harris Corner Detector (L4) <span class="badge badge-calc">CALC</span><span class="badge badge-mcq">MCQ</span></div>
+            <div class="roadmap-desc" data-i18n="rm.harris.desc">Structure tensor, eigenvalue interpretation (flat/edge/corner). Given a pixel window, be ready to compute M matrix and classify the patch.</div>
             <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot med"></div>
-            <div class="roadmap-label">★★☆ Projection Types (L3) <span class="badge badge-mcq">MCQ</span><span class="badge badge-essay">ESSAY</span></div>
-            <div class="roadmap-desc">Central vs parallel projection, interior/exterior orientation elements, coordinate systems.</div>
+            <div class="roadmap-label" data-i18n-html="rm.proj.label">★★☆ Projection Types (L3) <span class="badge badge-mcq">MCQ</span><span class="badge badge-essay">ESSAY</span></div>
+            <div class="roadmap-desc" data-i18n="rm.proj.desc">Central vs parallel projection, interior/exterior orientation elements, coordinate systems.</div>
             <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot low"></div>
-            <div class="roadmap-label">★☆☆ UAV Platforms &amp; Applications (L1) <span class="badge badge-mcq">MCQ</span></div>
-            <div class="roadmap-desc">Types of UAV, comparison with satellites, applications. Mostly conceptual — good for MCQ.</div>
+            <div class="roadmap-label" data-i18n-html="rm.uav.label">★☆☆ UAV Platforms &amp; Applications (L1) <span class="badge badge-mcq">MCQ</span></div>
+            <div class="roadmap-desc" data-i18n="rm.uav.desc">Types of UAV, comparison with satellites, applications. Mostly conceptual — good for MCQ.</div>
             <div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot low"></div>
-            <div class="roadmap-label">★☆☆ Flight Planning Details (L2) <span class="badge badge-mcq">MCQ</span></div>
-            <div class="roadmap-desc">GCP principles, overlap rationale, Bundle Adjustment concept. Background knowledge that supports calculation questions.</div>
+            <div class="roadmap-label" data-i18n-html="rm.flight.label">★☆☆ Flight Planning Details (L2) <span class="badge badge-mcq">MCQ</span></div>
+            <div class="roadmap-desc" data-i18n="rm.flight.desc">GCP principles, overlap rationale, Bundle Adjustment concept. Background knowledge that supports calculation questions.</div>
             <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
           </div>
         </div>
@@ -872,6 +1106,44 @@
         </table>
       </div>
     </div>
+
+    <!-- ★ SECTION SUMMARY L1 -->
+    <div class="section-summary">
+      <div class="summary-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        SECTION SUMMARY — L1: UAV REMOTE SENSING INTRODUCTION
+      </div>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> Key Terms</h4>
+          <ul>
+            <li>UAV = Unmanned Aerial Vehicle (no human pilot aboard)</li>
+            <li>DRONE = Dynamic Remotely Operated Navigation Equipment</li>
+            <li>Multi-rotor: can hover, short battery life</li>
+            <li>Fixed-wing: cannot hover, wide area coverage</li>
+            <li>Nadir = camera pointing straight down to ground</li>
+            <li>Active RS = emits energy (LiDAR), Passive = receives sunlight</li>
+          </ul>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Key History (MCQ bait)</h4>
+          <ul>
+            <li>1851 — Laussedat: initiator of photogrammetry</li>
+            <li>1858 — Meydenbauer: building documentation</li>
+            <li>1911 — Scheimpflug: aerial photogrammetry</li>
+            <li>1960 — Hughes Aircraft Inc.: first LiDAR</li>
+            <li>1980 — Digital photogrammetry era begins</li>
+          </ul>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Likely Exam Questions</h4>
+          <div class="summary-exam">MCQ: "Which UAV type can hover in place?" → Multi-rotor</div>
+          <div class="summary-exam">MCQ: "What does DRONE stand for?" → Dynamic Remotely Operated Navigation Equipment</div>
+          <div class="summary-exam">MCQ: "UAV advantage over satellite?" → Higher resolution (mm–cm), lower cost, flexible deployment</div>
+          <div class="summary-exam">MCQ: "Who initiated aerial photogrammetry?" → Scheimpflug (1911)</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -906,7 +1178,7 @@
       <div class="formula-eq">GSD = (H × pixel_size) / focal_length</div>
       <div class="formula-vars">H = flight altitude · pixel_size = physical size of one sensor pixel (mm) · focal_length (mm)<br>
       Or equivalently: GSD = pixel_size × (H / f) = pixel_size × scale_denominator<br>
-      ⚠ Units must be consistent — H must be converted to mm (e.g. 175 m → 175,000 mm)</div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:-2px;margin-right:4px;color:var(--accent-gold)"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Units must be consistent — H must be converted to mm (e.g. 175 m → 175,000 mm)</div>
     </div>
 
     <div class="key-point">
@@ -1063,6 +1335,43 @@
         </table>
       </div>
     </div>
+
+    <!-- ★ SECTION SUMMARY L2 -->
+    <div class="section-summary">
+      <div class="summary-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        SECTION SUMMARY — L2: UAV FLIGHT PLANNING &amp; GSD
+      </div>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> Key Terms</h4>
+          <ul>
+            <li>GSD = Ground Sampling Distance (cm/px)</li>
+            <li>Front Overlap (Endlap) = along flight direction ≥ 60%</li>
+            <li>Side Overlap (Sidelap) = between strips ≥ 30%</li>
+            <li>GCP = Ground Control Point (measured with RTK/PPK)</li>
+            <li>Bundle Adjustment = Least Squares joint optimization</li>
+            <li>Residual = Observed − Computed position</li>
+            <li>RTK = real-time, PPK = post-processed corrections</li>
+          </ul>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><path d="M3 21L21 3M3 21h9M3 21V12"/><path d="M12 3h9v9"/></svg> Must-Know Formulas</h4>
+          <div class="summary-formula">Scale: 1:M = f / H &nbsp;→&nbsp; H = f × M</div>
+          <div class="summary-formula">GSD = (H × pixel_size) / focal_length</div>
+          <div class="summary-formula">RMSE_X = √( Σ ΔXᵢ² / n )</div>
+          <div class="summary-formula">RMSE_XY = √( RMSE_X² + RMSE_Y² )</div>
+          <p style="font-size:0.8rem;color:var(--accent-gold);margin-top:6px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:-2px;margin-right:4px;color:var(--accent-gold)"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>H and f must be in the SAME units</p>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Likely Exam Questions</h4>
+          <div class="summary-exam"><strong>CALC:</strong> Sony α7R-III, f=35mm, pixel=0.00452mm, scale 1:5000 → H=175m, GSD=22.6mm/px</div>
+          <div class="summary-exam"><strong>CALC:</strong> Given 4 GCPs with residuals, compute RMSE_X, RMSE_Y, RMSE_XY</div>
+          <div class="summary-exam"><strong>ESSAY:</strong> Why does GCP distribution matter more than quantity?</div>
+          <div class="summary-exam"><strong>MCQ:</strong> RTK vs PPK — which works in remote areas with no radio link?</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1185,6 +1494,46 @@
             <span data-i18n="kp.remember">REMEMBER</span>
           </strong>
           The rotation follows the <strong>Right-Hand Screw Rule</strong>. ω = roll (x-axis), φ = pitch (y-axis), κ = yaw (z-axis).
+        </div>
+      </div>
+    </div>
+
+    <!-- ★ SECTION SUMMARY L3 -->
+    <div class="section-summary">
+      <div class="summary-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 20 2 20"/></svg>
+        SECTION SUMMARY — L3: PROJECTION &amp; COORDINATE SYSTEMS
+      </div>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> Projection Types</h4>
+          <ul>
+            <li><strong>Central (Perspective):</strong> single viewpoint S, perspective distortion, how cameras work</li>
+            <li><strong>Parallel (Orthographic):</strong> parallel rays, no vanishing point, orthophotos use this</li>
+            <li>Key fact: S, image point a, ground point A are always COLLINEAR</li>
+          </ul>
+          <h4 style="margin-top:0.8rem"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Coordinate Systems (3 types)</h4>
+          <ul>
+            <li>Image Space (S-xyz): origin = perspective center S</li>
+            <li>Interior orientation: f, x₀, y₀ (from camera calibration)</li>
+            <li>Exterior orientation: Xs,Ys,Zs (GPS) + ω,φ,κ (IMU) = 6 params</li>
+          </ul>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg> Rotation Angles</h4>
+          <ul>
+            <li>ω (omega) = Roll → rotation about x-axis (IMU)</li>
+            <li>φ (phi) = Pitch → rotation about y-axis (IMU)</li>
+            <li>κ (kappa) = Yaw → rotation about z-axis (IMU)</li>
+            <li>Rule: Right-Hand Screw Rule</li>
+          </ul>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Likely Exam Questions</h4>
+          <div class="summary-exam">MCQ: "Which projection type is used for orthophotos?" → Parallel</div>
+          <div class="summary-exam">MCQ: "How many exterior orientation parameters?" → 6 (3 position + 3 rotation)</div>
+          <div class="summary-exam">ESSAY: "Is the optical axis always vertical?" → NO, tilts with UAV roll/pitch/yaw</div>
+          <div class="summary-exam">ESSAY: Explain difference between interior and exterior orientation</div>
         </div>
       </div>
     </div>
@@ -1337,32 +1686,32 @@
           <div class="roadmap-item">
             <div class="roadmap-dot high"></div>
             <div class="roadmap-label" data-i18n="sift.s1">Step 1 — Scale-Space Construction</div>
-            <div class="roadmap-desc">Build a pyramid of DoG images at multiple scales (σ values)</div>
+            <div class="roadmap-desc" data-i18n="sift.s1.desc">Build a pyramid of DoG images at multiple scales (σ values)</div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot high"></div>
             <div class="roadmap-label" data-i18n="sift.s2">Step 2 — Keypoint Detection</div>
-            <div class="roadmap-desc">Find local extrema (maxima/minima) in DoG scale space — pixels extreme compared to all 26 neighbors</div>
+            <div class="roadmap-desc" data-i18n="sift.s2.desc">Find local extrema (maxima/minima) in DoG scale space — pixels extreme compared to all 26 neighbors</div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot med"></div>
             <div class="roadmap-label" data-i18n="sift.s3">Step 3 — Keypoint Refinement</div>
-            <div class="roadmap-desc">Remove low-contrast points and edge responses. Keep only stable, unique keypoints.</div>
+            <div class="roadmap-desc" data-i18n="sift.s3.desc">Remove low-contrast points and edge responses. Keep only stable, unique keypoints.</div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot med"></div>
             <div class="roadmap-label" data-i18n="sift.s4">Step 4 — Orientation Assignment</div>
-            <div class="roadmap-desc">Build 36-bin orientation histogram (360°). Dominant orientation(s) assigned. θ = arctan(Iy/Ix). Peaks ≥ 80% of max create additional keypoints.</div>
+            <div class="roadmap-desc" data-i18n="sift.s4.desc">Build 36-bin orientation histogram (360°). Dominant orientation(s) assigned. θ = arctan(Iy/Ix). Peaks ≥ 80% of max create additional keypoints.</div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot med"></div>
             <div class="roadmap-label" data-i18n="sift.s5">Step 5 — Feature Descriptor Construction</div>
-            <div class="roadmap-desc">16×16 window → 4×4 sub-blocks → each sub-block gets 8-bin histogram → 16 × 8 = <strong>128 numbers</strong>. Gaussian weighting. Threshold at 0.2 for illumination invariance.</div>
+            <div class="roadmap-desc" data-i18n-html="sift.s5.desc">16×16 window → 4×4 sub-blocks → each sub-block gets 8-bin histogram → 16 × 8 = <strong>128 numbers</strong>. Gaussian weighting. Threshold at 0.2 for illumination invariance.</div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot low"></div>
             <div class="roadmap-label" data-i18n="sift.s6">Step 6 — Feature Matching</div>
-            <div class="roadmap-desc">Use Euclidean distance between 128-dim vectors. Threshold: too high = false positives, too low = false negatives.</div>
+            <div class="roadmap-desc" data-i18n="sift.s6.desc">Use Euclidean distance between 128-dim vectors. Threshold: too high = false positives, too low = false negatives.</div>
           </div>
         </div>
         <div class="key-point">
@@ -1378,6 +1727,46 @@
             <span data-i18n="kp.illumtrick">ILLUMINATION INVARIANCE TRICK</span>
           </strong>
           Any of the 128 values greater than 0.2 is clamped to 0.2, then re-normalized. This prevents strong gradients from dominating.
+        </div>
+      </div>
+    </div>
+
+    <!-- ★ SECTION SUMMARY L4 -->
+    <div class="section-summary">
+      <div class="summary-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        SECTION SUMMARY — L4: FEATURE EXTRACTION &amp; MATCHING
+      </div>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> Harris Corner Detector</h4>
+          <div class="summary-formula">M = Σ [ Ix²  IxIy ; IxIy  Iy² ]</div>
+          <div class="summary-formula">det(M − λI) = 0 → solve λ₁, λ₂</div>
+          <ul style="margin-top:6px">
+            <li>λ₁ ≈ λ₂ ≈ small → <strong>FLAT</strong></li>
+            <li>λ₁ &gt;&gt; λ₂ (or vice versa) → <strong>EDGE</strong></li>
+            <li>λ₁ ≈ λ₂ ≈ large → <strong>CORNER</strong></li>
+            <li>Uniform patch (all same value) → M = 0 → FLAT!</li>
+          </ul>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> SIFT 6 Steps</h4>
+          <ul>
+            <li>① Scale-Space: DoG pyramid at multiple σ</li>
+            <li>② Keypoint Detection: local extrema in 26 neighbors</li>
+            <li>③ Refinement: remove low contrast + edges</li>
+            <li>④ Orientation: 36-bin histogram, θ = arctan(Iy/Ix)</li>
+            <li>⑤ Descriptor: 16×16 → 4×4 blocks × 8 bins = <strong>128D</strong></li>
+            <li>⑥ Matching: Euclidean distance between descriptors</li>
+          </ul>
+          <div class="summary-formula">DoG = L(x,y,kσ) − L(x,y,σ)</div>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Likely Exam Questions</h4>
+          <div class="summary-exam"><strong>CALC:</strong> Given pixel window, compute Ix, Iy using Sobel → M matrix → eigenvalues → classify patch</div>
+          <div class="summary-exam"><strong>CALC:</strong> Uniform image → Ix=Iy=0 → λ₁=λ₂=0 → FLAT (trick question!)</div>
+          <div class="summary-exam"><strong>ESSAY:</strong> Why does SIFT have 128 dimensions? → 16×16 → 4×4 blocks → 8 bins each</div>
+          <div class="summary-exam"><strong>MCQ:</strong> DoG vs LoG → DoG is faster and used in SIFT</div>
         </div>
       </div>
     </div>
@@ -1480,28 +1869,28 @@
         <div class="roadmap">
           <div class="roadmap-item">
             <div class="roadmap-dot high"></div>
-            <div class="roadmap-label">Step 1: Feature detection &amp; matching (SIFT)</div>
-            <div class="roadmap-desc">Find keypoints in overlapping images, create 128-dim descriptors, match across images</div>
+            <div class="roadmap-label" data-i18n="sfm.s1.label">Step 1: Feature detection &amp; matching (SIFT)</div>
+            <div class="roadmap-desc" data-i18n="sfm.s1.desc">Find keypoints in overlapping images, create 128-dim descriptors, match across images</div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot high"></div>
-            <div class="roadmap-label">Step 2: Camera pose estimation (Backward intersection)</div>
-            <div class="roadmap-desc">Solve for exterior orientation parameters using matched keypoints</div>
+            <div class="roadmap-label" data-i18n="sfm.s2.label">Step 2: Camera pose estimation (Backward intersection)</div>
+            <div class="roadmap-desc" data-i18n="sfm.s2.desc">Solve for exterior orientation parameters using matched keypoints</div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot med"></div>
-            <div class="roadmap-label">Step 3: Triangulation → Sparse point cloud</div>
-            <div class="roadmap-desc">Use collinearity equation (forward intersection) to compute 3D position of each matched keypoint</div>
+            <div class="roadmap-label" data-i18n="sfm.s3.label">Step 3: Triangulation → Sparse point cloud</div>
+            <div class="roadmap-desc" data-i18n="sfm.s3.desc">Use collinearity equation (forward intersection) to compute 3D position of each matched keypoint</div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot med"></div>
-            <div class="roadmap-label">Step 4: Bundle Adjustment</div>
-            <div class="roadmap-desc">Least Squares optimization — simultaneously refine camera poses + 3D point positions. Minimizes sum of squared reprojection errors.</div>
+            <div class="roadmap-label" data-i18n="sfm.s4.label">Step 4: Bundle Adjustment</div>
+            <div class="roadmap-desc" data-i18n="sfm.s4.desc">Least Squares optimization — simultaneously refine camera poses + 3D point positions. Minimizes sum of squared reprojection errors.</div>
           </div>
           <div class="roadmap-item">
             <div class="roadmap-dot low"></div>
-            <div class="roadmap-label">Step 5: Multi-View Stereo (MVS) → Dense point cloud</div>
-            <div class="roadmap-desc">Use all images to fill in the gaps — generates millions of points instead of just keypoints</div>
+            <div class="roadmap-label" data-i18n="sfm.s5.label">Step 5: Multi-View Stereo (MVS) → Dense point cloud</div>
+            <div class="roadmap-desc" data-i18n="sfm.s5.desc">Use all images to fill in the gaps — generates millions of points instead of just keypoints</div>
           </div>
         </div>
         <div class="key-point">
@@ -1510,6 +1899,95 @@
             <span data-i18n="kp.sparsedense">SPARSE vs DENSE POINT CLOUD</span>
           </strong>
           Sparse = only keypoints (SIFT features). Dense = full surface via MVS. Dense has orders of magnitude more points.
+        </div>
+      </div>
+    </div>
+
+
+    <!-- SfM Pipeline Diagram -->
+    <div class="workflow-diagram-container" style="margin:2rem 0;">
+      <div class="diagram-title" style="text-align:center;font-weight:700;font-size:1.05rem;margin-bottom:1rem;color:var(--accent);">SfM Pipeline Workflow</div>
+      <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:320px;display:block;">
+        <!-- Step 1: Feature Detection -->
+        <rect x="10" y="30" width="120" height="60" rx="10" fill="#3b7dd8" opacity="0.9"/>
+        <text x="70" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">① Feature</text>
+        <text x="70" y="70" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Detection</text>
+        <text x="70" y="84" text-anchor="middle" fill="#cce0ff" font-size="9">(SIFT/ORB)</text>
+        <!-- Arrow 1→2 -->
+        <line x1="130" y1="60" x2="158" y2="60" stroke="#888" stroke-width="2" marker-end="url(#arr)"/>
+        <!-- Step 2: Camera Pose -->
+        <rect x="160" y="30" width="120" height="60" rx="10" fill="#c8960c" opacity="0.9"/>
+        <text x="220" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">② Camera</text>
+        <text x="220" y="70" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Pose Estim.</text>
+        <text x="220" y="84" text-anchor="middle" fill="#fff2cc" font-size="9">(Homography)</text>
+        <!-- Arrow 2→3 -->
+        <line x1="280" y1="60" x2="308" y2="60" stroke="#888" stroke-width="2" marker-end="url(#arr)"/>
+        <!-- Step 3: Sparse Point Cloud -->
+        <rect x="310" y="30" width="120" height="60" rx="10" fill="#7b5ea7" opacity="0.9"/>
+        <text x="370" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">③ Sparse</text>
+        <text x="370" y="70" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Point Cloud</text>
+        <text x="370" y="84" text-anchor="middle" fill="#e8d8ff" font-size="9">(Triangulation)</text>
+        <!-- Arrow 3→4 -->
+        <line x1="430" y1="60" x2="458" y2="60" stroke="#888" stroke-width="2" marker-end="url(#arr)"/>
+        <!-- Step 4: Bundle Adjustment -->
+        <rect x="460" y="30" width="120" height="60" rx="10" fill="#c0392b" opacity="0.9"/>
+        <text x="520" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">④ Bundle</text>
+        <text x="520" y="70" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Adjustment</text>
+        <text x="520" y="84" text-anchor="middle" fill="#ffd6d6" font-size="9">(Optimise R,t)</text>
+        <!-- Arrow 4→5 -->
+        <line x1="580" y1="60" x2="608" y2="60" stroke="#888" stroke-width="2" marker-end="url(#arr)"/>
+        <!-- Step 5: Dense Point Cloud -->
+        <rect x="610" y="30" width="100" height="60" rx="10" fill="#27ae60" opacity="0.9"/>
+        <text x="660" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">⑤ Dense</text>
+        <text x="660" y="70" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Point Cloud</text>
+        <text x="660" y="84" text-anchor="middle" fill="#ccffdd" font-size="9">(MVS)</text>
+        <!-- Arrowhead marker -->
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L8,3 z" fill="#888"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- ★ SECTION SUMMARY L5 -->
+    <div class="section-summary">
+      <div class="summary-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        SECTION SUMMARY — L5: 3D RECONSTRUCTION &amp; COLLINEARITY
+      </div>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><path d="M3 21L21 3M3 21h9M3 21V12"/><path d="M12 3h9v9"/></svg> Collinearity Equation</h4>
+          <div class="summary-formula">x − x₀ = −f · [a₁ΔX + b₁ΔY + c₁ΔZ] / [a₃ΔX + b₃ΔY + c₃ΔZ]</div>
+          <div class="summary-formula">y − y₀ = −f · [a₂ΔX + b₂ΔY + c₂ΔZ] / [a₃ΔX + b₃ΔY + c₃ΔZ]</div>
+          <ul style="margin-top:6px">
+            <li>a₁..c₃ = rotation matrix R (from ω,φ,κ)</li>
+            <li>ΔX = XA−Xs, ΔY = YA−Ys, ΔZ = ZA−Zs</li>
+            <li>"1 line, 3 points": S, image a, ground A collinear</li>
+          </ul>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> Intersection Methods</h4>
+          <ul>
+            <li><strong>Backward:</strong> Known GCPs → find camera pose (6 unknowns)</li>
+            <li><strong>Forward:</strong> Known cameras → find ground point (3 unknowns)</li>
+            <li>Each GCP gives 2 equations (x and y)</li>
+            <li>Min 3 non-collinear GCPs for backward</li>
+            <li>Min 2 stereo images for forward</li>
+          </ul>
+          <h4 style="margin-top:0.8rem"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg> SfM Pipeline</h4>
+          <ul>
+            <li>SIFT → Backward → Triangulation → BA → MVS (Dense)</li>
+            <li>Sparse = keypoints only; Dense = full surface</li>
+          </ul>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Likely Exam Questions</h4>
+          <div class="summary-exam"><strong>ESSAY:</strong> Backward vs Forward Intersection — what is known, what is unknown?</div>
+          <div class="summary-exam"><strong>ESSAY:</strong> What does Bundle Adjustment minimize? → sum of squared reprojection errors</div>
+          <div class="summary-exam"><strong>MCQ:</strong> SfM step order: Feature Detection → Pose Estimation → Triangulation → BA → MVS</div>
+          <div class="summary-exam"><strong>CONCEPT:</strong> Why ≥3 non-collinear GCPs? → 3 GCPs × 2 equations = 6 → solve 6 unknowns</div>
         </div>
       </div>
     </div>
@@ -1534,6 +2012,63 @@
       LiDAR is an <strong>active</strong> remote sensing technology that measures distance with reflected laser light. First developed in 1960 by Hughes Aircraft Inc. Modern use enabled by DGPS and fast computers.
     </div>
 
+
+      <!-- LiDAR Workflow Diagram -->
+      <div class="diagram-wrap" style="margin: 0 0 2rem;">
+        <svg viewBox="0 0 860 160" xmlns="http://www.w3.org/2000/svg" style="min-width:620px;font-family:JetBrains Mono,monospace;">
+          <rect width="860" height="160" fill="transparent"/>
+          <!-- Row 1: Hardware -->
+          <text x="430" y="18" text-anchor="middle" fill="#7a6f65" font-size="9.5" font-weight="600" letter-spacing="1">HARDWARE COMPONENTS</text>
+          <rect x="10" y="24" width="120" height="56" rx="5" fill="#ddeaf8" stroke="#1d5fa0" stroke-width="1.5"/>
+          <text x="70" y="47" text-anchor="middle" fill="#1d5fa0" font-size="10.5" font-weight="700">GPS/GNSS</text>
+          <text x="70" y="63" text-anchor="middle" fill="#1d5fa0" font-size="9">Position Xs,Ys,Zs</text>
+          <text x="70" y="75" text-anchor="middle" fill="#1d5fa0" font-size="9">(needs DGPS)</text>
+          <rect x="145" y="24" width="120" height="56" rx="5" fill="#f5e9d3" stroke="#c9882a" stroke-width="1.5"/>
+          <text x="205" y="47" text-anchor="middle" fill="#c9882a" font-size="10.5" font-weight="700">IMU</text>
+          <text x="205" y="63" text-anchor="middle" fill="#c9882a" font-size="9">Orientation ω,φ,κ</text>
+          <text x="205" y="75" text-anchor="middle" fill="#c9882a" font-size="9">(Roll, Pitch, Yaw)</text>
+          <rect x="280" y="24" width="120" height="56" rx="5" fill="#dff0e8" stroke="#2d7a4f" stroke-width="1.5"/>
+          <text x="340" y="47" text-anchor="middle" fill="#2d7a4f" font-size="10.5" font-weight="700">LASER SCANNER</text>
+          <text x="340" y="63" text-anchor="middle" fill="#2d7a4f" font-size="9">ToF pulse emission</text>
+          <text x="340" y="75" text-anchor="middle" fill="#2d7a4f" font-size="9">d = c×T/2</text>
+          <!-- Arrow hardware → point cloud -->
+          <line x1="400" y1="52" x2="430" y2="52" stroke="#888" stroke-width="1.5"/>
+          <polygon points="430,47 440,52 430,57" fill="#888"/>
+          <!-- Point cloud box -->
+          <rect x="440" y="24" width="130" height="56" rx="5" fill="#ece5fa" stroke="#5c3d99" stroke-width="1.5"/>
+          <text x="505" y="45" text-anchor="middle" fill="#5c3d99" font-size="10.5" font-weight="700">3D POINT CLOUD</text>
+          <text x="505" y="60" text-anchor="middle" fill="#5c3d99" font-size="9">X,Y,Z + Intensity</text>
+          <text x="505" y="72" text-anchor="middle" fill="#5c3d99" font-size="9">+ Return# + Class</text>
+          <!-- Arrow → classification -->
+          <line x1="570" y1="52" x2="595" y2="52" stroke="#888" stroke-width="1.5"/>
+          <polygon points="595,47 605,52 595,57" fill="#888"/>
+          <!-- Classification box -->
+          <rect x="605" y="24" width="120" height="56" rx="5" fill="#fce9e9" stroke="#b83232" stroke-width="1.5"/>
+          <text x="665" y="45" text-anchor="middle" fill="#b83232" font-size="10.5" font-weight="700">CLASSIFICATION</text>
+          <text x="665" y="60" text-anchor="middle" fill="#b83232" font-size="9">Ground / Veg /</text>
+          <text x="665" y="72" text-anchor="middle" fill="#b83232" font-size="9">Building / Water</text>
+          <!-- Row 2: Products -->
+          <text x="430" y="105" text-anchor="middle" fill="#7a6f65" font-size="9.5" font-weight="600" letter-spacing="1">DATA PRODUCTS</text>
+          <rect x="220" y="112" width="120" height="40" rx="5" fill="#e6f1fb" stroke="#1d5fa0" stroke-width="1.5"/>
+          <text x="280" y="128" text-anchor="middle" fill="#1d5fa0" font-size="10.5" font-weight="700">DSM</text>
+          <text x="280" y="142" text-anchor="middle" fill="#1d5fa0" font-size="9">All surfaces (1st return)</text>
+          <rect x="360" y="112" width="120" height="40" rx="5" fill="#dff0e8" stroke="#2d7a4f" stroke-width="1.5"/>
+          <text x="420" y="128" text-anchor="middle" fill="#2d7a4f" font-size="10.5" font-weight="700">DTM</text>
+          <text x="420" y="142" text-anchor="middle" fill="#2d7a4f" font-size="9">Bare earth (ground)</text>
+          <rect x="500" y="112" width="140" height="40" rx="5" fill="#f5e9d3" stroke="#c9882a" stroke-width="1.5"/>
+          <text x="570" y="128" text-anchor="middle" fill="#c9882a" font-size="10.5" font-weight="700">CHM = DSM−DTM</text>
+          <text x="570" y="142" text-anchor="middle" fill="#c9882a" font-size="9">Vegetation height</text>
+          <!-- Arrows from classification down -->
+          <line x1="665" y1="80" x2="665" y2="105" stroke="#888" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="665" y1="105" x2="280" y2="105" stroke="#888" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="665" y1="105" x2="420" y2="105" stroke="#888" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="665" y1="105" x2="570" y2="105" stroke="#888" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="280" y1="105" x2="280" y2="112" stroke="#888" stroke-width="1.5"/>
+          <line x1="420" y1="105" x2="420" y2="112" stroke="#888" stroke-width="1.5"/>
+          <line x1="570" y1="105" x2="570" y2="112" stroke="#888" stroke-width="1.5"/>
+        </svg>
+        <div class="diagram-caption">LiDAR System: Hardware → Point Cloud → Classification → Data Products</div>
+      </div>
     <div class="formula-box">
       <div class="formula-label" data-i18n="f.tof.lbl">TIME-OF-FLIGHT (ToF) FORMULA — THE CORE OF LiDAR</div>
       <div class="formula-eq">Distance = (c × T) / 2</div>
@@ -1825,6 +2360,48 @@
         </ul>
       </div>
     </div>
+
+    <!-- ★ SECTION SUMMARY L6 -->
+    <div class="section-summary">
+      <div class="summary-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        SECTION SUMMARY — L6: LiDAR — LIGHT DETECTION &amp; RANGING
+      </div>
+      <div class="summary-grid">
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><path d="M3 21L21 3M3 21h9M3 21V12"/><path d="M12 3h9v9"/></svg> Must-Know Formulas</h4>
+          <div class="summary-formula">Distance = (c × T) / 2 &nbsp;&nbsp;[c = 3×10⁸ m/s]</div>
+          <div class="summary-formula">X = Xs − r·cos(φ)·cos(θ)</div>
+          <div class="summary-formula">Y = Ys − r·cos(φ)·sin(θ)</div>
+          <div class="summary-formula">Z = Zs − r·sin(φ)</div>
+          <div class="summary-formula">Point Density D = N / A &nbsp;(pts/m²)</div>
+          <div class="summary-formula">Beam Footprint: D = θ × L</div>
+          <div class="summary-formula">CHM = DSM − DTM</div>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> Scanning Patterns</h4>
+          <ul>
+            <li><strong>Oscillating Mirror:</strong> Z-pattern, non-uniform at edges, highest resolution</li>
+            <li><strong>Polygonal Mirror:</strong> parallel lines, uniform, FASTEST for large area</li>
+            <li><strong>Palmer (Elliptical):</strong> elliptical loops, variable density</li>
+          </ul>
+          <h4 style="margin-top:0.8rem"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg> Surface Models</h4>
+          <ul>
+            <li>DSM = all surfaces (first return)</li>
+            <li>DTM = bare earth only (ground classified)</li>
+            <li>CHM = DSM − DTM = vegetation height</li>
+          </ul>
+        </div>
+        <div class="summary-col">
+          <h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15" style="vertical-align:-2px;margin-right:5px;opacity:.85"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Likely Exam Questions</h4>
+          <div class="summary-exam"><strong>CALC:</strong> T=2μs → Distance = (3×10⁸ × 2×10⁻⁶)/2 = 300m</div>
+          <div class="summary-exam"><strong>CALC:</strong> Pulse=200kHz, speed=50m/s, width=200m → Density = 20pts/m²</div>
+          <div class="summary-exam"><strong>CALC:</strong> θ=0.3mrad, H=500m → beam footprint D = 15cm</div>
+          <div class="summary-exam"><strong>ESSAY:</strong> Compare Oscillating vs Polygonal Mirror — which for large area? Polygonal!</div>
+          <div class="summary-exam"><strong>MCQ:</strong> Multiple returns → 1st=canopy top, last=ground below vegetation</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1932,6 +2509,36 @@
   </div>
 </section>
 
+<!-- FLASHCARDS -->
+<section class="section" id="flashcards">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">FC</div>
+      <div>
+        <div class="section-title" data-i18n="fc.title">Flashcards — Quick Review</div>
+        <div class="section-subtitle" data-i18n="fc.subtitle">CLICK A CARD TO FLIP · COVERS ALL 6 LECTURES</div>
+      </div>
+    </div>
+
+    <div class="flashcard-tabs">
+      <button class="fc-tab active" data-deck="all">All (24)</button>
+      <button class="fc-tab" data-deck="calc">Calculations</button>
+      <button class="fc-tab" data-deck="concepts">Concepts</button>
+      <button class="fc-tab" data-deck="formulas">Formulas</button>
+    </div>
+
+    <div class="fc-controls">
+      <button class="fc-btn" onclick="shuffleFlashcards()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14" style="vertical-align:-1px;margin-right:5px"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>Shuffle</button>
+      <button class="fc-btn" onclick="flipAllCards()">↩ Flip All</button>
+      <button class="fc-btn" onclick="resetFlashcards()">↺ Reset</button>
+      <span class="fc-counter" id="fc-counter">0 / 24 flipped</span>
+    </div>
+
+    <div id="fc-container" class="flashcard-grid" style="margin-top:1.2rem;"></div>
+  </div>
+</section>
+
+
 <!-- QUIZ -->
 <section class="section" id="quiz">
   <div class="container">
@@ -2028,7 +2635,7 @@ const T = {
     'tbl.continuous':'Continuous','tbl.coverage':'Coverage','tbl.thousands':'Thousands km²',
     'tbl.weather':'Weather','tbl.limited':'Limited','tbl.lessaffect':'Less affected',
     'tbl.year':'Year','tbl.milestone':'Milestone','tbl.param':'Parameter','tbl.meaning':'Meaning',
-    'tbl.providedby':'Provided by','tbl.aspect':'Aspect','tbl.operation':'Operation',
+    'tbl.providedby':'Provided by','tbl.aspect':'Aspect','nav.fc':'Flashcards','fc.title':'Flashcards — Quick Review','fc.subtitle':'CLICK A CARD TO FLIP · COVERS ALL 6 LECTURES','tbl.operation':'Operation',
     'tbl.speed':'Speed','tbl.slower':'Slower','tbl.faster':'Faster','tbl.noise':'Noise',
     'tbl.moresens':'More sensitive','tbl.morerobust':'More robust','tbl.usedin':'Used in SIFT',
     'tbl.theory':'Theory only','tbl.practical':'Practical implementation',
@@ -2064,7 +2671,43 @@ const T = {
     'l1.app3':'Disaster monitoring','l1.app4':'Cadastral (land parcel) surveys',
     'l1.app5':'Infrastructure inspection','l1.app6':'Wildlife conservation',
     'l1.app7':'Archaeological documentation','l1.app8':'Environmental monitoring',
-    'tbl.aspect':'Aspect'
+    'tbl.aspect':'Aspect','nav.fc':'Flashcards','fc.title':'Flashcards — Quick Review','fc.subtitle':'CLICK A CARD TO FLIP · COVERS ALL 6 LECTURES',
+    // Roadmap labels
+    'rm.lidar.label':'★★★ LiDAR Mechanisms (L6) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span>',
+    'rm.collin.label':'★★★ Collinearity Equation (L5) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span>',
+    'rm.gsd.label':'★★★ GSD &amp; Scale (L2) <span class="badge badge-calc">CALC</span>',
+    'rm.sift.label':'★★☆ SIFT Algorithm (L4) <span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span>',
+    'rm.harris.label':'★★☆ Harris Corner Detector (L4) <span class="badge badge-calc">CALC</span><span class="badge badge-mcq">MCQ</span>',
+    'rm.proj.label':'★★☆ Projection Types (L3) <span class="badge badge-mcq">MCQ</span><span class="badge badge-essay">ESSAY</span>',
+    'rm.uav.label':'★☆☆ UAV Platforms &amp; Applications (L1) <span class="badge badge-mcq">MCQ</span>',
+    'rm.flight.label':'★☆☆ Flight Planning Details (L2) <span class="badge badge-mcq">MCQ</span>',
+    // Roadmap descriptions
+    'rm.lidar.desc':'ToF formula, point density, scanning patterns, pulse characteristics, point cloud formats. Very likely to have both MCQ and calculation questions.',
+    'rm.collin.desc':'The mathematical backbone of photogrammetry. Forward/backward intersection, rotation matrices. Expect to be given numbers and asked to apply the formula.',
+    'rm.gsd.desc':'GSD formula, scale formula, flight altitude calculation. Classic calculation question — given camera specs, find GSD or flight height.',
+    'rm.sift.desc':'6-step pipeline, DoG detection, 128-dim descriptor, rotation/illumination invariance.',
+    'rm.harris.desc':'Structure tensor, eigenvalue interpretation (flat/edge/corner). Given a pixel window, be ready to compute M matrix and classify the patch.',
+    'rm.proj.desc':'Central vs parallel projection, interior/exterior orientation elements, coordinate systems.',
+    'rm.uav.desc':'Types of UAV, comparison with satellites, applications. Mostly conceptual — good for MCQ.',
+    'rm.flight.desc':'GCP principles, overlap rationale, Bundle Adjustment concept. Background knowledge that supports calculation questions.',
+    // SIFT step descriptions
+    'sift.s1.desc':'Build a pyramid of DoG images at multiple scales (σ values)',
+    'sift.s2.desc':'Find local extrema (maxima/minima) in DoG scale space — pixels extreme compared to all 26 neighbors',
+    'sift.s3.desc':'Remove low-contrast points and edge responses. Keep only stable, unique keypoints.',
+    'sift.s4.desc':'Build 36-bin orientation histogram (360°). Dominant orientation(s) assigned. θ = arctan(Iy/Ix). Peaks ≥ 80% of max create additional keypoints.',
+    'sift.s5.desc':'16×16 window → 4×4 sub-blocks → each sub-block gets 8-bin histogram → 16 × 8 = <strong>128 numbers</strong>. Gaussian weighting. Threshold at 0.2 for illumination invariance.',
+    'sift.s6.desc':'Use Euclidean distance between 128-dim vectors. Threshold: too high = false positives, too low = false negatives.',
+    // SfM steps
+    'sfm.s1.label':'Step 1: Feature detection &amp; matching (SIFT)',
+    'sfm.s1.desc':'Find keypoints in overlapping images, create 128-dim descriptors, match across images',
+    'sfm.s2.label':'Step 2: Camera pose estimation (Backward intersection)',
+    'sfm.s2.desc':'Solve for exterior orientation parameters using matched keypoints',
+    'sfm.s3.label':'Step 3: Triangulation → Sparse point cloud',
+    'sfm.s3.desc':'Use collinearity equation (forward intersection) to compute 3D position of each matched keypoint',
+    'sfm.s4.label':'Step 4: Bundle Adjustment',
+    'sfm.s4.desc':'Least Squares optimization — simultaneously refine camera poses + 3D point positions. Minimizes sum of squared reprojection errors.',
+    'sfm.s5.label':'Step 5: Multi-View Stereo (MVS) → Dense point cloud',
+    'sfm.s5.desc':'Use all images to fill in the gaps — generates millions of points instead of just keypoints',
   },
   th: {
     'nav.brand':'UAV RS · เตรียมสอบ','nav.overview':'ภาพรวม','nav.l1':'L1: บทนำ','nav.l2':'L2: การบิน','nav.l3':'L3: การฉาย','nav.l4':'L4: ฟีเจอร์','nav.l5':'L5: 3D','nav.l6':'L6: ไลดาร์','nav.formulas':'สูตร','nav.quiz':'แบบทดสอบ',
@@ -2175,7 +2818,43 @@ const T = {
     'l1.app1':'DEM และการทำแผนที่ 3D','l1.app2':'เกษตรกรรม (ตรวจสอบพืชผล)',
     'l1.app3':'ติดตามภัยพิบัติ','l1.app4':'สำรวจที่ดิน (โฉนด)',
     'l1.app5':'ตรวจสอบโครงสร้างพื้นฐาน','l1.app6':'อนุรักษ์สัตว์ป่า',
-    'l1.app7':'บันทึกทางโบราณคดี','l1.app8':'ติดตามสิ่งแวดล้อม'
+    'l1.app7':'บันทึกทางโบราณคดี','l1.app8':'ติดตามสิ่งแวดล้อม','nav.fc':'แฟลชการ์ด','fc.title':'แฟลชการ์ด — ทบทวนเร็ว','fc.subtitle':'คลิกการ์ดเพื่อพลิก · ครอบคลุมทั้ง 6 บทเรียน',
+    // Roadmap labels
+    'rm.lidar.label':'★★★ กลไกไลดาร์ (L6) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span>',
+    'rm.collin.label':'★★★ สมการเส้นตรงร่วม (L5) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span>',
+    'rm.gsd.label':'★★★ GSD และมาตราส่วน (L2) <span class="badge badge-calc">CALC</span>',
+    'rm.sift.label':'★★☆ อัลกอริทึม SIFT (L4) <span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span>',
+    'rm.harris.label':'★★☆ Harris Corner Detector (L4) <span class="badge badge-calc">CALC</span><span class="badge badge-mcq">MCQ</span>',
+    'rm.proj.label':'★★☆ ประเภทการฉายภาพ (L3) <span class="badge badge-mcq">MCQ</span><span class="badge badge-essay">ESSAY</span>',
+    'rm.uav.label':'★☆☆ แพลตฟอร์มและการประยุกต์ UAV (L1) <span class="badge badge-mcq">MCQ</span>',
+    'rm.flight.label':'★☆☆ รายละเอียดการวางแผนบิน (L2) <span class="badge badge-mcq">MCQ</span>',
+    // Roadmap descriptions
+    'rm.lidar.desc':'สูตร ToF, ความหนาแน่นจุด, รูปแบบการสแกน, คุณสมบัติพัลส์, รูปแบบ point cloud น่าจะมีทั้ง MCQ และคำถามคำนวณ',
+    'rm.collin.desc':'กระดูกสันหลังทางคณิตศาสตร์ของการวัดภาพถ่าย การตัดกันหน้า/หลัง, เมทริกซ์การหมุน คาดว่าจะต้องนำตัวเลขมาประยุกต์สูตร',
+    'rm.gsd.desc':'สูตร GSD, สูตรมาตราส่วน, การคำนวณความสูงบิน คำถามคำนวณคลาสสิก — ให้สเปคกล้อง หา GSD หรือความสูงบิน',
+    'rm.sift.desc':'ขั้นตอน 6 ขั้น, การตรวจจับ DoG, ตัวอธิบาย 128 มิติ, ความคงทนต่อการหมุน/แสง',
+    'rm.harris.desc':'Structure tensor, การแปลค่าไอเกน (พื้นราบ/ขอบ/มุม) ให้กรอบพิกเซล พร้อมคำนวณเมทริกซ์ M และจำแนกประเภท',
+    'rm.proj.desc':'การฉายแบบกึ่งกลางเทียบกับขนาน, องค์ประกอบการวางแนวภายใน/ภายนอก, ระบบพิกัด',
+    'rm.uav.desc':'ประเภทของ UAV, การเปรียบเทียบกับดาวเทียม, การประยุกต์ใช้ ส่วนใหญ่เป็นแนวคิด เหมาะสำหรับ MCQ',
+    'rm.flight.desc':'หลักการ GCP, เหตุผลการซ้อนทับ, แนวคิด Bundle Adjustment ความรู้พื้นฐานที่สนับสนุนคำถามคำนวณ',
+    // SIFT step descriptions
+    'sift.s1.desc':'สร้างพีระมิดของภาพ DoG ในหลายมาตราส่วน (ค่า σ)',
+    'sift.s2.desc':'หาค่าสุดขีดในพื้นที่ (สูงสุด/ต่ำสุด) ใน DoG scale space — พิกเซลที่สุดขีดเมื่อเทียบกับ 26 เพื่อนบ้าน',
+    'sift.s3.desc':'ลบจุดที่คอนทราสต์ต่ำและการตอบสนองขอบออก เก็บเฉพาะจุดสำคัญที่เสถียรและไม่ซ้ำกัน',
+    'sift.s4.desc':'สร้างฮิสโตแกรมทิศทาง 36 bin (360°) กำหนดทิศทางหลัก θ = arctan(Iy/Ix) ยอดที่ ≥ 80% ของค่าสูงสุดสร้างจุดสำคัญเพิ่มเติม',
+    'sift.s5.desc':'หน้าต่าง 16×16 → บล็อกย่อย 4×4 → แต่ละบล็อกได้ฮิสโตแกรม 8 bin → 16 × 8 = <strong>128 ตัวเลข</strong>. การถ่วงน้ำหนักแบบเกาส์ ตัดที่ 0.2 สำหรับความคงทนต่อแสง',
+    'sift.s6.desc':'ใช้ระยะทางยูคลิดระหว่างเวกเตอร์ 128 มิติ เกณฑ์: สูงเกินไป = ผลบวกเท็จ, ต่ำเกินไป = ผลลบเท็จ',
+    // SfM steps
+    'sfm.s1.label':'ขั้น 1: การตรวจจับและจับคู่ฟีเจอร์ (SIFT)',
+    'sfm.s1.desc':'หาจุดสำคัญในภาพที่ซ้อนทับ, สร้างตัวอธิบาย 128 มิติ, จับคู่ระหว่างภาพ',
+    'sfm.s2.label':'ขั้น 2: การประมาณตำแหน่งกล้อง (Backward intersection)',
+    'sfm.s2.desc':'แก้หาพารามิเตอร์การวางแนวภายนอกโดยใช้จุดสำคัญที่จับคู่แล้ว',
+    'sfm.s3.label':'ขั้น 3: การตรีโกณมิติ → Sparse point cloud',
+    'sfm.s3.desc':'ใช้สมการเส้นตรงร่วม (ทางแยกหน้า) คำนวณตำแหน่ง 3D ของแต่ละจุดสำคัญที่จับคู่แล้ว',
+    'sfm.s4.label':'ขั้น 4: Bundle Adjustment',
+    'sfm.s4.desc':'การปรับแต่งกำลังสองน้อยสุด — ปรับตำแหน่งกล้องและตำแหน่งจุด 3D พร้อมกัน ลดผลรวมกำลังสองของค่าผิดพลาดการฉาย',
+    'sfm.s5.label':'ขั้น 5: Multi-View Stereo (MVS) → Dense point cloud',
+    'sfm.s5.desc':'ใช้ภาพทั้งหมดเพื่อเติมส่วนที่ขาด — สร้างจุดหลายล้านจุดแทนที่จะเป็นแค่จุดสำคัญ',
   },
   zh: {
     'nav.brand':'UAV RS · 考试准备','nav.overview':'概览','nav.l1':'L1: 简介','nav.l2':'L2: 飞行','nav.l3':'L3: 投影','nav.l4':'L4: 特征','nav.l5':'L5: 三维重建','nav.l6':'L6: 激光雷达','nav.formulas':'公式','nav.quiz':'测验',
@@ -2286,9 +2965,249 @@ const T = {
     'l1.app1':'DEM与三维制图','l1.app2':'农业（作物/杂草监测）',
     'l1.app3':'灾害监测','l1.app4':'地籍（地块）测量',
     'l1.app5':'基础设施检查','l1.app6':'野生动物保护',
-    'l1.app7':'考古记录','l1.app8':'环境监测'
+    'l1.app7':'考古记录','l1.app8':'环境监测','nav.fc':'闪卡','fc.title':'闪卡 — 快速复习','fc.subtitle':'点击翻转 · 涵盖全部6讲',
+    // Roadmap labels
+    'rm.lidar.label':'★★★ 激光雷达机制 (L6) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span>',
+    'rm.collin.label':'★★★ 共线方程 (L5) <span class="badge badge-calc">CALC</span><span class="badge badge-essay">ESSAY</span>',
+    'rm.gsd.label':'★★★ GSD与比例尺 (L2) <span class="badge badge-calc">CALC</span>',
+    'rm.sift.label':'★★☆ SIFT算法 (L4) <span class="badge badge-essay">ESSAY</span><span class="badge badge-mcq">MCQ</span>',
+    'rm.harris.label':'★★☆ Harris角点检测器 (L4) <span class="badge badge-calc">CALC</span><span class="badge badge-mcq">MCQ</span>',
+    'rm.proj.label':'★★☆ 投影类型 (L3) <span class="badge badge-mcq">MCQ</span><span class="badge badge-essay">ESSAY</span>',
+    'rm.uav.label':'★☆☆ 无人机平台与应用 (L1) <span class="badge badge-mcq">MCQ</span>',
+    'rm.flight.label':'★☆☆ 飞行规划详情 (L2) <span class="badge badge-mcq">MCQ</span>',
+    // Roadmap descriptions
+    'rm.lidar.desc':'ToF公式、点密度、扫描模式、脉冲特性、点云格式。很可能同时出现MCQ和计算题。',
+    'rm.collin.desc':'摄影测量的数学核心。前方/后方交会，旋转矩阵。预计会给出数字并要求代入公式计算。',
+    'rm.gsd.desc':'GSD公式、比例尺公式、飞行高度计算。经典计算题——给定相机参数，求GSD或飞行高度。',
+    'rm.sift.desc':'6步流程，DoG检测，128维描述符，旋转/光照不变性。',
+    'rm.harris.desc':'结构张量，特征值解释（平坦/边缘/角点）。给定像素窗口，准备计算M矩阵并分类。',
+    'rm.proj.desc':'中心投影与平行投影，内/外方位元素，坐标系。',
+    'rm.uav.desc':'无人机类型，与卫星的比较，应用。主要是概念性内容，适合选择题。',
+    'rm.flight.desc':'GCP原理，重叠比例的理由，光束法平差概念。支持计算题的背景知识。',
+    // SIFT step descriptions
+    'sift.s1.desc':'在多个尺度（σ值）下构建DoG图像金字塔',
+    'sift.s2.desc':'在DoG尺度空间中寻找局部极值（最大/最小值）——与26个邻域相比为极端的像素',
+    'sift.s3.desc':'去除低对比度点和边缘响应，只保留稳定、独特的关键点',
+    'sift.s4.desc':'建立36个方向直方图（360°）。分配主方向 θ = arctan(Iy/Ix)。峰值≥最大值80%的方向创建额外关键点。',
+    'sift.s5.desc':'16×16窗口 → 4×4子块 → 每个子块8个方向直方图 → 16×8 = <strong>128个数值</strong>。高斯加权。阈值0.2提高光照不变性。',
+    'sift.s6.desc':'使用128维向量间的欧氏距离。阈值：过高=误报，过低=漏报',
+    // SfM steps
+    'sfm.s1.label':'步骤1：特征检测与匹配（SIFT）',
+    'sfm.s1.desc':'在重叠图像中寻找关键点，创建128维描述符，跨图像匹配',
+    'sfm.s2.label':'步骤2：相机位姿估计（后方交会）',
+    'sfm.s2.desc':'使用匹配的关键点求解外方位参数',
+    'sfm.s3.label':'步骤3：三角测量 → 稀疏点云',
+    'sfm.s3.desc':'使用共线方程（前方交会）计算每个匹配关键点的三维位置',
+    'sfm.s4.label':'步骤4：光束法平差',
+    'sfm.s4.desc':'最小二乘优化——同时优化相机位姿和三维点位。最小化重投影误差的平方和。',
+    'sfm.s5.label':'步骤5：多视图立体（MVS）→ 密集点云',
+    'sfm.s5.desc':'利用所有图像填补空白——生成数百万个点而不仅仅是关键点',
   }
 };
+
+
+/* ── FULL-PAGE TEXT NODE TRANSLATIONS ──────────────────────────
+   Maps exact English text (trimmed) → translated version.
+   Used to translate paragraphs/list-items that don't have data-i18n.
+────────────────────────────────────────────────────────────────── */
+const textMap = {
+  th: {
+    // L1 ─ UAV intro
+    'An Unmanned Aerial Vehicle — aircraft without a human pilot aboard. "DRONE" = Dynamic Remotely Operated Navigation Equipment.':
+      'ยานอากาศไร้คนขับ — อากาศยานที่ไม่มีนักบินอยู่บนเครื่อง "DRONE" = Dynamic Remotely Operated Navigation Equipment',
+    'Flight is either autonomous (computer-controlled) or remotely controlled from the ground.':
+      'การบินเป็นแบบ autonomous (ควบคุมโดยคอมพิวเตอร์) หรือควบคุมระยะไกลจากภาคพื้นดิน',
+    'UAV is not just "a drone" — it\'s an active remote sensing platform. Know the definition precisely.':
+      'UAV ไม่ใช่แค่ "โดรน" — มันคือแพลตฟอร์มการสำรวจระยะไกลเชิงรุก ต้องจำคำจำกัดความให้แม่นยำ',
+    // L2 ─ Flight planning
+    'The professor demonstrated a worked example with a Sony α7R-III camera. You may be given a camera spec and asked to calculate (1) flight altitude for a target map scale, or (2) GSD. Know these formulas cold.':
+      'อาจารย์สาธิตตัวอย่างด้วยกล้อง Sony α7R-III คุณอาจได้รับสเปคกล้องและถูกถามให้คำนวณ (1) ความสูงบินสำหรับมาตราส่วนแผนที่ หรือ (2) GSD ต้องจำสูตรเหล่านี้ให้ขึ้นใจ',
+    'For 3D reconstruction and seamless mosaics, images must overlap. Two key parameters:':
+      'สำหรับการสร้างแบบจำลอง 3D และโมเสกต่อเนื่อง ภาพต้องซ้อนทับกัน สองพารามิเตอร์หลัก:',
+    'Overlapping images allow the same 3D point to appear in multiple photos from different angles. This enables feature matching (SIFT), triangulation, and sparse/dense point cloud generation.':
+      'ภาพที่ซ้อนทับกันทำให้จุด 3D เดียวกันปรากฏในหลายภาพจากมุมต่างๆ ทำให้สามารถจับคู่ฟีเจอร์ (SIFT), ทำการหาตำแหน่งสามเหลี่ยม และสร้าง point cloud แบบเบาบาง/หนาแน่นได้',
+    'BA is an iterative Least Squares solver. It jointly refines: (1) camera exterior orientation (Xs,Ys,Zs,ω,φ,κ), (2) camera interior orientation (f,x₀,y₀), and (3) 3D GCP/tie-point coordinates — all at once. Reprojection error = distance (pixels) between observed and re-projected image point.':
+      'BA คือตัวแก้สมการกำลังสองน้อยสุดแบบวนซ้ำ ปรับปรุงพร้อมกัน: (1) การวางแนวภายนอก (Xs,Ys,Zs,ω,φ,κ), (2) การวางแนวภายใน (f,x₀,y₀) และ (3) พิกัด 3D ของ GCP/จุดเชื่อมโยง ค่าผิดพลาดการฉาย = ระยะห่างพิกเซลระหว่างจุดที่สังเกตและที่ฉายใหม่',
+    'GCPs are points on the ground visible in drone photos and measured in a real-world coordinate system (using RTK/PPK GPS — NOT a phone!).':
+      'GCP คือจุดบนพื้นดินที่มองเห็นได้ในภาพโดรนและวัดในระบบพิกัดโลกจริง (ใช้ RTK/PPK GPS — ไม่ใช่โทรศัพท์!)',
+    'Never say "more GCPs always means better accuracy." The distribution matters far more than the quantity.':
+      'อย่าพูดว่า "GCP มากขึ้นหมายถึงความแม่นยำสูงขึ้นเสมอ" การกระจายสำคัญกว่าปริมาณมาก',
+    'After bundle adjustment, each GCP has a residual — the difference between observed (measured in field) and computed (model output) position.':
+      'หลังจาก Bundle Adjustment แต่ละ GCP จะมีค่าคลาดเคลื่อน — ความแตกต่างระหว่างตำแหน่งที่สังเกต (วัดในภาคสนาม) และที่คำนวณ (ผลลัพธ์โมเดล)',
+    // L3 ─ Projection
+    'The perspective center S, image point a, and ground point A are always collinear. This is the foundation of the collinearity equation.':
+      'จุดมองภาพ S, จุดภาพ a และจุดภาคพื้นดิน A อยู่บนเส้นตรงเดียวกันเสมอ นี่คือพื้นฐานของสมการเส้นตรงร่วม',
+    '"Is the principal optical axis always vertical?" → NO. When the UAV tilts (roll, pitch, yaw), the optical axis tilts too. Only for perfectly nadir-pointing cameras is it truly vertical.':
+      '"แกนแสงหลักอยู่ในแนวตั้งเสมอหรือไม่?" → ไม่ เมื่อ UAV เอียง (roll, pitch, yaw) แกนแสงก็เอียงตามด้วย เฉพาะกล้องที่ชี้ตั้งฉากสมบูรณ์เท่านั้นที่แกนแสงจะตั้งฉากจริงๆ',
+    'The rotation follows the Right-Hand Screw Rule. ω = roll (x-axis), φ = pitch (y-axis), κ = yaw (z-axis).':
+      'การหมุนเป็นไปตามกฎเกลียวมือขวา ω = roll (แกน x), φ = pitch (แกน y), κ = yaw (แกน z)',
+    'Describe the camera\'s internal geometry — how a 3D point projects onto the 2D sensor:':
+      'อธิบายเรขาคณิตภายในของกล้อง — วิธีที่จุด 3D ฉายลงบนเซนเซอร์ 2D:',
+    'Describe where the camera is and how it\'s oriented in the real world — 3 translations + 3 rotations = 6 parameters:':
+      'อธิบายตำแหน่งและทิศทางของกล้องในโลกจริง — 3 การเลื่อน + 3 การหมุน = 6 พารามิเตอร์:',
+    // L4 ─ Features
+    'Harris detects corners by measuring how much the image changes when you shift a window in any direction.':
+      'Harris ตรวจจับมุมโดยวัดว่าภาพเปลี่ยนแปลงมากแค่ไหนเมื่อเลื่อนหน้าต่างในทิศทางใดก็ตาม',
+    'SIFT is invariant to scale, rotation, and partially to illumination changes. Produces a 128-dimensional descriptor for each keypoint.':
+      'SIFT ไม่เปลี่ยนแปลงตามมาตราส่วน การหมุน และบางส่วนตามการเปลี่ยนแปลงแสง สร้างตัวอธิบาย 128 มิติสำหรับแต่ละจุดสำคัญ',
+    '16×16 window → 4×4 blocks → each block has 8-bin histogram → 16 blocks × 8 bins = 128.':
+      'หน้าต่าง 16×16 → บล็อก 4×4 → แต่ละบล็อกมีฮิสโตแกรม 8 bin → 16 บล็อก × 8 bin = 128',
+    'Any of the 128 values greater than 0.2 is clamped to 0.2, then re-normalized. This prevents strong gradients from dominating.':
+      'ค่าใดใน 128 ค่าที่มากกว่า 0.2 จะถูกตัดเป็น 0.2 แล้วนอร์มัลไลซ์ใหม่ วิธีนี้ป้องกันไม่ให้แกรเดียนต์ที่รุนแรงครอบงำ',
+    'LoG = Gaussian blur (noise reduction) + Laplacian (second derivative). Used for blob detection.':
+      'LoG = Gaussian blur (ลดสัญญาณรบกวน) + Laplacian (อนุพันธ์ลำดับสอง) ใช้สำหรับตรวจจับ blob',
+    'DoG approximates LoG but is faster and more robust to noise. Used in SIFT.':
+      'DoG ประมาณค่า LoG แต่เร็วกว่าและทนต่อสัญญาณรบกวนมากกว่า ใช้ใน SIFT',
+    // L5 ─ 3D Reconstruction
+    'Perspective center S, image point a, and ground point A are always on the same straight line. This one geometric fact generates both collinearity equations.':
+      'จุดมองภาพ S, จุดภาพ a และจุดภาคพื้นดิน A อยู่บนเส้นตรงเดียวกันเสมอ ข้อเท็จจริงเรขาคณิตนี้สร้างสมการเส้นตรงร่วมทั้งสองสมการ',
+    'The collinearity equation connects: camera position (Xs,Ys,Zs), rotation (ω,φ,κ → matrix R), focal length (f,x₀,y₀), and ground coordinates (XA,YA,ZA). Understand the concept deeply.':
+      'สมการเส้นตรงร่วมเชื่อมโยง: ตำแหน่งกล้อง (Xs,Ys,Zs), การหมุน (ω,φ,κ → เมทริกซ์ R), ความยาวโฟกัส (f,x₀,y₀) และพิกัดภาคพื้นดิน (XA,YA,ZA) ต้องเข้าใจแนวคิดอย่างลึกซึ้ง',
+    'Sparse = only keypoints (SIFT features). Dense = full surface via MVS. Dense has orders of magnitude more points.':
+      'แบบเบาบาง = เฉพาะจุดสำคัญ (ฟีเจอร์ SIFT) แบบหนาแน่น = พื้นผิวเต็มผ่าน MVS แบบหนาแน่นมีจุดมากกว่าหลายเท่าตัว',
+    'SfM reconstructs 3D structure from 2D images by simultaneously estimating camera positions AND generating a 3D model.':
+      'SfM สร้างโครงสร้าง 3D จากภาพ 2D โดยประมาณตำแหน่งกล้องและสร้างแบบจำลอง 3D พร้อมกัน',
+    // L6 ─ LiDAR
+    'LiDAR is an active remote sensing technology that measures distance with reflected laser light. First developed in 1960 by Hughes Aircraft Inc. Modern use enabled by DGPS and fast computers.':
+      'ไลดาร์เป็นเทคโนโลยีการสำรวจระยะไกลเชิงรุกที่วัดระยะทางด้วยแสงเลเซอร์สะท้อน พัฒนาครั้งแรกในปี 1960 โดย Hughes Aircraft Inc. การใช้งานสมัยใหม่ต้องอาศัย DGPS และคอมพิวเตอร์ที่รวดเร็ว',
+    'Provides precise position (Xs, Ys, Zs). Needs differential GPS (DGPS) for accuracy. Receives signals from multiple satellites.':
+      'ให้ตำแหน่งที่แม่นยำ (Xs, Ys, Zs) ต้องใช้ Differential GPS (DGPS) เพื่อความแม่นยำ รับสัญญาณจากหลายดาวเทียม',
+    'Provides orientation (ω, φ, κ) — roll, pitch, yaw. Essential because the aircraft is never perfectly level.':
+      'ให้ทิศทาง (ω, φ, κ) — roll, pitch, yaw จำเป็นเพราะอากาศยานไม่เคยอยู่ในระดับสมบูรณ์',
+    'Emits laser pulses and captures returns. Records: Time-of-Flight, intensity, return number, timestamp for each reflected pulse.':
+      'ส่งพัลส์เลเซอร์และรับสัญญาณสะท้อน บันทึก: Time-of-Flight, ความเข้ม, หมายเลขการสะท้อน, timestamp สำหรับแต่ละพัลส์',
+    '"Large area quickly?" → Rotating Polygonal Mirror. "Highest point density and resolution?" → Oscillating Mirror.':
+      '"พื้นที่ขนาดใหญ่อย่างรวดเร็ว?" → กระจกหลายเหลี่ยมหมุน "ความหนาแน่นจุดและความละเอียดสูงสุด?" → กระจกแกว่ง',
+    '[Header] — metadata (version, point count, scale, offset, CRS). [VLRs] — additional metadata including coordinate reference system. [Point Data Records] — actual X,Y,Z + Intensity + Return# + Class + GPS_Time.':
+      '[Header] — ข้อมูลเมตา (เวอร์ชัน, จำนวนจุด, มาตราส่วน, ออฟเซต, CRS) [VLRs] — ข้อมูลเมตาเพิ่มเติมรวมถึงระบบอ้างอิงพิกัด [Point Data Records] — ข้อมูลจริง X,Y,Z + ความเข้ม + หมายเลขการสะท้อน + คลาส + GPS_Time',
+    'Forest inventory: DSM shows top of canopy → DTM shows bare earth → CHM = DSM − DTM gives tree heights → used to estimate Above Ground Biomass (AGB).':
+      'การสำรวจป่าไม้: DSM แสดงยอดเรือนพุ่ม → DTM แสดงพื้นดินเปล่า → CHM = DSM − DTM ให้ความสูงต้นไม้ → ใช้ประมาณมวลชีวภาพเหนือดิน (AGB)',
+    'A single laser pulse can have multiple returns when it partially hits vegetation:':
+      'พัลส์เลเซอร์เดียวสามารถมีการสะท้อนกลับหลายครั้งเมื่อกระทบพืชพรรณบางส่วน:',
+  },
+  zh: {
+    // L1
+    'An Unmanned Aerial Vehicle — aircraft without a human pilot aboard. "DRONE" = Dynamic Remotely Operated Navigation Equipment.':
+      '无人驾驶飞行器——机上没有人类飞行员的飞机。"DRONE" = 动态远程操控导航设备。',
+    'Flight is either autonomous (computer-controlled) or remotely controlled from the ground.':
+      '飞行方式为自主（计算机控制）或从地面进行遥控。',
+    'UAV is not just "a drone" — it\'s an active remote sensing platform. Know the definition precisely.':
+      'UAV不仅仅是"无人机"——它是主动遥感平台。要精确掌握其定义。',
+    // L2
+    'The professor demonstrated a worked example with a Sony α7R-III camera. You may be given a camera spec and asked to calculate (1) flight altitude for a target map scale, or (2) GSD. Know these formulas cold.':
+      '教授用索尼α7R-III相机演示了一道例题。考试中可能给你相机参数，要求计算(1)目标比例尺的飞行高度，或(2)GSD。要熟练掌握这些公式。',
+    'For 3D reconstruction and seamless mosaics, images must overlap. Two key parameters:':
+      '对于三维重建和无缝镶嵌，图像必须重叠。两个关键参数：',
+    'Overlapping images allow the same 3D point to appear in multiple photos from different angles. This enables feature matching (SIFT), triangulation, and sparse/dense point cloud generation.':
+      '重叠的图像使同一个三维点能从不同角度出现在多张照片中，从而实现特征匹配(SIFT)、三角测量以及稀疏/密集点云的生成。',
+    'BA is an iterative Least Squares solver. It jointly refines: (1) camera exterior orientation (Xs,Ys,Zs,ω,φ,κ), (2) camera interior orientation (f,x₀,y₀), and (3) 3D GCP/tie-point coordinates — all at once. Reprojection error = distance (pixels) between observed and re-projected image point.':
+      'BA是迭代最小二乘求解器，同时优化：(1) 相机外方位元素 (Xs,Ys,Zs,ω,φ,κ)，(2) 内方位元素 (f,x₀,y₀)，(3) 三维GCP/连接点坐标。重投影误差=观测与重投影像点之间的距离（像素）。',
+    'GCPs are points on the ground visible in drone photos and measured in a real-world coordinate system (using RTK/PPK GPS — NOT a phone!).':
+      'GCP是在无人机照片中可见的地面点，用真实世界坐标系测量（使用RTK/PPK GPS——不是手机！）。',
+    'Never say "more GCPs always means better accuracy." The distribution matters far more than the quantity.':
+      '永远不要说"GCP越多精度越高"。分布比数量重要得多。',
+    'After bundle adjustment, each GCP has a residual — the difference between observed (measured in field) and computed (model output) position.':
+      '光束法平差后，每个GCP都有残差——外业观测位置与模型计算位置之间的差异。',
+    // L3
+    'The perspective center S, image point a, and ground point A are always collinear. This is the foundation of the collinearity equation.':
+      '透视中心S、像点a和地面点A始终共线。这是共线方程的基础。',
+    '"Is the principal optical axis always vertical?" → NO. When the UAV tilts (roll, pitch, yaw), the optical axis tilts too. Only for perfectly nadir-pointing cameras is it truly vertical.':
+      '"主光轴总是垂直的吗？"→ 不是。当无人机倾斜（横滚、俯仰、偏航）时，光轴也会倾斜。只有完美垂直向下的相机才是真正垂直的。',
+    'The rotation follows the Right-Hand Screw Rule. ω = roll (x-axis), φ = pitch (y-axis), κ = yaw (z-axis).':
+      '旋转遵循右手螺旋规则。ω = 横滚（x轴），φ = 俯仰（y轴），κ = 偏航（z轴）。',
+    'Describe the camera\'s internal geometry — how a 3D point projects onto the 2D sensor:':
+      '描述相机内部几何关系——三维点如何投影到二维传感器上：',
+    'Describe where the camera is and how it\'s oriented in the real world — 3 translations + 3 rotations = 6 parameters:':
+      '描述相机在真实世界中的位置和朝向——3个平移 + 3个旋转 = 6个参数：',
+    // L4
+    'Harris detects corners by measuring how much the image changes when you shift a window in any direction.':
+      'Harris角点检测器通过测量窗口沿任意方向移动时图像的变化量来检测角点。',
+    'SIFT is invariant to scale, rotation, and partially to illumination changes. Produces a 128-dimensional descriptor for each keypoint.':
+      'SIFT对尺度、旋转以及部分光照变化具有不变性，为每个关键点生成128维描述符。',
+    '16×16 window → 4×4 blocks → each block has 8-bin histogram → 16 blocks × 8 bins = 128.':
+      '16×16窗口 → 4×4子块 → 每个子块8个方向直方图 → 16×8 = 128。',
+    'Any of the 128 values greater than 0.2 is clamped to 0.2, then re-normalized. This prevents strong gradients from dominating.':
+      '128个值中大于0.2的值被截断为0.2，然后重新归一化。这可防止强梯度主导描述符。',
+    'LoG = Gaussian blur (noise reduction) + Laplacian (second derivative). Used for blob detection.':
+      'LoG = 高斯模糊（降噪）+ 拉普拉斯算子（二阶导数），用于斑点检测。',
+    'DoG approximates LoG but is faster and more robust to noise. Used in SIFT.':
+      'DoG近似LoG，但更快且对噪声更鲁棒，在SIFT中使用。',
+    // L5
+    'Perspective center S, image point a, and ground point A are always on the same straight line. This one geometric fact generates both collinearity equations.':
+      '透视中心S、像点a和地面点A始终在同一直线上。这一几何事实推导出两个共线方程。',
+    'The collinearity equation connects: camera position (Xs,Ys,Zs), rotation (ω,φ,κ → matrix R), focal length (f,x₀,y₀), and ground coordinates (XA,YA,ZA). Understand the concept deeply.':
+      '共线方程连接：相机位置(Xs,Ys,Zs)、旋转(ω,φ,κ → 矩阵R)、焦距(f,x₀,y₀)和地面坐标(XA,YA,ZA)。要深刻理解这一概念。',
+    'Sparse = only keypoints (SIFT features). Dense = full surface via MVS. Dense has orders of magnitude more points.':
+      '稀疏 = 仅关键点（SIFT特征）。密集 = 通过MVS重建完整表面。密集点云的点数量级更高。',
+    'SfM reconstructs 3D structure from 2D images by simultaneously estimating camera positions AND generating a 3D model.':
+      'SfM通过同时估计相机位置和生成三维模型来从二维图像重建三维结构。',
+    // L6
+    'LiDAR is an active remote sensing technology that measures distance with reflected laser light. First developed in 1960 by Hughes Aircraft Inc. Modern use enabled by DGPS and fast computers.':
+      '激光雷达是一种主动遥感技术，通过反射激光测量距离。1960年由休斯飞机公司首次研发。现代应用依赖DGPS和高速计算机。',
+    'Provides precise position (Xs, Ys, Zs). Needs differential GPS (DGPS) for accuracy. Receives signals from multiple satellites.':
+      '提供精确位置(Xs, Ys, Zs)。需要差分GPS(DGPS)保证精度，接收多颗卫星信号。',
+    'Provides orientation (ω, φ, κ) — roll, pitch, yaw. Essential because the aircraft is never perfectly level.':
+      '提供姿态角(ω, φ, κ)——横滚、俯仰、偏航。由于飞机无法保持完全水平，这是必不可少的。',
+    'Emits laser pulses and captures returns. Records: Time-of-Flight, intensity, return number, timestamp for each reflected pulse.':
+      '发射激光脉冲并接收回波。记录每个反射脉冲的：飞行时间、强度、回波次数、时间戳。',
+    '"Large area quickly?" → Rotating Polygonal Mirror. "Highest point density and resolution?" → Oscillating Mirror.':
+      '"快速扫描大面积？"→ 旋转多边形镜。"最高点密度和分辨率？"→ 振荡镜。',
+    '[Header] — metadata (version, point count, scale, offset, CRS). [VLRs] — additional metadata including coordinate reference system. [Point Data Records] — actual X,Y,Z + Intensity + Return# + Class + GPS_Time.':
+      '[文件头] — 元数据（版本、点数、比例、偏移、CRS）。[VLR] — 含坐标参考系统的附加元数据。[点数据记录] — 实际X,Y,Z + 强度 + 回波号 + 分类 + GPS时间。',
+    'Forest inventory: DSM shows top of canopy → DTM shows bare earth → CHM = DSM − DTM gives tree heights → used to estimate Above Ground Biomass (AGB).':
+      '森林调查：DSM显示树冠顶部 → DTM显示裸地 → CHM = DSM − DTM给出树高 → 用于估算地上生物量(AGB)。',
+    'A single laser pulse can have multiple returns when it partially hits vegetation:':
+      '当激光脉冲部分击中植被时，可产生多次回波：',
+  }
+};
+
+/* ── TEXT NODE TRANSLATION ENGINE ─────────────────────────────── */
+let _origNodes = null;
+
+function _captureOrigText() {
+  if (_origNodes) return;
+  _origNodes = new Map();
+  const skipTags = new Set(['script','style','code','svg','path','line','polyline',
+                             'polygon','circle','rect','ellipse','defs','use']);
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const p = node.parentElement;
+      if (!p) return NodeFilter.FILTER_REJECT;
+      if (skipTags.has(p.tagName.toLowerCase())) return NodeFilter.FILTER_REJECT;
+      // ── Skip nodes that are managed by the data-i18n / data-i18n-html system ──
+      // so translateTextNodes() never reverts those translations back to English.
+      if (p.closest('[data-i18n], [data-i18n-html]')) return NodeFilter.FILTER_REJECT;
+      if (p.closest('code, #quiz-container')) return NodeFilter.FILTER_REJECT;
+      const t = node.textContent.trim();
+      if (t.length < 8) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  let n;
+  while ((n = walker.nextNode())) {
+    _origNodes.set(n, { orig: n.textContent, key: n.textContent.trim() });
+  }
+}
+
+function translateTextNodes(lang) {
+  _captureOrigText();
+  // When lang === 'en', map is null — DO NOT use map && map[key] because
+  // that evaluates to null, and node.textContent = null clears the text (DOM spec).
+  // Instead, branch explicitly: EN → always restore orig; TH/ZH → look up or restore.
+  if (lang === 'en') {
+    _origNodes.forEach(({ orig }, node) => {
+      if (node.isConnected) node.textContent = orig;
+    });
+  } else {
+    const map = textMap[lang];
+    if (!map) return;
+    _origNodes.forEach(({ orig, key }, node) => {
+      if (!node.isConnected) return;
+      const translated = map[key];
+      node.textContent = (translated !== undefined) ? translated : orig;
+    });
+  }
+}
 
 let currentLang;
 try { currentLang = localStorage.getItem('uav_lang') || 'en'; } catch(e) { currentLang = 'en'; }
@@ -2316,6 +3235,7 @@ function switchLang(lang) {
   buildQuiz();
   // ── Fade back in after paint ──
   if (qc) requestAnimationFrame(() => { qc.style.opacity = '1'; });
+  translateTextNodes(lang);
   try { lucide.createIcons(); } catch(e) {}
 }
 
@@ -2561,6 +3481,142 @@ function checkAnswer(el, qi, oi) {
   explain.style.borderLeft = oi !== correct ? '3px solid var(--accent-red)' : '3px solid var(--accent-green)';
 }
 
+
+/* ── FLASHCARDS ─────────────────────────────────────────────── */
+const flashcardData = [
+  // ── CALCULATIONS ──────────────────────────────────────────────
+  { deck:'calc', topic:'L2: GSD', q:'Camera: f=35mm, pixel=0.00452mm, H=175m\nCalculate GSD.',
+    a:'GSD = (H × pixel) / f\n= (175,000 × 0.00452) / 35\n= 22.6 mm/px = 2.26 cm/px' },
+  { deck:'calc', topic:'L2: Flight Height', q:'Target scale 1:5000, focal length 35mm.\nCalculate flight height H.',
+    a:'H = f × M = 35 mm × 5000\n= 175,000 mm = 175 m' },
+  { deck:'calc', topic:'L4: Harris — Classify Patch', q:'Harris eigenvalues: λ₁ = 28800, λ₂ = 0.\nWhat type of region?',
+    a:'EDGE — because λ₁ >> λ₂\n(one large, one near zero means change in only one direction)' },
+  { deck:'calc', topic:'L4: Harris — Uniform Image', q:'All pixels have the same value.\nCompute M and classify.',
+    a:'Ix = Iy = 0 everywhere\n→ M = zero matrix\n→ λ₁ = λ₂ = 0\n→ FLAT region (trick question!)' },
+  { deck:'calc', topic:'L6: ToF Distance', q:'LiDAR round-trip time T = 2 μs.\nCalculate distance.',
+    a:'d = c × T / 2\n= (3×10⁸ × 2×10⁻⁶) / 2\n= 600 / 2 = 300 m' },
+  { deck:'calc', topic:'L6: Point Density', q:'Pulse rate=200kHz, speed=50m/s, scan width=200m.\nCalculate point density.',
+    a:'Area/s = 50 × 200 = 10,000 m²/s\nDensity = 200,000 / 10,000\n= 20 pts/m²' },
+  { deck:'calc', topic:'L6: Beam Footprint', q:'Divergence θ=0.3 mrad, altitude L=500m.\nCalculate beam footprint diameter.',
+    a:'D = θ × L\n= 0.0003 × 500\n= 0.15 m = 15 cm footprint' },
+  { deck:'calc', topic:'L2: RMSE', q:'2 GCPs: ΔX=(0.02, 0.04m).\nCalculate RMSE_X.',
+    a:'RMSE_X = √((0.02² + 0.04²) / 2)\n= √((0.0004 + 0.0016) / 2)\n= √0.001 ≈ 0.032 m = 3.2 cm' },
+  // ── CONCEPTS ──────────────────────────────────────────────────
+  { deck:'concepts', topic:'L1: UAV Definition', q:'What does DRONE stand for?',
+    a:'Dynamic Remotely Operated Navigation Equipment\n(UAV = Unmanned Aerial Vehicle — no pilot on board)' },
+  { deck:'concepts', topic:'L1: Platforms', q:'Fixed-wing vs Multi-rotor — which can hover?',
+    a:'Multi-rotor can hover ✓\nFixed-wing CANNOT hover ✗\nFixed-wing: larger coverage area\nMulti-rotor: shorter battery life' },
+  { deck:'concepts', topic:'L2: GCP Distribution', q:'More GCPs = better accuracy. True or False?',
+    a:'FALSE — Distribution matters MORE than quantity!\nGCPs must be spread across the whole area,\nnot clustered in one region.' },
+  { deck:'concepts', topic:'L2: RTK vs PPK', q:'Which GPS method works in remote areas\nwith no radio link available?',
+    a:'PPK (Post-Processing Kinematic)\nProcessed after flight using stored logs.\nNo real-time radio link needed.\nRTK requires radio modem + base station on-site.' },
+  { deck:'concepts', topic:'L3: Projection', q:'Which projection type is used for orthophotos?',
+    a:'Parallel (Orthographic) Projection\n→ no vanishing point, no distortion\nPerspective projection = regular camera, has distortion' },
+  { deck:'concepts', topic:'L3: Optical Axis', q:'Is the principal optical axis always vertical?',
+    a:'NO! When UAV tilts (roll/pitch/yaw),\nthe optical axis tilts with it.\nOnly perfectly nadir-pointing cameras are truly vertical.' },
+  { deck:'concepts', topic:'L5: Backward vs Forward', q:'Backward Intersection: what is known vs unknown?',
+    a:'KNOWN: GCPs (XA,YA,ZA) + their image coords (x,y)\nUNKNOWN: Camera pose — Xs,Ys,Zs,ω,φ,κ (6 params)\nNeed ≥ 3 non-collinear GCPs (→ 6 equations)' },
+  { deck:'concepts', topic:'L6: Scanning Patterns', q:'Which scanning pattern is best for scanning\na large area quickly?',
+    a:'Rotating Polygonal Mirror\n→ Parallel lines, uniform spacing, FASTEST\nOscillating Mirror = higher resolution but slower\nPalmer = elliptical pattern, variable density' },
+  { deck:'concepts', topic:'L6: Multiple Returns', q:'A LiDAR pulse hits a tree. What do the\nfirst and last returns represent?',
+    a:'1st return = top of tree canopy\n2nd/3rd = branches / understory\nLast return = ground beneath vegetation\n→ This is how DTM is separated from DSM!' },
+  { deck:'concepts', topic:'L6: Surface Models', q:'A forest pixel: DSM=35m, DTM=20m.\nWhat is the CHM value?',
+    a:'CHM = DSM − DTM = 35 − 20 = 15 m\nThe tree canopy is 15m above ground.\nUsed for estimating Above Ground Biomass (AGB).' },
+  // ── FORMULAS ──────────────────────────────────────────────────
+  { deck:'formulas', topic:'L2: Scale & GSD', q:'Write the Scale formula and GSD formula.',
+    a:'Scale: 1:M = f / H  →  H = f × M\nGSD = (H × pixel_size) / focal_length\n<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="vertical-align:-2px;margin-right:4px;color:var(--accent-gold)"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>H and f must be in the SAME units!' },
+  { deck:'formulas', topic:'L4: Harris Structure Tensor', q:'Write the Harris structure tensor M\nand how to classify regions.',
+    a:'M = Σ [ Ix²  IxIy ]\n    [ IxIy  Iy² ]\nsolve det(M−λI)=0 for λ₁, λ₂:\nλ₁≈λ₂≈0 → Flat | λ₁>>λ₂ → Edge | both large → Corner' },
+  { deck:'formulas', topic:'L4: SIFT Descriptor', q:'Why does the SIFT descriptor have exactly 128 dimensions?',
+    a:'16×16 pixel window\n→ divided into 4×4 sub-blocks (16 blocks)\n→ each block gets an 8-bin orientation histogram\n→ 16 blocks × 8 bins = 128 dimensions' },
+  { deck:'formulas', topic:'L5: Collinearity', q:'State the collinearity equation concept\n(words only, no need to write all coefficients).',
+    a:'Camera perspective center S, image point a,\nand ground point A are ALWAYS COLLINEAR.\nx−x₀ = −f × [R(XA−Xs)] / [denominator]\nR = rotation matrix from (ω,φ,κ)' },
+  { deck:'formulas', topic:'L6: LiDAR ToF', q:'Write all LiDAR calculation formulas.',
+    a:'Distance: d = c × T / 2\n3D coords: X=Xs−r·cos(φ)·cos(θ)\n           Y=Ys−r·cos(φ)·sin(θ)\n           Z=Zs−r·sin(φ)\nBeam: D = θ × L\nDensity: D = N / A (pts/m²)' },
+  { deck:'formulas', topic:'L2: GCP Accuracy', q:'Write the formula for GCP RMSE.',
+    a:'RMSE_X = √( Σ ΔXᵢ² / n )\nRMSE_Y = √( Σ ΔYᵢ² / n )\nRMSE_Z = √( Σ ΔZᵢ² / n )\nRMSE_XY = √( RMSE_X² + RMSE_Y² )' },
+];
+
+let fcFlipped = 0;
+
+function buildFlashcards(filter) {
+  const container = document.getElementById('fc-container');
+  if (!container) return;
+  const cards = filter === 'all' ? flashcardData : flashcardData.filter(c => c.deck === filter);
+  container.innerHTML = '';
+  fcFlipped = 0;
+  updateFcCounter(0, cards.length);
+  cards.forEach((c, i) => {
+    const div = document.createElement('div');
+    div.className = 'flashcard';
+    div.innerHTML = `
+      <div class="flashcard-inner">
+        <div class="flashcard-front">
+          <div class="fc-topic">${c.topic}</div>
+          <div class="fc-q">${c.q.replace(/\n/g,'<br>')}</div>
+          <div class="fc-hint">▶ click to reveal answer</div>
+        </div>
+        <div class="flashcard-back">
+          <div class="fc-topic" style="color:rgba(240,236,229,0.4)">${c.topic}</div>
+          <div class="fc-a">${c.a.replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')}</div>
+        </div>
+      </div>`;
+    div.addEventListener('click', () => {
+      const wasFlipped = div.classList.contains('flipped');
+      div.classList.toggle('flipped');
+      fcFlipped += wasFlipped ? -1 : 1;
+      const total = container.querySelectorAll('.flashcard').length;
+      updateFcCounter(fcFlipped, total);
+    });
+    container.appendChild(div);
+  });
+}
+
+function updateFcCounter(flipped, total) {
+  const el = document.getElementById('fc-counter');
+  if (el) el.textContent = `${flipped} / ${total} flipped`;
+}
+
+function shuffleFlashcards() {
+  const container = document.getElementById('fc-container');
+  if (!container) return;
+  const cards = [...container.children];
+  cards.sort(() => Math.random() - 0.5);
+  cards.forEach(c => { c.classList.remove('flipped'); container.appendChild(c); });
+  fcFlipped = 0;
+  updateFcCounter(0, cards.length);
+}
+
+function flipAllCards() {
+  const container = document.getElementById('fc-container');
+  if (!container) return;
+  const cards = container.querySelectorAll('.flashcard');
+  const anyUnflipped = [...cards].some(c => !c.classList.contains('flipped'));
+  cards.forEach(c => c.classList.toggle('flipped', anyUnflipped));
+  fcFlipped = anyUnflipped ? cards.length : 0;
+  updateFcCounter(fcFlipped, cards.length);
+}
+
+function resetFlashcards() {
+  const container = document.getElementById('fc-container');
+  if (!container) return;
+  container.querySelectorAll('.flashcard').forEach(c => c.classList.remove('flipped'));
+  fcFlipped = 0;
+  updateFcCounter(0, container.querySelectorAll('.flashcard').length);
+}
+
+// Wire up deck tabs
+document.addEventListener('DOMContentLoaded', () => {
+  buildFlashcards('all');
+  document.querySelectorAll('.fc-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.fc-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      buildFlashcards(tab.dataset.deck);
+    });
+  });
+});
+
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', () => {
   // Wire up language buttons via event listeners (no inline onclick)
@@ -2579,5 +3635,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-
-
